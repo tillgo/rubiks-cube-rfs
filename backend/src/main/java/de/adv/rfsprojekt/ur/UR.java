@@ -1,12 +1,12 @@
-package com.delmesoft.ur;
+package de.adv.rfsprojekt.ur;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import com.delmesoft.ur.utils.JointPosition;
-import com.delmesoft.ur.utils.Pose;
-import com.delmesoft.ur.utils.Vec3;
+import de.adv.rfsprojekt.ur.utils.JointPosition;
+import de.adv.rfsprojekt.ur.utils.Pose;
+import de.adv.rfsprojekt.ur.utils.Vec3;
 
 /*
  * Copyright (c) 2021, Sergio S.- sergi.ss4@gmail.com http://sergiosoriano.com

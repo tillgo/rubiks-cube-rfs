@@ -1,4 +1,4 @@
-package com.delmesoft.ur.utils;
+package de.adv.rfsprojekt.ur.utils;
 
 import java.io.EOFException;
 import java.io.IOException;

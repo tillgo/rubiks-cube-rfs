@@ -1,6 +1,6 @@
-package com.delmesoft.ur;
+package de.adv.rfsprojekt.ur;
 
-import static com.delmesoft.ur.utils.Utils.read;
+import static de.adv.rfsprojekt.ur.utils.Utils.read;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,9 +9,9 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import com.delmesoft.ur.utils.JointPosition;
-import com.delmesoft.ur.utils.Pose;
-import com.delmesoft.ur.utils.Vec3;
+import de.adv.rfsprojekt.ur.utils.JointPosition;
+import de.adv.rfsprojekt.ur.utils.Pose;
+import de.adv.rfsprojekt.ur.utils.Vec3;
 
 /*
  * Copyright (c) 2021, Sergio S.- sergi.ss4@gmail.com http://sergiosoriano.com

@@ -1,4 +1,4 @@
-package com.delmesoft.ur.utils;
+package de.adv.rfsprojekt.ur.utils;
 
 /*
  * Copyright (c) 2021, Sergio S.- sergi.ss4@gmail.com http://sergiosoriano.com

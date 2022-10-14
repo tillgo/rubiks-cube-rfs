@@ -1,6 +1,6 @@
-package com.delmesoft.ur.utils;
+package de.adv.rfsprojekt.ur.utils;
 
-import static com.delmesoft.ur.UR.DECIMAL_FORMAT;
+import static de.adv.rfsprojekt.ur.UR.DECIMAL_FORMAT;
 
 /*
  * Copyright (c) 2021, Sergio S.- sergi.ss4@gmail.com http://sergiosoriano.com
