@@ -1,84 +1,40 @@
-##############################
-## Java
-##############################
-.mtj.tmp/
-*.class
-*.jar
-*.war
-*.ear
-*.nar
-hs_err_pid*
-
-##############################
-## Maven
-##############################
+#Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
-pom.xml.next
-pom.xml.bak
 release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
 
-##############################
-## Gradle
-##############################
-bin/
-build/
-.gradle
-.gradletasknamecache
-gradle-app.setting
-!gradle-wrapper.jar
-
-##############################
-## IntelliJ
-##############################
-out/
-.idea/
-.idea_modules/
-*.iml
-*.ipr
-*.iws
-
-##############################
-## Eclipse
-##############################
+# Eclipse
+.project
+.classpath
 .settings/
 bin/
-tmp/
-.metadata
-.classpath
-.project
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.loadpath
-.factorypath
 
-##############################
-## NetBeans
-##############################
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
+# IntelliJ
+.idea
+*.ipr
+*.iml
+*.iws
+
+# NetBeans
 nb-configuration.xml
 
-##############################
-## Visual Studio Code
-##############################
-.vscode/
-.code-workspace
+# Visual Studio Code
+.vscode
+.factorypath
 
-##############################
-## OS X
-##############################
+# OSX
 .DS_Store
+
+# Vim
+*.swp
+*.swo
+
+# patch
+*.orig
+*.rej
+
+# Local environment
+.env
