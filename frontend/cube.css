@@ -91,7 +91,7 @@
 
 .cubie-sticker {
 	/*background-image: url(stickers.svg);*/
-	background-size: 600px 100px;
+	background-size: 100px 100px;
 }
 .sticker-u { background-position-x: 0; }
 .sticker-f { background-position-x: -100px; }
@@ -115,7 +115,87 @@
 
 /*-------------------------------------------------------------*/
 
-#btn_BW {
+#btn_WG {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: #050505;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	position: absolute;
+	top: 480px;
+	left: 92px;
+	background-color: #008CBA;
+  }
+  #btn_GY {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: #050505;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	position: relative;
+	top: 250px;
+	left: 10px;
+	background-color: #008CBA;
+  }
+  #btn_OY {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: #050505;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	position: relative;
+	top: 250px;
+	left: 10px;
+	background-color: #008CBA;
+  }
+  #btn_BY {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: #050505;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	position: relative;
+	top: 250px;
+	left: 10px;
+	background-color: #008CBA;
+  }
+  #btn_RY {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: #050505;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	position: relative;
+	top: 250px;
+	left: 10px;
+	background-color: #008CBA;
+  }
+  #btn_YO {
 	background-color: #4CAF50; /* Green */
 	border: none;
 	color: #050505;
@@ -133,6 +213,16 @@
   }
 
 /*-------------------------------------------------------------*/
-div .cubie-face.face-u.cubie-sticker.sticker-u_1_9{background: url('C:/Users/Michi/Pictures/Cube_Sticker/White.png');
+div .cubie-face.face-r.cubie-sticker.sticker-r_5_5{background: url('Sticker/Red.png');
+	background-size: 100px 100px;}
+div .cubie-face.face-l.cubie-sticker.sticker-l_3_5{background: url('Sticker/Orange.png');
+	background-size: 100px 100px;}
+div .cubie-face.face-f.cubie-sticker.sticker-f_2_5{background: url('Sticker/Green.png');
+	background-size: 100px 100px;}
+div .cubie-face.face-b.cubie-sticker.sticker-b_4_5{background: url('Sticker/Blue.png');
+	background-size: 100px 100px;}
+div .cubie-face.face-u.cubie-sticker.sticker-u_1_5{background: url('Sticker/White.png');
+	background-size: 100px 100px;}
+div .cubie-face.face-d.cubie-sticker.sticker-d_6_5{background: url('Sticker/Yellow.png');
 	background-size: 100px 100px;
 }

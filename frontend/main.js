@@ -12,8 +12,8 @@ corners  _.-'-._                 edges    _.-'-._
     '-._|   |   |_.-'                '-._|   |   |_.-'
         '-._4_.-'                        '-._|_.-'
 
-Y       F        R       L       B       D
-yellow    front    right    left    back    down
+u(weiß) f(green)   R(red)   L(orange)   B(blue)    D(yellow)
+up      front      right    left        back       down
 */
 
 var layers = {
@@ -88,14 +88,78 @@ function updateCubie() {
 //-----------------------------------------------------------------
 //let id = document.getElementById('u_1_9');
 
-const btn_bw = document.getElementById('btn_BW');
+const btn_wg = document.getElementById('btn_WG');
 
-btn_bw.addEventListener('click', function onClick() {
-	document.getElementById('u_1_9').style.backgroundImage = "url('C:/Users/Michi/Pictures/Cube_Sticker/Green.png')";
-//	document.getElementById('u_1_9').background = path('C:/Users/Michi/Pictures/Cube_Sticker/Green.png');
- let rotation_X = -90-20;
+btn_wg.addEventListener('click', function onClick() {
+	
+ let rotation_X = 0-20;
+ let rotation_Y = 0-30;
+ let rotation_Z = 0-0;
+ var turn = 1;
+ const $ = document.querySelector.bind(document);
+$(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+});
+
+//------------------------------------------------------------------
+const btn_gy = document.getElementById('btn_GY');
+
+btn_gy.addEventListener('click', function onClick() {
+	
+ let rotation_X = 90-20;
  let rotation_Y = 0-0;
- let rotation_Z = 0-40;
+ let rotation_Z = 30-0;
+ var turn = 1;
+ const $ = document.querySelector.bind(document);
+$(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+});
+
+//------------------------------------------------------------------
+const btn_oy = document.getElementById('btn_OY');
+
+btn_oy.addEventListener('click', function onClick() {
+	
+ let rotation_X = 0-20;
+ let rotation_Y = 90-30;
+ let rotation_Z = 90-0;
+ var turn = 1;
+ const $ = document.querySelector.bind(document);
+$(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+});
+
+//------------------------------------------------------------------
+const btn_by = document.getElementById('btn_BY');
+
+btn_by.addEventListener('click', function onClick() {
+	
+ let rotation_X = 0-110;
+ let rotation_Y = 0-0;
+ let rotation_Z = 180-30;
+ var turn = 1;
+ const $ = document.querySelector.bind(document);
+$(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+});
+
+//------------------------------------------------------------------
+const btn_ry = document.getElementById('btn_RY');
+
+btn_ry.addEventListener('click', function onClick() {
+	
+ let rotation_X = 0-20;
+ let rotation_Y = 0-120;
+ let rotation_Z = 0-90;
+ var turn = 1;
+ const $ = document.querySelector.bind(document);
+$(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+});
+
+//------------------------------------------------------------------
+const btn_yo = document.getElementById('btn_YO');
+
+btn_yo.addEventListener('click', function onClick() {
+	
+ let rotation_X = 180-20;
+ let rotation_Y = 0-70;
+ let rotation_Z = 0-0;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
