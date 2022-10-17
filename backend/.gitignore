@@ -83,4 +83,4 @@ nb-configuration.xml
 ##############################
 .DS_Store
 
-/backend/poc/image-processing/img_processing_v1/src/main/resources/
+/backend/poc/image-processing/img_processing_v1/src/main/resources/images/*
