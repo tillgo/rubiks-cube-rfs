@@ -24,7 +24,10 @@ var layers = {
 	b: {corners: [2, 3, 7, 6], edges: [3, 11, 7, 10]},
 	d: {corners: [4, 6, 7, 5], edges: [4, 6, 7, 5]}
 };
-
+let merker = 0;
+var step;
+let rot_side;
+var prevSide = '';
 
 /** Adds classes to cubies to start animation. */
 function move(turn) { // turn examples: 'r1', 'd2', 'u3'
@@ -91,97 +94,123 @@ function updateCubie() {
 const btn_wg = document.getElementById('btn_WG');
 
 btn_wg.addEventListener('click', function onClick() {
-	
+merker = 1;
+step = 2;
+rot_side = 'u';
+prevSide = '';
+//nextMove();
  let rotation_X = 0-20;
  let rotation_Y = 0-30;
  let rotation_Z = 0-0;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+const myTimeout = setTimeout(nextMove, 2500);
 });
 
 //------------------------------------------------------------------
 const btn_gy = document.getElementById('btn_GY');
 
 btn_gy.addEventListener('click', function onClick() {
-	
+merker = 1;
+step = 2;
+rot_side = 'f';
+prevSide = '';
  let rotation_X = 90-20;
  let rotation_Y = 0-0;
  let rotation_Z = 30-0;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+const myTimeout = setTimeout(nextMove, 2500);
 });
 
 //------------------------------------------------------------------
 const btn_oy = document.getElementById('btn_OY');
 
 btn_oy.addEventListener('click', function onClick() {
-	
+merker = 1;
+step = 2;
+rot_side = 'l';
+prevSide = '';
  let rotation_X = 0-20;
  let rotation_Y = 90-30;
  let rotation_Z = 90-0;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+const myTimeout = setTimeout(nextMove, 2500);
 });
 
 //------------------------------------------------------------------
 const btn_by = document.getElementById('btn_BY');
 
 btn_by.addEventListener('click', function onClick() {
-	
+merker = 1;
+step = 2;
+rot_side = 'b';
+prevSide = '';
  let rotation_X = 0-110;
  let rotation_Y = 0-0;
  let rotation_Z = 180-30;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+const myTimeout = setTimeout(nextMove, 2500);
 });
 
 //------------------------------------------------------------------
 const btn_ry = document.getElementById('btn_RY');
 
 btn_ry.addEventListener('click', function onClick() {
-	
+merker = 1;
+step = 2;
+rot_side = 'r';
+prevSide = '';
  let rotation_X = 0-20;
  let rotation_Y = 0-120;
  let rotation_Z = 0-90;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+const myTimeout = setTimeout(nextMove, 2500);
 });
 
 //------------------------------------------------------------------
 const btn_yo = document.getElementById('btn_YO');
 
 btn_yo.addEventListener('click', function onClick() {
-	
+merker = 1;
+step = 2;
+rot_side = 'd';
+prevSide = '';
  let rotation_X = 180-20;
  let rotation_Y = 0-70;
  let rotation_Z = 0-0;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+const myTimeout = setTimeout(nextMove, 2500);
 });
 
 //------------------------------------------------------------------
 /*	Generates and executes random move */ 
 var nextMove = function() {
-	var prevSide = '';
-	var sides = ['u','f','r','l','b','d'];
+	//var prevSide = '';
+	//var sides = ['u','f','r','l','b','d'];
 	return function() {
 		if(document.querySelector('.cube-layer.turn')) return;
 		var side = prevSide;
-		//while(side == prevSide) side = sides[Math.random()*6|0];
-		if(turn == 1) side = sides[Math.random()*6|0];
-		//side = sides [0];
-		var step = 1 + (Math.random()*3|0);
-		setTimeout(function() {move(side+step)}, 10);
-		prevSide = side;
-		turn = 0;
+		//alert (side + prevSide);
+		if (merker == 1) {
+			while(side == prevSide) side = rot_side; //sides[Math.random()*6|0];
+			//var step = 1 + (Math.random()*3|0);
+			setTimeout(function() {move(side+step)}, 10);
+			prevSide = side;
+			merker = 0;
+		}	
 	};
-}();  
+}();
 
 
 (function() {
@@ -195,4 +224,4 @@ var nextMove = function() {
 
 
 // start the first move
-nextMove();
+//nextMove();
