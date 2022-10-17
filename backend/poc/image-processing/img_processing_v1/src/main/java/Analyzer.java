@@ -41,8 +41,9 @@ public class Analyzer {
 
 
         String IMAGES_PATH = "./src/main/resources/images/";
-        File outputFile = new File(IMAGES_PATH + "test123.jpg");
+        File outputFile = new File(IMAGES_PATH + "test.jpg");
         ImageIO.write(imageToAnalyze, "jpg",outputFile);
+        System.out.println(getColor(tl));
 
     }
 

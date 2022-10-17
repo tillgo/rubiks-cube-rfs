@@ -9,7 +9,7 @@ import java.util.Map;
 public class Pixelator {
 
 
-    private static int PIX_SIZE = 150;
+    private static int PIX_SIZE = 37;
 
 
     /**
@@ -18,7 +18,7 @@ public class Pixelator {
      */
     public static BufferedImage pixelate(BufferedImage imageToPixelate) {
 
-        BufferedImage pixelateImage = new BufferedImage(27, 20,
+        BufferedImage pixelateImage = new BufferedImage(108, 80,
                 imageToPixelate.getType());
 
 
@@ -29,8 +29,7 @@ public class Pixelator {
             for (int x2 = 0; x2 < imageToPixelate.getWidth(); x2 += PIX_SIZE) {
                 BufferedImage croppedImage = getCroppedImage(imageToPixelate, x2, y2, PIX_SIZE, PIX_SIZE);
                 Color dominantColor = getDominantColor(croppedImage);
-                if(x < 27 && y < 20){
-                    if(x== 0 && y == 4) System.out.println(dominantColor);
+                if(x < 108 && y < 80){
                     pixelateImage.setRGB(x,y, dominantColor.getRGB());
                 }
                 x++;
