@@ -9,47 +9,69 @@ import java.util.stream.Collectors;
 
 public class Analyzer {
 
-    private Plate tl = new Plate(PlatePosition.TOP_LEFT, 6,9);
-    private Plate tm = new Plate(PlatePosition.TOP_MID, 6,13);
-    private Plate tr = new Plate(PlatePosition.TOP_RIGHT, 6,17);
-    private Plate ml = new Plate(PlatePosition.MID_LEFT, 10,9);
-    private Plate mm = new Plate(PlatePosition.MID_MID, 10,13);
-    private Plate mr = new Plate(PlatePosition.MID_RIGHT, 10,17);
-    private Plate bl = new Plate(PlatePosition.BOTTOM_LEFT, 14,9);
-    private Plate bm = new Plate(PlatePosition.BOTTOM_MID, 14,13);
-    private Plate br = new Plate(PlatePosition.BOTTOM_RIGHT, 14,17);
+    private Plate tl = new Plate(PlatePosition.TOP_LEFT, 40,28);
+    private Plate tm = new Plate(PlatePosition.TOP_MID, 54,28);
+    private Plate tr = new Plate(PlatePosition.TOP_RIGHT, 70,28);
+    private Plate ml = new Plate(PlatePosition.MID_LEFT, 40,39);
+    private Plate mm = new Plate(PlatePosition.MID_MID, 54,39);
+    private Plate mr = new Plate(PlatePosition.MID_RIGHT, 70,39);
+    private Plate bl = new Plate(PlatePosition.BOTTOM_LEFT, 40,58);
+    private Plate bm = new Plate(PlatePosition.BOTTOM_MID, 54,58);
+    private Plate br = new Plate(PlatePosition.BOTTOM_RIGHT, 70,58);
 
-    private List<Plate> plates = new ArrayList<>();
+    List<Plate> plates = List.of(tl, tm, tr, ml, mm, mr, bl, bm, br);
 
     private BufferedImage imageToAnalyze;
 
     public Analyzer(BufferedImage imageToAnalyze) {
         this.imageToAnalyze = Pixelator.pixelate(imageToAnalyze);
-        plates.add(tl);
-        plates.add(tm);
-        plates.add(tr);
-        plates.add(ml);
-        plates.add(mm);
-        plates.add(mr);
-        plates.add(bl);
-        plates.add(bm);
-        plates.add(br);
+
     }
 
 
     public void analyze() throws IOException {
-
-
         String IMAGES_PATH = "./src/main/resources/images/";
         File outputFile = new File(IMAGES_PATH + "test.jpg");
         ImageIO.write(imageToAnalyze, "jpg",outputFile);
-        System.out.println(getColor(tl));
-
+        plates.stream().map(this::getColorName).forEach(System.out::println);
     }
 
-    private Color getColor(Plate plate){
+
+    private String getColorName(Plate plate){
+        float[] hsb = getColor(plate);
+        float hue = hsb[0]*360;
+        float sat = hsb[1] * 100;
+        float bright = hsb[2] * 100;
+
+        if(sat < 15 && bright > 85){
+            return "White";
+        }else if (hue > 120 && hue < 180){
+            return "Green";
+        }else if (hue > 180 && hue < 300){
+            return "Blue";
+        }else if (hue > 310 || hue < 25){
+            System.out.println(hue);
+            System.out.println(bright);
+            System.out.println(sat);
+            return "RED";
+        }else if (hue > 25 && hue < 50){
+            System.out.println(hue);
+            System.out.println(bright);
+            System.out.println(sat);
+            return "Orange";
+        }else if (hue > 50 && hue < 100){
+            return "Yellow";
+        }else {
+            return "DEINE MOMA";
+        }
+    }
+
+    private float[] getColor(Plate plate){
         System.out.println(plate);
-       return new Color(imageToAnalyze.getRGB(plate.getPixelHeightPosition(),plate.getPixelWidthPosition()));
+        Color lost = new Color(imageToAnalyze.getRGB(plate.getPixelHeightPosition(),plate.getPixelWidthPosition()));
+        return Color.RGBtoHSB(lost.getRed(), lost.getGreen(), lost.getBlue(), new float[3]);
 
     }
+
+
 }

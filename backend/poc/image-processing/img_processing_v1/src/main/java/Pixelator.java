@@ -20,8 +20,6 @@ public class Pixelator {
 
         BufferedImage pixelateImage = new BufferedImage(108, 80,
                 imageToPixelate.getType());
-
-
         int x = 0;
         int y = 0;
         for (int y2 = 0; y2 < imageToPixelate.getHeight(); y2 += PIX_SIZE) {

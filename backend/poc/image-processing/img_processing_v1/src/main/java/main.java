@@ -6,7 +6,7 @@ import java.io.IOException;
 public class main {
 
     private static String IMAGES_PATH = "./src/main/resources/images/";
-    private static String CUBE_NORMAL_PATH = IMAGES_PATH + "cube_normal.jpg";
+    private static String CUBE_NORMAL_PATH = IMAGES_PATH + "cube_normal_1.jpg";
     private static String CUBE_BLITZ_PATH = IMAGES_PATH + "cube_blitz.jpg";
 
 
