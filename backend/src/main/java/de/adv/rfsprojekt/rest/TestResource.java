@@ -1,12 +1,12 @@
 package de.adv.rfsprojekt.rest;
 
-import de.adv.rfsprojekt.ur.UR;
-import de.adv.rfsprojekt.ur.utils.JointPosition;
-import de.adv.rfsprojekt.ur.utils.Pose;
+
+import de.adv.rfsprojekt.ur_new.UR;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.io.IOException;
 
 /**
  * Test Endpoint for random shit lol
@@ -19,18 +19,22 @@ public class TestResource {
 
     @Path("1")
     @POST
-    public Pose testConnection() throws Exception {
-        ur.connect();
-        ur.powerOn();
+    public void testConnection() throws Exception {
 
-        Thread.sleep(1000);
-        var pose = ur.getPose();
-
-        ur.movel(new JointPosition(), 1f, 0.2f, 0, 0);
-        ur.waitFor(new JointPosition(), 0.01);
-
-        ur.powerOff();
-        ur.disconnect();
-        return pose;
     }
+
+    /**
+     * Test own UR-Library
+     */
+    @Path("2")
+    @POST
+    public void testNewLib() throws IOException, InterruptedException {
+
+        ur.powerOn();
+        ur.buildScript().moveRelativeToTCP(new de.adv.rfsprojekt.ur_new.entities.Pose()).execute();
+
+    }
+
+
 }
+
