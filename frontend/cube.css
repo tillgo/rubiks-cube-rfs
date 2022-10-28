@@ -345,7 +345,9 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+	height: inherit;
 	height: -webkit-fill-available;
+	
 }
 
 @media (max-width:385px) {
