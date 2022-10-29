@@ -14,19 +14,21 @@ public class ManualControlResource {
     UR ur;
 
     @POST
-    @Path("forward")
-    public String moveForward() throws Exception {
-        ur.powerOn();
-
-        //1cm nach vorne
+    @Path("positivex")
+    public void movePositiveX() throws Exception {
+        //1cm in positive X-Richtung
         Pose forwardPos = new Pose(0.01, 0, 0, 0, 0, 0);
 
-        return ur.buildScript()
+        ur.buildScript()
                 .moveRelativeToTCP(forwardPos)
-                .executeWithMessage();
+                .execute();
+    }
 
-
-
+    @POST
+    @Path("negativex")
+    public void moveNegativeX() throws Exception {
+        //1cm in negative X-Richtung
+        Pose backwardPos = new Pose(0.01, 0,0,0 ,0,0);
     }
 
 

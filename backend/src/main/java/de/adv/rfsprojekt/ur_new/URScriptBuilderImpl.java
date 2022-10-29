@@ -1,8 +1,6 @@
 package de.adv.rfsprojekt.ur_new;
 
-import de.adv.rfsprojekt.ur_new.entities.Orientation;
 import de.adv.rfsprojekt.ur_new.entities.Pose;
-import de.adv.rfsprojekt.ur_new.entities.Position;
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
 
 import java.io.IOException;
