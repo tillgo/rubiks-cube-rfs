@@ -1,8 +1,6 @@
 package de.adv.rfsprojekt.websocket;
 
-import com.google.gson.Gson;
 import de.adv.rfsprojekt.service.manualMovement.ManualMovementController;
-import de.adv.rfsprojekt.service.manualMovement.models.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -12,6 +10,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,26 +35,22 @@ public class ManualMovementSocket {
         sessions.remove(clientname);
     }
 
-    /**@OnError public void onError(Session session, @PathParam("clientname") String clientname){
-    sessions.remove(clientname);
-    }
+    /**
+     * @OnError public void onError(Session session, @PathParam("clientname") String clientname){
+     * sessions.remove(clientname);
+     * }
      **/
 
-    /**
-     * Je nach Befehlstyp wird anderer Objekttyp aus JSON erzeugt
-     * ToDo Error-Message zurückgeben, falls Gson Error wirft
-     **/
+
     @OnMessage
     public void onMessage(String message, @PathParam("clientname") String clientname) {
-        Gson gson = new Gson();
-        RoboMove roboMove = gson.fromJson(message, RoboMove.class);
-        MoveType moveType = roboMove.getMoveType();
-
-        switch (moveType) {
-            case ROBO_ARM -> mmC.excecuteMove(gson.fromJson(message, RoboArmMove.class));
-            case ROBO_TOOL -> mmC.excecuteMove(gson.fromJson(message, RoboToolMove.class));
-            case GRIPPER -> mmC.excecuteMove(gson.fromJson(message, GripperMove.class));
+        try {
+            System.out.println(message);
+            mmC.executeMove(message);
+        } catch (IOException e) {
+            sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
         }
+
     }
 
     private void broadcast(String message) {

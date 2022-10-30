@@ -1,28 +1,39 @@
 package de.adv.rfsprojekt.service.manualMovement;
 
-import de.adv.rfsprojekt.service.manualMovement.models.GripperMove;
-import de.adv.rfsprojekt.service.manualMovement.models.RoboArmMove;
-import de.adv.rfsprojekt.service.manualMovement.models.RoboMove;
-import de.adv.rfsprojekt.service.manualMovement.models.RoboToolMove;
+import com.google.gson.Gson;
+import de.adv.rfsprojekt.service.manualMovement.models.*;
+import de.adv.rfsprojekt.ur_new.UR;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.io.IOException;
 
 @ApplicationScoped
 public class ManualMovementController {
 
-    public void excecuteMove(RoboMove roboMove) {
-        if (roboMove instanceof RoboArmMove ram) {
-            executeRoboArmMove(ram);
-        } else if (roboMove instanceof RoboToolMove rtm) {
-            executeRoboToolMove(rtm);
-        } else if (roboMove instanceof GripperMove gm) {
-            executeGripperMove(gm);
+    @Inject
+    UR ur;
+
+    /**
+     * Je nach Befehlstyp wird anderer Objekttyp aus JSON erzeugt
+     * ToDo Error-Message zurückgeben, falls Gson Error wirft
+     **/
+    public void executeMove(String roboMoveMessage) throws IOException {
+        Gson gson = new Gson();
+        RoboMove roboMove = gson.fromJson(roboMoveMessage, RoboMove.class);
+        MoveType moveType = roboMove.getMoveType();
+
+        switch (moveType) {
+            case ROBO_ARM -> executeRoboArmMove(gson.fromJson(roboMoveMessage, RoboArmMove.class));
+            case ROBO_TOOL -> executeRoboToolMove(gson.fromJson(roboMoveMessage, RoboToolMove.class));
+            case GRIPPER -> executeGripperMove(gson.fromJson(roboMoveMessage, GripperMove.class));
+
         }
     }
 
 
-    private void executeRoboArmMove(RoboArmMove roboArmMove) {
-
+    private void executeRoboArmMove(RoboArmMove roboArmMove) throws IOException {
+        ur.buildScript().speedL(roboArmMove.getMoveDirection().getPose()).execute();
     }
 
     private void executeRoboToolMove(RoboToolMove roboToolMove) {

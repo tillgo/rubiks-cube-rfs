@@ -7,10 +7,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static de.adv.rfsprojekt.ur_new.urscript_commands.MovementCommands.MOVE_L;
+import static de.adv.rfsprojekt.ur_new.urscript_commands.MovementCommands.SPEED_L;
+import static de.adv.rfsprojekt.ur_new.urscript_commands.PositionCommands.GET_POSE_RELATIVE_TO_TOOL;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static de.adv.rfsprojekt.ur_new.urscript_commands.PositionCommands.*;
-import static de.adv.rfsprojekt.ur_new.urscript_commands.MovementCommands.*;
 
+
+/**
+ * ToDo Speed and Accelaration as Env-Variables
+ */
 public class URScriptBuilderImpl implements URScriptBuilder {
 
     private StringBuilder sbScript;
@@ -26,10 +31,15 @@ public class URScriptBuilderImpl implements URScriptBuilder {
 
     /*Movement*/
 
-    public URScriptBuilder moveRelativeToTCP(Pose pose){
+    public URScriptBuilder moveRelativeToTCP(Pose pose) {
         sbScript.append(MOVE_L(GET_POSE_RELATIVE_TO_TOOL(
-                pose), 1f, 0.2f, 0, 0));
+                pose), 1, 0.2, 0, 0));
 
+        return this;
+    }
+
+    public URScriptBuilder speedL(Pose toolspeeds) {
+        sbScript.append(SPEED_L(toolspeeds.toStringArray(), 1, 0.1));
         return this;
     }
 
@@ -48,7 +58,6 @@ public class URScriptBuilderImpl implements URScriptBuilder {
         Thread.sleep(50);
         return readResponse(urConnection.getInputStream());
     }
-
 
 
     /*ToDo Funktioniert noch nicht korrekt, möglichkeit finden bytes mit der richtigen Kodierung (UTF-8) in String umzuwandeln*/

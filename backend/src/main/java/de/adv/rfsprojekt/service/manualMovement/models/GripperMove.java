@@ -1,14 +1,17 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
-public record GripperMove(MoveType moveType, GripperMoveDirection moveDirection) implements RoboMove {
-    @Override
-    public MoveType getMoveType() {
-        return null;
+public class GripperMove extends RoboMove {
+
+    private GripperMoveDirection moveDirection;
+
+
+    public GripperMove(MoveType moveType, GripperMoveDirection moveDirection) {
+        super(moveType);
+        this.moveDirection = moveDirection;
     }
 
-    @Override
-    public void setMoveType(MoveType moveType) {
-
+    public GripperMoveDirection getMoveDirection() {
+        return moveDirection;
     }
 }
 

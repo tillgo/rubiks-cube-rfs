@@ -18,7 +18,7 @@ public class Pose {
         this.orientation = orientation;
     }
 
-    public Pose(double x,double y,double z, double ox, double oy, double oz) {
+    public Pose(double x, double y, double z, double ox, double oy, double oz) {
         this.position = new Position(x, y, z);
         this.orientation = new Orientation(ox, oy, oz);
 
@@ -44,6 +44,18 @@ public class Pose {
     public String toString() { // DO NOT CHANGE
         StringBuilder sb = new StringBuilder();
         sb.append("p[")
+                .append(DECIMAL_FORMAT.format(position.getX())).append(',')
+                .append(DECIMAL_FORMAT.format(position.getY())).append(',')
+                .append(DECIMAL_FORMAT.format(position.getZ())).append(',')
+                .append(DECIMAL_FORMAT.format(orientation.getX())).append(',')
+                .append(DECIMAL_FORMAT.format(orientation.getY())).append(',')
+                .append(DECIMAL_FORMAT.format(orientation.getZ())).append(']');
+        return sb.toString();
+    }
+
+    public String toStringArray() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[")
                 .append(DECIMAL_FORMAT.format(position.getX())).append(',')
                 .append(DECIMAL_FORMAT.format(position.getY())).append(',')
                 .append(DECIMAL_FORMAT.format(position.getZ())).append(',')

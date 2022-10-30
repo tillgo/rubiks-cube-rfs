@@ -1,14 +1,16 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
-public record RoboArmMove(RoboArmMoveDirection moveDirection) implements RoboMove {
-    @Override
-    public MoveType getMoveType() {
-        return null;
+public class RoboArmMove extends RoboMove {
+
+    private final RoboArmMoveDirection moveDirection;
+
+    public RoboArmMove(MoveType moveType, RoboArmMoveDirection moveDirection) {
+        super(moveType);
+        this.moveDirection = moveDirection;
     }
 
-    @Override
-    public void setMoveType(MoveType moveType) {
-
+    public RoboArmMoveDirection getMoveDirection() {
+        return moveDirection;
     }
 }
 

@@ -1,9 +1,14 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
-public sealed interface RoboMove permits RoboArmMove, RoboToolMove, GripperMove {
+public class RoboMove {
 
-    MoveType getMoveType();
+    private final MoveType moveType;
 
-    void setMoveType(MoveType moveType);
+    public RoboMove(MoveType moveType) {
+        this.moveType = moveType;
+    }
 
+    public MoveType getMoveType() {
+        return moveType;
+    }
 }
