@@ -1,12 +1,9 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import ManualMovementPage from "./pages/manualMovement/ManualMovementPage";
+import ManualControlPage from "./pages/manual-control/ManualControlPage";
 
 function App() {
 
   return (
-    <ManualMovementPage/>
+    <ManualControlPage/>
   )
 }
 
