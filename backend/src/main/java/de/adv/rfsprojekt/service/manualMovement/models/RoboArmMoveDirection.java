@@ -9,12 +9,12 @@ import de.adv.rfsprojekt.ur_new.entities.Pose;
  */
 public enum RoboArmMoveDirection {
     /* ToDo Toolspeed aus Env-Variablen nutzen  */
-    Xminus(new Pose(0.2, 0, 0, 0, 0, 0)),
-    Xplus(new Pose(-0.2, 0, 0, 0, 0, 0)),
-    Yplus(new Pose(0, 0.2, 0, 0, 0, 0)),
-    Yminus(new Pose(0, -0.2, 0, 0, 0, 0)),
-    Zplus(new Pose(0, 0, 0.2, 0, 0, 0)),
-    Zminus(new Pose(0, 0, -0.2, 0, 0, 0));
+    X_MINUS(new Pose(0.2, 0, 0, 0, 0, 0)),
+    X_PLUS(new Pose(-0.2, 0, 0, 0, 0, 0)),
+    Y_PLUS(new Pose(0, 0.2, 0, 0, 0, 0)),
+    Y_MINUS(new Pose(0, -0.2, 0, 0, 0, 0)),
+    Z_PLUS(new Pose(0, 0, 0.2, 0, 0, 0)),
+    Z_MINUS(new Pose(0, 0, -0.2, 0, 0, 0));
 
     private final Pose pose;
 
