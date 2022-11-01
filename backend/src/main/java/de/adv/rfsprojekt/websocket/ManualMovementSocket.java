@@ -44,12 +44,15 @@ public class ManualMovementSocket {
 
     @OnMessage
     public void onMessage(String message, @PathParam("clientname") String clientname) {
+        /*
         try {
             System.out.println(message);
             mmC.executeMove(message);
         } catch (IOException e) {
             sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
         }
+         */
+        System.out.println(message);
 
     }
 

@@ -1,10 +1,7 @@
-import ManualControlPage from "./pages/manual-control/ManualControlPage";
+import ManualControlPage from './pages/manual-control/ManualControlPage'
 
 function App() {
-
-  return (
-    <ManualControlPage/>
-  )
+    return <ManualControlPage />
 }
 
 export default App
