@@ -36,8 +36,8 @@ public class ManualMovementController {
         ur.buildScript().speedL(roboArmMove.getMoveDirection().getPose()).execute();
     }
 
-    private void executeRoboToolMove(RoboToolMove roboToolMove) {
-
+    private void executeRoboToolMove(RoboToolMove roboToolMove) throws IOException {
+        ur.buildScript().speedL(roboToolMove.getMoveDirection().getPose()).execute();
     }
 
     private void executeGripperMove(GripperMove gripperMove) {
