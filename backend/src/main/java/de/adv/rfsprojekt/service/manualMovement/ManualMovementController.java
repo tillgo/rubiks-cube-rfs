@@ -40,8 +40,11 @@ public class ManualMovementController {
         ur.buildScript().speedL(roboToolMove.getMoveDirection().getPose()).execute();
     }
 
-    private void executeGripperMove(GripperMove gripperMove) {
-
+    private void executeGripperMove(GripperMove gripperMove) throws IOException {
+        switch (gripperMove.getMoveDirection()) {
+            case OPEN -> ur.commandGripper().open();
+            case CLOSE -> ur.commandGripper().close();
+        }
     }
 
 

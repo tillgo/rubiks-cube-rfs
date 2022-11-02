@@ -12,6 +12,8 @@ public interface UR {
 
     URScriptBuilder buildScript();
 
+    GripperCommander commandGripper();
+
     String getHost();
 
     int getPort();

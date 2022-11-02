@@ -6,8 +6,9 @@ import GripperControlPanel from "./GripperControlPanel";
 export const socketUrl = 'ws://localhost:8080/manual/deinmoma'
 
 const ManualControlPage = () => {
-    const {readyState} = useWebSocket(socketUrl)
+    const {sendMessage,readyState} = useWebSocket(socketUrl)
     const connectionStatus = ReadyState[readyState]
+
 
     return (
         <Grid container spacing={4} sx={{padding: 2, maxWidth: "900px"}}>
@@ -15,13 +16,13 @@ const ManualControlPage = () => {
                 <Typography color={"black"}>Connection Status: <b>{connectionStatus}</b></Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-                <ControlPanel moveType={"ROBO_ARM"}/>
+                <ControlPanel moveType={"ROBO_ARM"} sendMessage={sendMessage}/>
             </Grid>
             <Grid item xs={12} sm={6}>
-                <ControlPanel moveType={"ROBO_TOOL"}/>
+                <ControlPanel moveType={"ROBO_TOOL"} sendMessage={sendMessage}/>
             </Grid>
             <Grid item xs={12} display={"flex"} justifyContent={"center"}>
-                <GripperControlPanel />
+                <GripperControlPanel sendMessage={sendMessage}/>
             </Grid>
         </Grid>
     )

@@ -2,7 +2,7 @@ package de.adv.rfsprojekt.service.manualMovement.models;
 
 public class GripperMove extends RoboMove {
 
-    private GripperMoveDirection moveDirection;
+    private final GripperMoveDirection moveDirection;
 
 
     public GripperMove(MoveType moveType, GripperMoveDirection moveDirection) {

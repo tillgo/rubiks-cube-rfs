@@ -3,13 +3,13 @@ package de.adv.rfsprojekt.ur_new;
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
 import de.adv.rfsprojekt.ur_new.setup.URPorts;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import static java.nio.charset.StandardCharsets.UTF_8;
+
 import static de.adv.rfsprojekt.ur_new.urscript_commands.SetupCommands.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class URImpl implements UR {
 
@@ -33,7 +33,7 @@ public class URImpl implements UR {
      * ToDo Bei Sicherheitsstopp muss Roboter wieder entriegelt werden. Wird in alter Lib in powerOn Methode geregelt
      */
     public void powerOn() throws IOException, InterruptedException {
-        try(Socket dashSocket = new Socket(host, URPorts.DASHBOARD);){
+        try (Socket dashSocket = new Socket(host, URPorts.DASHBOARD);) {
             OutputStream os = dashSocket.getOutputStream();
             InputStream is = dashSocket.getInputStream();
             String message;
@@ -53,17 +53,20 @@ public class URImpl implements UR {
 
 
     public void powerOff() throws IOException {
-        try(Socket dashSocket = new Socket(host, URPorts.DASHBOARD);){
+        try (Socket dashSocket = new Socket(host, URPorts.DASHBOARD);) {
             OutputStream os = dashSocket.getOutputStream();
             os.write(POWER_OFF().getBytes(UTF_8));
             os.flush();
         }
     }
 
-    public URScriptBuilder buildScript(){
-        return new URScriptBuilderImpl(urConnection, host);
+    public URScriptBuilder buildScript() {
+        return new URScriptBuilderImpl(urConnection);
     }
 
+    public GripperCommander commandGripper() {
+        return new GripperCommanderImpl(urConnection);
+    }
 
 
     @Override
@@ -77,11 +80,9 @@ public class URImpl implements UR {
     }
 
     @Override
-    public URConnection getURConnection(){
+    public URConnection getURConnection() {
         return urConnection;
     }
-
-
 
 
 }

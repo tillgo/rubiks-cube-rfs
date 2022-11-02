@@ -1,10 +1,14 @@
 import {Box, Button} from "@mui/material";
-import useWebSocket from "react-use-websocket";
+import useWebSocket, {SendMessage} from "react-use-websocket";
 import {socketUrl} from "./ManualControlPage";
 import {GripperMoveDirection} from "../../commons/types";
 
-const GripperControlPanel = () => {
-    const {sendMessage} = useWebSocket(socketUrl);
+type GripperControlPanelProps = {
+    sendMessage: SendMessage
+}
+
+const GripperControlPanel = (props: GripperControlPanelProps) => {
+    const {sendMessage} = props;
 
     const handleClick = (type: GripperMoveDirection) => {
         sendMessage(JSON.stringify({moveType: "GRIPPER", moveDirection: type}))

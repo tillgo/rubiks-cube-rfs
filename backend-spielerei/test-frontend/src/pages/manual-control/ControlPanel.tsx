@@ -1,11 +1,15 @@
 import {Box, Typography} from "@mui/material";
 import ControlButton from "./ControlButton";
 import {RobotMove} from "../../commons/types";
+import {SendMessage} from "react-use-websocket";
 
 type ControlPanelProps = {
     moveType: RobotMove
+    sendMessage: SendMessage
 }
 const ControlPanel = (props: ControlPanelProps) => {
+
+    const {sendMessage, moveType} = props
 
     return (
         <Box
@@ -17,16 +21,16 @@ const ControlPanel = (props: ControlPanelProps) => {
                 aspectRatio: "1/0.65"
             }}
         >
-            <div><ControlButton moveType={props.moveType} direction={"Z_MINUS"}/></div>
-            <div><ControlButton moveType={props.moveType} direction={"Y_PLUS"}/></div>
-            <div><ControlButton moveType={props.moveType} direction={"Z_PLUS"}/></div>
-            <div><ControlButton moveType={props.moveType} direction={"X_MINUS"}/></div>
+            <div><ControlButton moveType={moveType} direction={"Z_MINUS"} sendMessage={sendMessage}/></div>
+            <div><ControlButton moveType={moveType} direction={"Y_PLUS"} sendMessage={sendMessage}/></div>
+            <div><ControlButton moveType={moveType} direction={"Z_PLUS"} sendMessage={sendMessage}/></div>
+            <div><ControlButton moveType={moveType} direction={"X_MINUS"} sendMessage={sendMessage}/></div>
             <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-                <Typography fontSize={{xs: 14, md: 20}}>{props.moveType}</Typography>
+                <Typography fontSize={{xs: 14, md: 20}}>{moveType}</Typography>
             </Box>
-            <div><ControlButton moveType={props.moveType} direction={"X_PLUS"}/></div>
+            <div><ControlButton moveType={moveType} direction={"X_PLUS"} sendMessage={sendMessage}/></div>
             <div/>
-            <div><ControlButton moveType={props.moveType} direction={"Y_MINUS"}/></div>
+            <div><ControlButton moveType={moveType} direction={"Y_MINUS"} sendMessage={sendMessage}/></div>
             <div/>
         </Box>
     )

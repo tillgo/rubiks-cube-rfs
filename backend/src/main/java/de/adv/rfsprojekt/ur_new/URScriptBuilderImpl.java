@@ -20,12 +20,11 @@ public class URScriptBuilderImpl implements URScriptBuilder {
 
     private StringBuilder sbScript;
     private URConnection urConnection;
-    private String host;
 
-    public URScriptBuilderImpl(URConnection urConnection, String host) {
+
+    public URScriptBuilderImpl(URConnection urConnection) {
         sbScript = new StringBuilder();
         this.urConnection = urConnection;
-        this.host = host;
     }
 
 
@@ -40,6 +39,11 @@ public class URScriptBuilderImpl implements URScriptBuilder {
 
     public URScriptBuilder speedL(Pose toolspeeds) {
         sbScript.append(SPEED_L(toolspeeds.toStringArray(), 1, 0.1));
+        return this;
+    }
+
+    public URScriptBuilder customScript(String customScript) {
+        sbScript.append(customScript + "\n");
         return this;
     }
 
