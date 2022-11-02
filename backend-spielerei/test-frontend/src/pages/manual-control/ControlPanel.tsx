@@ -17,16 +17,16 @@ const ControlPanel = (props: ControlPanelProps) => {
                 aspectRatio: "1/0.65"
             }}
         >
-            <div><ControlButton moveType={props.moveType} direction={"Z-"}/></div>
-            <div><ControlButton moveType={props.moveType} direction={"Y+"}/></div>
-            <div><ControlButton moveType={props.moveType} direction={"Z+"}/></div>
-            <div><ControlButton moveType={props.moveType} direction={"X-"}/></div>
+            <div><ControlButton moveType={props.moveType} direction={"Z_MINUS"}/></div>
+            <div><ControlButton moveType={props.moveType} direction={"Y_PLUS"}/></div>
+            <div><ControlButton moveType={props.moveType} direction={"Z_PLUS"}/></div>
+            <div><ControlButton moveType={props.moveType} direction={"X_MINUS"}/></div>
             <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
                 <Typography fontSize={{xs: 14, md: 20}}>{props.moveType}</Typography>
             </Box>
-            <div><ControlButton moveType={props.moveType} direction={"X+"}/></div>
+            <div><ControlButton moveType={props.moveType} direction={"X_PLUS"}/></div>
             <div/>
-            <div><ControlButton moveType={props.moveType} direction={"Y-"}/></div>
+            <div><ControlButton moveType={props.moveType} direction={"Y_MINUS"}/></div>
             <div/>
         </Box>
     )

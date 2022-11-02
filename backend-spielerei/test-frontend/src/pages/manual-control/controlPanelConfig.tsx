@@ -12,11 +12,11 @@ type ControlButtonConfig = {
 }
 type ControlPanelConfig = Record<RobotMoveDirection, ControlButtonConfig>
 export const controlPanelConfig: ControlPanelConfig = {
-    "X+": {icon: <ArrowForwardIcon sx={{fontSize: 36}} />},
-    "X-": {icon: <ArrowBackIcon sx={{fontSize: 36}} />},
-    "Y+": {icon: <ArrowUpwardIcon sx={{fontSize: 36}} />},
-    "Y-": {icon: <ArrowDownwardIcon sx={{fontSize: 36}} />},
-    "Z+": {icon: <NorthIcon sx={{fontSize: 36}} />},
-    "Z-": {icon: <SouthIcon sx={{fontSize: 36}} />}
+    "X_PLUS": {icon: <ArrowForwardIcon sx={{fontSize: 36}} />},
+    "X_MINUS": {icon: <ArrowBackIcon sx={{fontSize: 36}} />},
+    "Y_PLUS": {icon: <ArrowUpwardIcon sx={{fontSize: 36}} />},
+    "Y_MINUS": {icon: <ArrowDownwardIcon sx={{fontSize: 36}} />},
+    "Z_PLUS": {icon: <NorthIcon sx={{fontSize: 36}} />},
+    "Z_MINUS": {icon: <SouthIcon sx={{fontSize: 36}} />}
 
 }
