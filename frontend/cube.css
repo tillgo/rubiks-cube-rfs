@@ -1,24 +1,32 @@
-﻿body {
+﻿/*=============================================================*/
+/*===================mobile layout (x-small)===================*/
+/*=============================================================*/
+html, body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body {
 	background: lightgrey;
 	overflow: hidden;
 }
 
 .scene {
-	margin: 230px auto;
+	margin: 150px auto 220px auto;
 	width: 100px;
 	perspective: 1000px;
 	perspective-origin: 50% 50%;
 }
-@media (max-width: 500px) {.scene {transform: scale(.7);}}
-@media (max-width: 400px) {.scene {transform: scale(.6);}}
 
 .cube {
-	position: absolute;
 	transform-style: preserve-3d;
 	transform-origin: 50px 50px;
-	transform:  rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+	transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 	transition: transform 2s;
+	padding: 10px;
 }
+
 /*.cube {
 	position: relative;
 	transform-style: preserve-3d;
@@ -29,6 +37,7 @@
 	transform-style: preserve-3d;
 	transform-origin: 50px 50px;
 }
+
 .cube-layer.turn {
 	transition: transform .8s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
@@ -38,165 +47,237 @@
 	transform-origin: 50px 50px;
 }
 
-.cubie-corner-position-0 { transform: translate3d(100px, -100px, 100px); }
-.cubie-corner-position-1 { transform: translate3d(-100px, -100px, 100px) rotateY(-90deg); }
-.cubie-corner-position-2 { transform: translate3d(100px, -100px, -100px) rotateY(90deg); }
-.cubie-corner-position-3 { transform: translate3d(-100px, -100px, -100px) rotateY(180deg); }
-.cubie-corner-position-4 { transform: translate3d(100px, 100px, 100px) rotateX(180deg) rotateY(90deg); }
-.cubie-corner-position-5 { transform: translate3d(-100px, 100px, 100px) rotateX(180deg) rotateY(180deg); }
-.cubie-corner-position-6 { transform: translate3d(100px, 100px, -100px) rotateX(180deg); }
-.cubie-corner-position-7 { transform: translate3d(-100px, 100px, -100px) rotateX(180deg) rotateY(-90deg); }
+.cubie-corner-position-0 {
+	transform: translate3d(100px, -100px, 100px);
+}
+
+.cubie-corner-position-1 {
+	transform: translate3d(-100px, -100px, 100px) rotateY(-90deg);
+}
+
+.cubie-corner-position-2 {
+	transform: translate3d(100px, -100px, -100px) rotateY(90deg);
+}
+
+.cubie-corner-position-3 {
+	transform: translate3d(-100px, -100px, -100px) rotateY(180deg);
+}
+
+.cubie-corner-position-4 {
+	transform: translate3d(100px, 100px, 100px) rotateX(180deg) rotateY(90deg);
+}
+
+.cubie-corner-position-5 {
+	transform: translate3d(-100px, 100px, 100px) rotateX(180deg) rotateY(180deg);
+}
+
+.cubie-corner-position-6 {
+	transform: translate3d(100px, 100px, -100px) rotateX(180deg);
+}
+
+.cubie-corner-position-7 {
+	transform: translate3d(-100px, 100px, -100px) rotateX(180deg) rotateY(-90deg);
+}
 
 /*.cubie-corner-orientation-0 {}*/
-.cubie-corner-orientation-1 { transform: rotateY(-90deg) rotateX(90deg); }
-.cubie-corner-orientation-2 { transform: rotateY(90deg) rotateZ(-90deg); }
+.cubie-corner-orientation-1 {
+	transform: rotateY(-90deg) rotateX(90deg);
+}
 
-.cubie-edge-position-0  { transform: translate3d(0px, -100px, 100px); }
-.cubie-edge-position-1  { transform: translate3d(-100px, -100px, 0px) rotateY(-90deg); }
-.cubie-edge-position-2  { transform: translate3d(100px, -100px, 0px) rotateY(90deg); }
-.cubie-edge-position-3  { transform: translate3d(0px, -100px, -100px) rotateY(180deg); }
-.cubie-edge-position-4  { transform: translate3d(0px, 100px, 100px) rotateX(180deg) rotateY(180deg); }
-.cubie-edge-position-5  { transform: translate3d(-100px, 100px, 0px) rotateX(180deg) rotateY(-90deg); }
-.cubie-edge-position-6  { transform: translate3d(100px, 100px, 0px) rotateX(180deg) rotateY(90deg); }
-.cubie-edge-position-7  { transform: translate3d(0px, 100px, -100px) rotateX(180deg); }
-.cubie-edge-position-8  { transform: translate3d(100px, 0px, 100px) rotateX(-90deg) rotateY(90deg); }
-.cubie-edge-position-9  { transform: translate3d(-100px, 0px, 100px) rotateX(-90deg) rotateY(-90deg); }
-.cubie-edge-position-10 { transform: translate3d(100px, 0px, -100px) rotateX(90deg) rotateY(90deg); }
-.cubie-edge-position-11 { transform: translate3d(-100px, 0px, -100px) rotateX(90deg) rotateY(-90deg); }
+.cubie-corner-orientation-2 {
+	transform: rotateY(90deg) rotateZ(-90deg);
+}
+
+.cubie-edge-position-0 {
+	transform: translate3d(0px, -100px, 100px);
+}
+
+.cubie-edge-position-1 {
+	transform: translate3d(-100px, -100px, 0px) rotateY(-90deg);
+}
+
+.cubie-edge-position-2 {
+	transform: translate3d(100px, -100px, 0px) rotateY(90deg);
+}
+
+.cubie-edge-position-3 {
+	transform: translate3d(0px, -100px, -100px) rotateY(180deg);
+}
+
+.cubie-edge-position-4 {
+	transform: translate3d(0px, 100px, 100px) rotateX(180deg) rotateY(180deg);
+}
+
+.cubie-edge-position-5 {
+	transform: translate3d(-100px, 100px, 0px) rotateX(180deg) rotateY(-90deg);
+}
+
+.cubie-edge-position-6 {
+	transform: translate3d(100px, 100px, 0px) rotateX(180deg) rotateY(90deg);
+}
+
+.cubie-edge-position-7 {
+	transform: translate3d(0px, 100px, -100px) rotateX(180deg);
+}
+
+.cubie-edge-position-8 {
+	transform: translate3d(100px, 0px, 100px) rotateX(-90deg) rotateY(90deg);
+}
+
+.cubie-edge-position-9 {
+	transform: translate3d(-100px, 0px, 100px) rotateX(-90deg) rotateY(-90deg);
+}
+
+.cubie-edge-position-10 {
+	transform: translate3d(100px, 0px, -100px) rotateX(90deg) rotateY(90deg);
+}
+
+.cubie-edge-position-11 {
+	transform: translate3d(-100px, 0px, -100px) rotateX(90deg) rotateY(-90deg);
+}
 
 /*.cubie-edge-orientation-0 {}*/
-.cubie-edge-orientation-1 { transform: rotateX(-90deg) rotateY(180deg); }
+.cubie-edge-orientation-1 {
+	transform: rotateX(-90deg) rotateY(180deg);
+}
 
-.cubie-middle-r  { transform: translate3d(100px, 0px, 0px); }
-.cubie-middle-l  { transform: translate3d(-100px, 0px, 0px); }
-.cubie-middle-f  { transform: translate3d(0px, 0px, 100px); }
-.cubie-middle-b  { transform: translate3d(0px, 0px, -100px); }
-.cubie-middle-u  { transform: translate3d(0px, -100px, 0px); }
-.cubie-middle-d  { transform: translate3d(0px, 100px, 0px); }
+.cubie-middle-r {
+	transform: translate3d(100px, 0px, 0px);
+}
+
+.cubie-middle-l {
+	transform: translate3d(-100px, 0px, 0px);
+}
+
+.cubie-middle-f {
+	transform: translate3d(0px, 0px, 100px);
+}
+
+.cubie-middle-b {
+	transform: translate3d(0px, 0px, -100px);
+}
+
+.cubie-middle-u {
+	transform: translate3d(0px, -100px, 0px);
+}
+
+.cubie-middle-d {
+	transform: translate3d(0px, 100px, 0px);
+}
 
 .cubie-face {
 	position: absolute;
 	width: 100px;
 	height: 100px;
-	background-color: rgba(0,30,60,0.2);
+	background-color: rgba(0, 30, 60, 0.2);
 	/*border-radius: 16px;*/
 	transform-style: preserve-3d;
 }
-.face-u { transform: rotateX(90deg)  translateZ(50px); }
-.face-f { transform:                 translateZ(50px); }
-.face-r { transform: rotateY(90deg)  translateZ(50px); }
-.face-l { transform: rotateY(-90deg) translateZ(50px); }
-.face-b { transform: rotateY(180deg) translateZ(50px); }
-.face-d { transform: rotateX(-90deg) translateZ(50px); }
+
+.face-u {
+	transform: rotateX(90deg) translateZ(50px);
+}
+
+.face-f {
+	transform: translateZ(50px);
+}
+
+.face-r {
+	transform: rotateY(90deg) translateZ(50px);
+}
+
+.face-l {
+	transform: rotateY(-90deg) translateZ(50px);
+}
+
+.face-b {
+	transform: rotateY(180deg) translateZ(50px);
+}
+
+.face-d {
+	transform: rotateX(-90deg) translateZ(50px);
+}
 
 .cubie-sticker {
 	/*background-image: url(stickers.svg);*/
 	background-size: 100px 100px;
 }
-.sticker-u { background-position-x: 0; }
-.sticker-f { background-position-x: -100px; }
-.sticker-r { background-position-x: -200px; }
-.sticker-l { background-position-x: -300px; }
-.sticker-b { background-position-x: -400px; }
-.sticker-d { background-position-x: -500px; }
 
-.turn-u1, .turn-d3 { transform: rotateY(-90deg); }
-.turn-f1, .turn-b3 { transform: rotateZ(90deg); }
-.turn-r1, .turn-l3 { transform: rotateX(90deg); }
-.turn-l1, .turn-r3 { transform: rotateX(-90deg); }
-.turn-b1, .turn-f3 { transform: rotateZ(-90deg); }
-.turn-d1, .turn-u3 { transform: rotateY(90deg); }
-.turn-u2 { transform: rotateY(-180deg); }
-.turn-f2 { transform: rotateZ(180deg); }
-.turn-r2 { transform: rotateX(180deg); }
-.turn-l2 { transform: rotateX(-180deg); }
-.turn-b2 { transform: rotateZ(-180deg); }
-.turn-d2 { transform: rotateY(180deg); }
+.sticker-u {
+	background-position-x: 0;
+}
 
-/*-------------------------------------------------------------*/
+.sticker-f {
+	background-position-x: -100px;
+}
 
-#btn_WG {
-	background-color: #4CAF50; /* Green */
-	border: none;
-	color: #050505;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	position: absolute;
-	top: 480px;
-	left: 92px;
-	background-color: #008CBA;
-  }
-  #btn_GY {
-	background-color: #4CAF50; /* Green */
-	border: none;
-	color: #050505;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	position: relative;
-	top: 250px;
-	left: 10px;
-	background-color: #008CBA;
-  }
-  #btn_OY {
-	background-color: #4CAF50; /* Green */
-	border: none;
-	color: #050505;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	position: relative;
-	top: 250px;
-	left: 10px;
-	background-color: #008CBA;
-  }
-  #btn_BY {
-	background-color: #4CAF50; /* Green */
-	border: none;
-	color: #050505;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	position: relative;
-	top: 250px;
-	left: 10px;
-	background-color: #008CBA;
-  }
-  #btn_RY {
-	background-color: #4CAF50; /* Green */
-	border: none;
-	color: #050505;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	position: relative;
-	top: 250px;
-	left: 10px;
-	background-color: #008CBA;
-  }
-  #btn_YO {
-	background-color: #4CAF50; /* Green */
+.sticker-r {
+	background-position-x: -200px;
+}
+
+.sticker-l {
+	background-position-x: -300px;
+}
+
+.sticker-b {
+	background-position-x: -400px;
+}
+
+.sticker-d {
+	background-position-x: -500px;
+}
+
+.turn-u1, .turn-d3 {
+	transform: rotateY(-90deg);
+}
+
+.turn-f1, .turn-b3 {
+	transform: rotateZ(90deg);
+}
+
+.turn-r1, .turn-l3 {
+	transform: rotateX(90deg);
+}
+
+.turn-l1, .turn-r3 {
+	transform: rotateX(-90deg);
+}
+
+.turn-b1, .turn-f3 {
+	transform: rotateZ(-90deg);
+}
+
+.turn-d1, .turn-u3 {
+	transform: rotateY(90deg);
+}
+
+.turn-u2 {
+	transform: rotateY(-180deg);
+}
+
+.turn-f2 {
+	transform: rotateZ(180deg);
+}
+
+.turn-r2 {
+	transform: rotateX(180deg);
+}
+
+.turn-l2 {
+	transform: rotateX(-180deg);
+}
+
+.turn-b2 {
+	transform: rotateZ(-180deg);
+}
+
+.turn-d2 {
+	transform: rotateY(180deg);
+}
+
+/*-------------------------------------------------------------
+.rotation-button{
+	background-color: #4CAF50; 
 	border: none;
 	color: #050505;
 	padding: 15px 32px;
@@ -210,19 +291,155 @@
 	top: 250px;
 	left: 10px;
 	background-color: #008CBA;
-  }
+}
+
 
 /*-------------------------------------------------------------*/
-div .cubie-face.face-r.cubie-sticker.sticker-r_5_5{background: url('Sticker/Red.png');
-	background-size: 100px 100px;}
-div .cubie-face.face-l.cubie-sticker.sticker-l_3_5{background: url('Sticker/Orange.png');
-	background-size: 100px 100px;}
-div .cubie-face.face-f.cubie-sticker.sticker-f_2_5{background: url('Sticker/Green.png');
-	background-size: 100px 100px;}
-div .cubie-face.face-b.cubie-sticker.sticker-b_4_5{background: url('Sticker/Blue.png');
-	background-size: 100px 100px;}
-div .cubie-face.face-u.cubie-sticker.sticker-u_1_5{background: url('Sticker/White.png');
-	background-size: 100px 100px;}
-div .cubie-face.face-d.cubie-sticker.sticker-d_6_5{background: url('Sticker/Yellow.png');
+div .cubie-face.face-r.cubie-sticker.sticker-r_5_5 {
+	background: url('Sticker/Red.png');
 	background-size: 100px 100px;
+}
+
+div .cubie-face.face-l.cubie-sticker.sticker-l_3_5 {
+	background: url('Sticker/Orange.png');
+	background-size: 100px 100px;
+}
+
+div .cubie-face.face-f.cubie-sticker.sticker-f_2_5 {
+	background: url('Sticker/Green.png');
+	background-size: 100px 100px;
+}
+
+div .cubie-face.face-b.cubie-sticker.sticker-b_4_5 {
+	background: url('Sticker/Blue.png');
+	background-size: 100px 100px;
+}
+
+div .cubie-face.face-u.cubie-sticker.sticker-u_1_5 {
+	background: url('Sticker/White.png');
+	background-size: 100px 100px;
+}
+
+div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
+	background: url('Sticker/Yellow.png');
+	background-size: 100px 100px;
+}
+
+.scene {
+	transform: scale(.6);
+}
+
+/*========================= header =============================*/
+#header {
+	top: 0;
+	width: 100vw;
+	min-height: 30px;
+	height: 75px;
+	background-color: #fff;
+	z-index: 100;
+}
+
+#menu {
+	margin: auto;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+	height: -webkit-fill-available;
+}
+
+@media (max-width:385px) {
+	.ribbon-h82k1j9 {
+		transform: scale(.8)translate(22px, -13px);
+		z-index: 200;
+	}
+}
+
+.ribbon-h82k1j9 {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 130px;
+	height: 74px;
+	text-align: left;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.git-link {
+	position: absolute;
+	transform: rotate(30deg);
+	width: 250px;
+	height: 80px;
+	right: -100px;
+	top: -33px;
+	cursor: pointer;
+	z-index: 2000;
+	pointer-events: auto;
+}
+
+.git-link-border {
+	box-sizing: content-box;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 34px;
+	background: darkred;
+	box-shadow: 0 1px 8px black;
+}
+
+.git-link-inner {
+	box-sizing: content-box;
+	position: absolute;
+	border: 1px dotted orange;
+	width: 100%;
+	height: 28px;
+	bottom: 2px;
+	line-height: 29px;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: normal;
+	font-size: 13px;
+	color: white;
+}
+
+
+
+/*========================= grid =============================*/
+.grid-layout {
+	margin: 0 10px;
+}
+
+#rotation-button-group {
+	margin: 15px 0 0 0;
+}
+
+.btn {
+	margin: 2px;
+}
+
+/*=============================================================*/
+/*===============tablet layout (small - large)=================*/
+/*=============================================================*/
+@media (min-width: 576px) {
+	.scene {
+		margin: 200px auto 280px auto;
+		transform: scale(.8);
+	}
+
+	.grid-layout {
+		margin: 0 30px;
+	}
+
+}
+
+/*=============================================================*/
+/*==================desktop layout (> large)===================*/
+/*=============================================================*/
+@media (min-width: 992px) {
+	.scene {
+		margin: 230px auto 320px auto;
+		transform: scale(1);
+	}
+
 }
