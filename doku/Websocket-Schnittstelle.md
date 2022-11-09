@@ -7,8 +7,7 @@ Pfad: /manual/{clientname}
 
 Kann die gleichen Movements wie die Manuellsen Moves beim Teach-Panel
 
-RoboterArm bewegen (Lineare Moves):
-
+### RoboterArm bewegen (Lineare Moves):
 Positive X-Achse:   
 {"moveType": "ROBO_ARM", "moveDirection": "X_PLUS"}      
 Negative X-Achse:     
@@ -22,7 +21,7 @@ Positive Z-Achse:
 Negative Z-Achse:    
 {"moveType": "ROBO_ARM", "moveDirection": "Z_MINUS"}
 
-TCP Orientation  
+### TCP Orientation  
 Positive X-Achse:   
 {"moveType": "ROBO_TOOL", "moveDirection": "X_PLUS"}  
 Negative X-Achse:  
@@ -37,11 +36,18 @@ Negative Z-Achse:
 {"moveType": "ROBO_TOOL", "moveDirection": "Z_MINUS"}  
 
 
-Gripper Bewegen  
-Gripper Öffnen    
+### Gripper Bewegen  
+Gripper Öffnen:    
 {"moveType": "GRIPPER", "moveDirection": "OPEN"}   
-Gripper Schließen    
+Gripper Schließen:    
 {"moveType": "GRIPPER", "moveDirection": "CLOSE"}
+
+## TODO:
+
+* Gripper aktivieren
+* Roboter aktivieren
+* Roboter stoppen
+* (Fehlermeldungen entfernen / ignorieren)
 
  
 
