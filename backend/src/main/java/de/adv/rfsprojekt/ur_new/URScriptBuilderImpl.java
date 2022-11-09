@@ -1,5 +1,6 @@
 package de.adv.rfsprojekt.ur_new;
 
+import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur_new.entities.Pose;
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
 
@@ -38,7 +39,7 @@ public class URScriptBuilderImpl implements URScriptBuilder {
     }
 
     public URScriptBuilder speedL(Pose toolspeeds) {
-        sbScript.append(SPEED_L(toolspeeds.toStringArray(), 1, 0.1));
+        sbScript.append(SPEED_L(toolspeeds.toStringArray(), 1, Config.getMoveTime()));
         return this;
     }
 
