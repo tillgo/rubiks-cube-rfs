@@ -54,7 +54,7 @@ public class Analyzer {
         var brightR = ranges.brightness();
         var satR = ranges.saturation();
 
-        return hue <= hueR.min() && hue > hueR.max() && sat <= satR.min() && sat > satR.max() && bright <= brightR.min() && bright > brightR.max();
+        return hue >= hueR.min() && hue < hueR.max() && sat >= satR.min() && sat < satR.max() && bright >= brightR.min() && bright < brightR.max();
     }
 
 }
