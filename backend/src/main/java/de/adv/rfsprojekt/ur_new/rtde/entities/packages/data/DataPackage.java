@@ -5,26 +5,27 @@ import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DataPackage extends Package {
 
+    private int reciepeID;
     private Map<DataType, Object> payload;
 
-    public DataPackage(PackageType packageType, Map<DataType, Object> payload) {
+    public DataPackage(int reciepeID, PackageType packageType, Map<DataType, Object> payload) {
         super(packageType);
         this.payload = payload;
+        this.reciepeID = reciepeID;
     }
 
     public static Package unpack(ByteBuffer buffer, DataConfig config) {
         Map<DataType, Object> variables = new HashMap<>();
-
-        List<VariableType> variableTypes = new ArrayList<>();
-        List<DataType> dataTypes = new ArrayList<>();
-        for (int i = 0; i <= variableTypes.size(); i++) {
+        List<VariableType> variableTypes = config.getVariableTypes();
+        List<DataType> dataTypes = config.getDataTypes();
+        int id = buffer.get();
+        for (int i = 0; i < variableTypes.size(); i++) {
 
             VariableType variableType = variableTypes.get(i);
             DataType dataType = dataTypes.get(i);
@@ -61,7 +62,7 @@ public class DataPackage extends Package {
 
             }
         }
-        return new DataPackage(PackageType.RTDE_DATA_PACKAGE, variables);
+        return new DataPackage(id, PackageType.RTDE_DATA_PACKAGE, variables);
     }
 
 

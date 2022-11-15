@@ -8,6 +8,7 @@ import de.adv.rfsprojekt.ur_new.rtde.entities.exceptions.URRuntimeException;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.BooleanPackage;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
+import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.ConfigPackage;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataConfig;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataType;
@@ -77,7 +78,9 @@ public class RTDE {
         buffer.put(variableString.getBytes(StandardCharsets.UTF_8));
 
         //ToDo Packages über Generics lösen
-        return (DataConfig) sendAndReceive(PackageType.RTDE_CONTROL_PACKAGE_SETUP_OUTPUTS, cutOffByteBufferToCorrectSize(buffer));
+        ConfigPackage configPackage = (ConfigPackage) sendAndReceive(PackageType.RTDE_CONTROL_PACKAGE_SETUP_OUTPUTS, cutOffByteBufferToCorrectSize(buffer));
+        outputConfig = new DataConfig(configPackage.getPayload(), variables);
+        return outputConfig;
     }
 
     public DataConfig send_output_setup(List<DataType> variables) throws Exception {
@@ -85,7 +88,9 @@ public class RTDE {
     }
 
     public boolean sendStart() throws Exception {
-        return ((BooleanPackage) sendAndReceive(PackageType.RTDE_CONTROL_PACKAGE_START, ByteBuffer.allocate(0))).getPayload();
+        boolean success = ((BooleanPackage) sendAndReceive(PackageType.RTDE_CONTROL_PACKAGE_START, ByteBuffer.allocate(0))).getPayload();
+        if (success) connectionState = ConnectionState.STARTED;
+        return success;
     }
 
     public boolean negotiateProtocolVersion() throws Exception {
@@ -93,6 +98,12 @@ public class RTDE {
         byteBuffer.putShort(RTDE_PROTOCOL_VERSION_2);
         return ((BooleanPackage) sendAndReceive(PackageType.RTDE_REQUEST_PROTOCOL_VERSION, cutOffByteBufferToCorrectSize(byteBuffer))).getPayload();
 
+    }
+
+    public Package reveive(PackageType packageType) throws Exception {
+        if (outputConfig == null) throw new URException("No Output-Variables setup");
+        if (!connectionState.equals(ConnectionState.STARTED)) throw new URException("RTDE Synchronization inactive");
+        return recvSpecificPackage(packageType);
     }
 
     /**
@@ -108,11 +119,30 @@ public class RTDE {
                 PacketHeader ph = PacketHeader.fromByteBuffer(buffer, false);
                 if (ph.packageType().getValue() == packageType.getValue()) {
                     return onPackage(packageType, buffer);
+
                 }
             }
+
         }
         throw new URPackageNotFoundException();
     }
+
+    /*private DataPackage getNewestDataPackage() throws Exception {
+        DataPackage dataPackage = null;
+        while (isConnected()){
+            recvToBuffer();
+            while (buffer.remaining()>=3){
+                PacketHeader ph = PacketHeader.fromByteBuffer(buffer, false);
+                if(ph.packageType().getValue() == PackageType.RTDE_DATA_PACKAGE.getValue()){
+                    dataPackage = (DataPackage) onPackage(PackageType.RTDE_DATA_PACKAGE, buffer);
+                }else {
+
+                }
+            }
+        }
+    }
+
+     */
 
     private void recvToBuffer() throws Exception {
         byte[] input = new byte[4096];
@@ -159,7 +189,7 @@ public class RTDE {
                 return DataPackage.unpack(payload, outputConfig);
             }
             case RTDE_CONTROL_PACKAGE_SETUP_OUTPUTS -> {
-                return DataConfig.unpack(payload);
+                return ConfigPackage.unpack(payload);
             }
             case RTDE_CONTROL_PACKAGE_SETUP_INPUTS -> {
             }
