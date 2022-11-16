@@ -9,38 +9,38 @@ Kann die gleichen Movements wie die Manuellsen Moves beim Teach-Panel
 
 ### RoboterArm bewegen (Lineare Moves):
 Positive X-Achse:   
-{"moveType": "ROBO_ARM", "moveDirection": "X_PLUS"}      
+{"moveType": "ROBO_ARM", "command": "X_PLUS"}      
 Negative X-Achse:     
-{"moveType": "ROBO_ARM", "moveDirection": "X_MINUS"}   
+{"moveType": "ROBO_ARM", "command": "X_MINUS"}   
 Positive Y-Achse:      
-{"moveType": "ROBO_ARM", "moveDirection": "Y_PLUS"}      
+{"moveType": "ROBO_ARM", "command": "Y_PLUS"}      
 Negative Y-Achse:  
-{"moveType": "ROBO_ARM", "moveDirection": "Y_MINUS"}    
+{"moveType": "ROBO_ARM", "command": "Y_MINUS"}    
 Positive Z-Achse:   
-{"moveType": "ROBO_ARM", "moveDirection": "Z_PLUS"}     
+{"moveType": "ROBO_ARM", "command": "Z_PLUS"}     
 Negative Z-Achse:    
-{"moveType": "ROBO_ARM", "moveDirection": "Z_MINUS"}
+{"moveType": "ROBO_ARM", "command": "Z_MINUS"}
 
 ### TCP Orientation  
 Positive X-Achse:   
-{"moveType": "ROBO_TOOL", "moveDirection": "X_PLUS"}  
+{"moveType": "ROBO_TOOL", "command": "X_PLUS"}  
 Negative X-Achse:  
-{"moveType": "ROBO_TOOL", "moveDirection": "X_MINUS"}  
+{"moveType": "ROBO_TOOL", "command": "X_MINUS"}  
 Positive Y-Achse:   
-{"moveType": "ROBO_TOOL", "moveDirection": "Y_PLUS"}    
+{"moveType": "ROBO_TOOL", "command": "Y_PLUS"}    
 Negative Y-Achse:  
-{"moveType": "ROBO_TOOL", "moveDirection": "Y_MINUS"}  
+{"moveType": "ROBO_TOOL", "command": "Y_MINUS"}  
 Positive Z-Achse:     
-{"moveType": "ROBO_TOOL", "moveDirection": "Z_PLUS"}     
+{"moveType": "ROBO_TOOL", "command": "Z_PLUS"}     
 Negative Z-Achse:  
-{"moveType": "ROBO_TOOL", "moveDirection": "Z_MINUS"}  
+{"moveType": "ROBO_TOOL", "command": "Z_MINUS"}  
 
 
 ### Gripper Bewegen  
 Gripper Öffnen:    
-{"moveType": "GRIPPER", "moveDirection": "OPEN"}   
+{"moveType": "GRIPPER", "command": "OPEN"}   
 Gripper Schließen:    
-{"moveType": "GRIPPER", "moveDirection": "CLOSE"}
+{"moveType": "GRIPPER", "command": "CLOSE"}
 
 ## TODO:
 
