@@ -18,7 +18,7 @@ public class ManualMovementController {
      * Je nach Befehlstyp wird anderer Objekttyp aus JSON erzeugt
      * ToDo Error-Message zurückgeben, falls Gson Error wirft
      **/
-    public void executeMove(String roboMoveMessage) throws IOException {
+    public void executeMove(String roboMoveMessage) throws IOException, InterruptedException {
         Gson gson = new Gson();
         RoboMove roboMove = gson.fromJson(roboMoveMessage, RoboMove.class);
         MoveType moveType = roboMove.getMoveType();
@@ -40,10 +40,15 @@ public class ManualMovementController {
         ur.buildScript().speedL(roboToolMove.getCommand().getPose()).execute();
     }
 
-    private void executeGripperMove(GripperCommand gripperCommand) throws IOException {
+    private void executeGripperMove(GripperCommand gripperCommand) throws IOException, InterruptedException {
+        System.out.println("Test");
         switch (gripperCommand.getCommand()) {
             case OPEN -> ur.commandGripper().open();
             case CLOSE -> ur.commandGripper().close();
+            case ACTIVATE -> {
+                System.out.println("test");
+                ur.commandGripper().activate();
+            }
         }
     }
 

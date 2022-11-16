@@ -46,7 +46,7 @@ public class ManualMovementSocket {
     public void onMessage(String message, @PathParam("clientname") String clientname) {
         try {
             mmC.executeMove(message);
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
         }
 

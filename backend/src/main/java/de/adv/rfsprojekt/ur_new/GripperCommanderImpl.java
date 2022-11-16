@@ -22,6 +22,7 @@ public class GripperCommanderImpl implements GripperCommander {
     @Override
     public void activate() throws IOException, InterruptedException {
         urScriptBuilder.customScript(ACTIVATE()).execute();
+        System.out.println("Test");
         Thread.sleep(5000); //Muss wohl so siehe: https://sdurobotics.gitlab.io/ur_rtde/_static/robotiq_gripper_control.py
     }
 

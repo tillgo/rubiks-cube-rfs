@@ -17,6 +17,14 @@ const GripperControlPanel = (props: GripperControlPanelProps) => {
     return (
         <Box display={"flex"}>
             <Button
+                onClick={() => handleClick("ACTIVATE")}
+                variant={"outlined"}
+                color={"secondary"}
+                sx={{mr: 2}}
+            >
+                ACTIVATE GRIPPER
+            </Button>
+            <Button
                 onClick={() => handleClick("OPEN")}
                 variant={"outlined"}
                 color={"secondary"}
