@@ -11,10 +11,9 @@ body {
 	background: lightgrey;
 	overflow: scroll;
 }
-.text-invert{
-	/* mix-blend-mode: color;*/
+#sticker_color{ /* Input field*/
+	max-width: 200px;
 }
-
 .scene {
 	margin: 150px auto 220px auto;
 	width: 100px;

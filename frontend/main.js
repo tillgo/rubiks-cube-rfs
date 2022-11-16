@@ -341,3 +341,8 @@ var nextMove = function() {
 
 // start the first move
 //nextMove();
+
+//Tooltip Bootstrap
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip();
+  })
