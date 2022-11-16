@@ -3,11 +3,20 @@ let colors ="";
 let arrayOfChar;
 
 btn_Color.addEventListener('click', function onClick() {
+    init_Sticker();
+});
+
+function clickPress(event) {
+    if (event.key == "Enter") {
+        init_Sticker();
+    }
+}
+function init_Sticker(){
     colors = document.getElementById("sticker_color").value;
     colors = colors.toUpperCase();
     arrayOfChar = Array.from(String (colors));
     sticker();
-});
+}
 
 function sticker() {
             //----------------------------------------------

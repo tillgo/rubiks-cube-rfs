@@ -14,7 +14,7 @@
 		<script src="useragent-message.js"></script>-->
 </head>
 
-<body>
+<body class="scrollbar-primary">
 	<!-- github ribbon -->
 	<div class="ribbon-h82k1j9">
 		<a href="https://github.com/Crayee/rubiks-cube-rfs/" class="git-link">
@@ -372,9 +372,9 @@
 				</select>
 			</form>-->
 		<div id="input-form">
-			<input type="text" id="sticker_color" value="">
+			<input type="text" id="sticker_color" onkeypress="clickPress(event)" placeholder="Farbkürzel der 8 Flächen" value="">
 			<button id="btn_Color" class="btn btn-primary">Fertig</button>
-			<button id="btn_rot_face">Face_rotate</button>
+			<button id="btn_rot_face" class="btn btn-primary"><span id="text-invert">Face_rotate</span></button>
 		</div>
 
 		<div id="rotation-button-group" role="group" class="btn-toolbar" aria-label="Buttons zur Würfeldrehung">
