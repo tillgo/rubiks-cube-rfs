@@ -9,7 +9,10 @@ html, body {
 
 body {
 	background: lightgrey;
-	overflow: hidden;
+	overflow: scroll;
+}
+.text-invert{
+	/* mix-blend-mode: color;*/
 }
 
 .scene {
@@ -409,7 +412,7 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 #btn_rot_face {
 	/*background-color: #e3e762; /* Green */
 	border: none;
-	color: #050505;
+	color: #fff;
 	padding: 15px 32px;
 	text-align: center;
 	text-decoration: none;

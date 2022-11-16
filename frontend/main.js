@@ -96,6 +96,9 @@ function updateCubie() {
 	}
 }
 //-----------------------------------------------------------------
+function setButtontextColor(color){ 
+	document.getElementById("text-invert").style.color = color;
+}
 
 
 const btn_wg = document.getElementById('btn_WG');
@@ -107,6 +110,7 @@ btn_wg.addEventListener('click', function onClick() {
 	document.getElementById("btn_BY").disabled = true;
 	document.getElementById("btn_RY").disabled = true;
 	document.getElementById("btn_YO").disabled = true;
+	setButtontextColor("black");
 
 merker_rot_face = 0;
 step = 1;
@@ -139,6 +143,7 @@ btn_gy.addEventListener('click', function onClick() {
 	document.getElementById("btn_BY").disabled = true;
 	document.getElementById("btn_RY").disabled = true;
 	document.getElementById("btn_YO").disabled = true;
+	setButtontextColor("white");
 merker_rot_face = 0;
 step = 1;
 rot_side = 'f';
@@ -168,6 +173,7 @@ btn_oy.addEventListener('click', function onClick() {
 	document.getElementById("btn_BY").disabled = true;
 	document.getElementById("btn_RY").disabled = true;
 	document.getElementById("btn_YO").disabled = true;
+	setButtontextColor("black");
 merker_rot_face = 0;
 step = 2;
 rot_side = 'l';
@@ -198,6 +204,7 @@ btn_by.addEventListener('click', function onClick() {
 	document.getElementById("btn_OY").disabled = true;
 	document.getElementById("btn_RY").disabled = true;
 	document.getElementById("btn_YO").disabled = true;
+	setButtontextColor("white");
 
 merker_rot_face = 0;
 step = 1;
@@ -228,6 +235,7 @@ btn_ry.addEventListener('click', function onClick() {
 	document.getElementById("btn_OY").disabled = true;
 	document.getElementById("btn_BY").disabled = true;
 	document.getElementById("btn_YO").disabled = true;
+	setButtontextColor("black");
 merker_rot_face = 0;
 step = 2;
 rot_side = 'r';
@@ -257,6 +265,7 @@ btn_yo.addEventListener('click', function onClick() {
 	document.getElementById("btn_OY").disabled = true;
 	document.getElementById("btn_BY").disabled = true;
 	document.getElementById("btn_RY").disabled = true;
+	setButtontextColor("black");
 merker_rot_face = 0;
 step = 2;
 rot_side = 'd';
