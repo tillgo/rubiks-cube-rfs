@@ -1,5 +1,5 @@
 package de.adv.rfsprojekt.util;
 
-public enum Color {
+public enum CubeColor {
     YELLOW, GREEN, RED, ORANGE, WHITE, BLUE
 }

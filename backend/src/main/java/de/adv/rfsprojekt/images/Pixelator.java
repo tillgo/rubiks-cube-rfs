@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 
 public class Pixelator {
 
-    private static final int PIX_SIZE = 37;
+    private static final int PIX_SIZE = 8;
 
     /**
      * Quelle: <a href="https://stackoverflow.com/questions/15777821/how-can-i-pixelate-a-jpg-with-java">...</a>
      */
     public static BufferedImage pixelate(BufferedImage imageToPixelate) {
 
-        BufferedImage pixelateImage = new BufferedImage(108, 80,
+        BufferedImage pixelateImage = new BufferedImage(80, 60,
                 imageToPixelate.getType());
         int x = 0;
         int y = 0;
