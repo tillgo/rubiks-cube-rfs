@@ -1,6 +1,6 @@
 import {
     MoveType,
-    RobotMove,
+    RobotCommand,
     RobotMoveDirection,
     RobotCommandType,
 } from '../../commons/types'
@@ -12,7 +12,7 @@ import { useState } from 'react'
 import sleep from '../../commons/sleep'
 
 type ControlButtonProps = {
-    moveType: RobotMove
+    commandType: RobotCommand
     direction: RobotMoveDirection
     sendMessage: SendMessage
 }
@@ -27,7 +27,7 @@ const ControlButton = (props: ControlButtonProps) => {
         while (buttonHold) {
             sendMessage(
                 JSON.stringify({
-                    moveType: props.moveType,
+                    commandType: props.commandType,
                     command: props.direction,
                 })
             )

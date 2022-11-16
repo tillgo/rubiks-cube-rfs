@@ -1,11 +1,11 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
-public class RoboToolMove extends RoboMove {
+public class RoboToolCommand extends RoboComand {
 
     private final RoboToolCommandType command;
 
-    public RoboToolMove(MoveType moveType, RoboToolCommandType command) {
-        super(moveType);
+    public RoboToolCommand(CommandType commandType, RoboToolCommandType command) {
+        super(commandType);
         this.command = command;
     }
 

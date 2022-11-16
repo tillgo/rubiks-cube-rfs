@@ -11,7 +11,7 @@ const GripperControlPanel = (props: GripperControlPanelProps) => {
     const {sendMessage} = props;
 
     const handleClick = (type: GripperCommandType) => {
-        sendMessage(JSON.stringify({moveType: "GRIPPER", command: type}))
+        sendMessage(JSON.stringify({commandType: "GRIPPER", command: type}))
     }
 
     return (
