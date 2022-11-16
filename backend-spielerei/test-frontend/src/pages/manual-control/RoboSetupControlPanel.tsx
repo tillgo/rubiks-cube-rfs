@@ -27,7 +27,6 @@ const RoboSetupControlPanel = (props: RoboSetupControlPanelProps) => {
                 onClick={() => handleClick("OFF")}
                 variant={"outlined"}
                 color={"error"}
-                sx={{mr: 2}}
             >
                 ROBO OFF
             </Button>
