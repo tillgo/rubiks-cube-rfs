@@ -405,6 +405,24 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 	color: white;
 }
 
+/*-------------------------------------------------------------*/
+#btn_rot_face {
+	/*background-color: #e3e762; /* Green */
+	border: none;
+	color: #050505;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 4px 2px;
+	cursor: pointer;
+	position: absolute;
+	top: 400px;
+	left: 50px;
+	background-color: "white";
+  }
+
 
 
 /*========================= grid =============================*/

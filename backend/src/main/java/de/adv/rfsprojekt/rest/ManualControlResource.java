@@ -1,8 +1,7 @@
 package de.adv.rfsprojekt.rest;
 
-import de.adv.rfsprojekt.ur.UR;
-import de.adv.rfsprojekt.ur.utils.Pose;
-import de.adv.rfsprojekt.ur.utils.Vec3;
+import de.adv.rfsprojekt.ur_new.UR;
+import de.adv.rfsprojekt.ur_new.entities.Pose;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
@@ -15,22 +14,21 @@ public class ManualControlResource {
     UR ur;
 
     @POST
-    @Path("forward")
-    public void moveForward() throws Exception {
+    @Path("positivex")
+    public void movePositiveX() throws Exception {
+        //1cm in positive X-Richtung
+        Pose forwardPos = new Pose(0.01, 0, 0, 0, 0, 0);
 
+        ur.buildScript()
+                .moveRelativeToTCP(forwardPos)
+                .execute();
+    }
 
-        for(int i = 0; i<10000000; i++){
-            ur.connect();
-            var currPose = ur.getPose();
-            var addPose = new Pose();
-            addPose.setPosition(new Vec3(0.01,0,0));
-            currPose.add(addPose);
-            ur.movel(currPose, 1f, 0.2f, 0 ,0 );
-            ur.waitFor(currPose, 0.01);
-            ur.disconnect();
-        }
-
-
+    @POST
+    @Path("negativex")
+    public void moveNegativeX() throws Exception {
+        //1cm in negative X-Richtung
+        Pose backwardPos = new Pose(0.01, 0,0,0 ,0,0);
     }
 
 

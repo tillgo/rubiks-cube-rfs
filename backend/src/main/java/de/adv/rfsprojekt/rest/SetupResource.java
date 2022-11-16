@@ -1,6 +1,8 @@
 package de.adv.rfsprojekt.rest;
 
-import de.adv.rfsprojekt.ur.UR;
+
+
+import de.adv.rfsprojekt.ur_new.UR;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
@@ -15,7 +17,6 @@ public class SetupResource {
     @POST
     @Path("startup")
     public void startup() throws Exception {
-        ur.connect();
         ur.powerOn();
         Thread.sleep(1000);
 
@@ -24,7 +25,6 @@ public class SetupResource {
     @POST
     @Path("shutdown")
     public void shutdown() throws Exception {
-        ur.disconnect();
         ur.powerOff();
     }
 }
