@@ -9,7 +9,7 @@ import static de.adv.rfsprojekt.system.Config.getMoveSpeedArm;
  * Direction contains a Pose-Object with the speed
  * it schould move in the corresponding direction
  */
-public enum RoboArmMoveDirection {
+public enum RoboArmCommandType {
     /* ToDo Toolspeed aus Env-Variablen nutzen  */
     X_MINUS(new Pose(getMoveSpeedArm(), 0, 0, 0, 0, 0)),
     X_PLUS(new Pose(-getMoveSpeedArm(), 0, 0, 0, 0, 0)),
@@ -20,7 +20,7 @@ public enum RoboArmMoveDirection {
 
     private final Pose pose;
 
-    RoboArmMoveDirection(Pose pose) {
+    RoboArmCommandType(Pose pose) {
         this.pose = pose;
     }
 

@@ -2,7 +2,7 @@ import {
     MoveType,
     RobotMove,
     RobotMoveDirection,
-    RobotMoveType,
+    RobotCommandType,
 } from '../../commons/types'
 import { Button, IconButton } from '@mui/material'
 import { controlPanelConfig } from './controlPanelConfig'
@@ -28,7 +28,7 @@ const ControlButton = (props: ControlButtonProps) => {
             sendMessage(
                 JSON.stringify({
                     moveType: props.moveType,
-                    moveDirection: props.direction,
+                    command: props.direction,
                 })
             )
             await sleep(30)

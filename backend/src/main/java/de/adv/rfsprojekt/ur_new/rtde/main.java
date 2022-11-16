@@ -7,7 +7,7 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) throws Exception {
-        RTDE rtde = new RTDE("192.168.2.108");
+        RTDE rtde = new RTDE("192.168.2.40");
         rtde.connect();
         System.out.println(rtde.negotiateProtocolVersion());
         List<DataType> outputVariables = new ArrayList<>();
