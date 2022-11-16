@@ -1,26 +1,23 @@
 package de.adv.rfsprojekt.ur_new.rtde.entities;
 
+import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
+
 import java.nio.ByteBuffer;
 
-public class PacketHeader {
+public record PacketHeader(int packetSize, PackageType packageType) {
 
-    private final int packetSize;
-    private final int packetTyp;
-
-    public PacketHeader(int packetSize, int packetTyp) {
-        this.packetSize = packetSize;
-        this.packetTyp = packetTyp;
+    /**
+     * @param buffer          Buffer to get PackageHeader from
+     * @param resetByteBuffer set Marker of PacketHeader back to beginning of extracted PackageHeader
+     * @return PackageHeader
+     */
+    public static PacketHeader fromByteBuffer(ByteBuffer buffer, boolean resetByteBuffer) {
+        PacketHeader ph = new PacketHeader(buffer.getShort(), PackageType.valueOfLabel(buffer.get()));
+        if (resetByteBuffer) {
+            buffer.position(buffer.position() - 3);
+        }
+        return ph;
     }
 
-    public static PacketHeader fromByteBuffer(ByteBuffer buffer) {
-        return new PacketHeader(buffer.getShort(), buffer.get());
-    }
 
-    public int getPacketSize() {
-        return packetSize;
-    }
-
-    public int getPacketTyp() {
-        return packetTyp;
-    }
 }

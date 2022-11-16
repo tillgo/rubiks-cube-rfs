@@ -26,22 +26,22 @@ public class ManualMovementController {
         switch (moveType) {
             case ROBO_ARM -> executeRoboArmMove(gson.fromJson(roboMoveMessage, RoboArmMove.class));
             case ROBO_TOOL -> executeRoboToolMove(gson.fromJson(roboMoveMessage, RoboToolMove.class));
-            case GRIPPER -> executeGripperMove(gson.fromJson(roboMoveMessage, GripperMove.class));
+            case GRIPPER -> executeGripperMove(gson.fromJson(roboMoveMessage, GripperCommand.class));
 
         }
     }
 
 
     private void executeRoboArmMove(RoboArmMove roboArmMove) throws IOException {
-        ur.buildScript().speedL(roboArmMove.getMoveDirection().getPose()).execute();
+        ur.buildScript().speedL(roboArmMove.getCommand().getPose()).execute();
     }
 
     private void executeRoboToolMove(RoboToolMove roboToolMove) throws IOException {
-        ur.buildScript().speedL(roboToolMove.getMoveDirection().getPose()).execute();
+        ur.buildScript().speedL(roboToolMove.getCommand().getPose()).execute();
     }
 
-    private void executeGripperMove(GripperMove gripperMove) throws IOException {
-        switch (gripperMove.getMoveDirection()) {
+    private void executeGripperMove(GripperCommand gripperCommand) throws IOException {
+        switch (gripperCommand.getCommand()) {
             case OPEN -> ur.commandGripper().open();
             case CLOSE -> ur.commandGripper().close();
         }
