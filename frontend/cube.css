@@ -11,7 +11,7 @@ body {
 	background: lightgrey;
 	overflow: scroll;
 }
-#sticker_color{ /* Input field*/
+#manuelle_farbeingabe{ /* Input field*/
 	max-width: 200px;
 }
 .scene {
