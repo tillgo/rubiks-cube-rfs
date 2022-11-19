@@ -6,6 +6,7 @@ import de.adv.rfsprojekt.ur_new.rtde.entities.exceptions.URException;
 import de.adv.rfsprojekt.ur_new.rtde.entities.exceptions.URPackageNotFoundException;
 import de.adv.rfsprojekt.ur_new.rtde.entities.exceptions.URRuntimeException;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.BooleanPackage;
+import de.adv.rfsprojekt.ur_new.rtde.entities.packages.MessagePacket;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.ConfigPackage;
@@ -106,25 +107,52 @@ public class RTDE {
         return recvSpecificPackage(packageType);
     }
 
+    public Package[] reveiveMultiplePackages(PackageType[] packageType) throws Exception {
+        if (outputConfig == null) throw new URException("No Output-Variables setup");
+        if (!connectionState.equals(ConnectionState.STARTED)) throw new URException("RTDE Synchronization inactive");
+        return recvMultiplePackagTypes(packageType);
+    }
+
+
     /**
-     * Return First Package in Buffer with given PackageType
+     * Return newest Package in Buffer with given PackageType
      *
      * @param packageType
      * @throws Exception
      */
     private Package recvSpecificPackage(PackageType packageType) throws Exception {
+        Package pack = null;
         while (isConnected()) {
             recvToBuffer();
             while (buffer.remaining() >= 3) {
                 PacketHeader ph = PacketHeader.fromByteBuffer(buffer, false);
+                pack = onPackage(packageType, buffer);
                 if (ph.packageType().getValue() == packageType.getValue()) {
-                    return onPackage(packageType, buffer);
-
+                    return pack;
                 }
+
             }
 
         }
         throw new URPackageNotFoundException();
+    }
+
+    private Package[] recvMultiplePackagTypes(PackageType[] packageTypes) throws Exception {
+        Package[] packages = new Package[packageTypes.length];
+        while (isConnected()) {
+            recvToBuffer();
+            while (buffer.remaining() >= 3) {
+                PacketHeader ph = PacketHeader.fromByteBuffer(buffer, false);
+                Package tmpPack = onPackage(ph.packageType(), buffer);
+                int packageTypeIndex = Arrays.asList(packageTypes).indexOf(ph.packageType());
+                if (packageTypeIndex != -1) {
+                    packages[packageTypeIndex] = tmpPack;
+                }
+
+            }
+            return packages;
+        }
+        throw new URException("Not Connected");
     }
 
     /*private DataPackage getNewestDataPackage() throws Exception {
@@ -177,13 +205,13 @@ public class RTDE {
 
     private Package onPackage(PackageType packageType, ByteBuffer payload) throws URException {
         switch (packageType) {
-
             case RTDE_REQUEST_PROTOCOL_VERSION -> {
                 return BooleanPackage.unpack(payload);
             }
             case RTDE_GET_URCONTROL_VERSION -> {
             }
             case RTDE_TEXT_MESSAGE -> {
+                return MessagePacket.unpack(payload);
             }
             case RTDE_DATA_PACKAGE -> {
                 return DataPackage.unpack(payload, outputConfig);

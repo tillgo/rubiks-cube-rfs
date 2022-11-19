@@ -3,6 +3,9 @@ package de.adv.rfsprojekt.ur_new.rtde.entities.packages.data;
 import de.adv.rfsprojekt.ur_new.rtde.entities.exceptions.URRuntimeException;
 
 public enum VariableType {
+    BOOL("BOOL"),
+    UNINT8("UINT8"),
+    UINT32("UINT32"),
     UINT64("UINT64"),
     INT32("INT32"),
     DOUBLE("DOUBLE"),
