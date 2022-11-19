@@ -24,10 +24,17 @@ var layers = {
 	b: {corners: [2, 3, 7, 6], edges: [3, 11, 7, 10]},
 	d: {corners: [4, 6, 7, 5], edges: [4, 6, 7, 5]}
 };
-let merker = 0;
+let merker_rot_face = 0;
 var step;
-let rot_side;
 var prevSide = '';
+let rotation_X;
+let rotation_Y;
+let rotation_Z;
+let rot_side = 'u';
+var turn = 1;
+let merker_face="w";
+let face_delay=100;
+let rot_delay=80;
 
 /** Adds classes to cubies to start animation. */
 function move(turn) { // turn examples: 'r1', 'd2', 'u3'
@@ -89,47 +96,79 @@ function updateCubie() {
 	}
 }
 //-----------------------------------------------------------------
-//let id = document.getElementById('u_1_9');
+
 
 const btn_wg = document.getElementById('btn_WG');
 
 btn_wg.addEventListener('click', function onClick() {
-merker = 1;
-step = 2;
+	document.getElementById("btn_rot_face").style.background = "white"
+	document.getElementById("btn_GY").disabled = true;
+	document.getElementById("btn_OY").disabled = true;
+	document.getElementById("btn_BY").disabled = true;
+	document.getElementById("btn_RY").disabled = true;
+	document.getElementById("btn_YO").disabled = true;
+
+merker_rot_face = 0;
+step = 1;
 rot_side = 'u';
 prevSide = '';
 //nextMove();
- let rotation_X = 0-20;
- let rotation_Y = 0-30;
- let rotation_Z = 0-0;
+ rotation_X = 0-20;
+ rotation_Y = 0-30;
+ rotation_Z = 0-0;
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
-const myTimeout = setTimeout(nextMove, 2500);
+const myTimeout = setTimeout(nextMove, rot_delay);
+setTimeout(() => { document.getElementById("btn_GY").disabled = false; 
+				   document.getElementById("btn_OY").disabled = false;
+				   document.getElementById("btn_BY").disabled = false;
+				   document.getElementById("btn_RY").disabled = false;
+				   document.getElementById("btn_YO").disabled = false;
+				}, face_delay);
+	
 });
 
 //------------------------------------------------------------------
 const btn_gy = document.getElementById('btn_GY');
 
 btn_gy.addEventListener('click', function onClick() {
-merker = 1;
-step = 2;
+	document.getElementById("btn_rot_face").style.background = "green"
+	document.getElementById("btn_WG").disabled = true;
+	document.getElementById("btn_OY").disabled = true;
+	document.getElementById("btn_BY").disabled = true;
+	document.getElementById("btn_RY").disabled = true;
+	document.getElementById("btn_YO").disabled = true;
+merker_rot_face = 0;
+step = 1;
 rot_side = 'f';
 prevSide = '';
- let rotation_X = 90-20;
- let rotation_Y = 0-0;
- let rotation_Z = 30-0;
- var turn = 1;
- const $ = document.querySelector.bind(document);
+rotation_X = 90-20;
+rotation_Y = 0-0;
+rotation_Z = 30-0;
+var turn = 1;
+const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
-const myTimeout = setTimeout(nextMove, 2500);
+const myTimeout = setTimeout(nextMove, rot_delay);
+setTimeout(() => { document.getElementById("btn_WG").disabled = false; 
+				   document.getElementById("btn_OY").disabled = false;
+				   document.getElementById("btn_BY").disabled = false;
+				   document.getElementById("btn_RY").disabled = false;
+				   document.getElementById("btn_YO").disabled = false;
+				}, face_delay);
 });
 
 //------------------------------------------------------------------
 const btn_oy = document.getElementById('btn_OY');
 
 btn_oy.addEventListener('click', function onClick() {
-merker = 1;
+	document.getElementById("btn_rot_face").style.background = "orange"
+	document.getElementById("btn_WG").disabled = true;
+	document.getElementById("btn_GY").disabled = true;
+	document.getElementById("btn_BY").disabled = true;
+	document.getElementById("btn_RY").disabled = true;
+	document.getElementById("btn_YO").disabled = true;
+merker_rot_face = 0;
 step = 2;
 rot_side = 'l';
 prevSide = '';
@@ -139,15 +178,29 @@ prevSide = '';
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
-const myTimeout = setTimeout(nextMove, 2500);
+const myTimeout = setTimeout(nextMove, rot_delay);
+
+setTimeout(() => { document.getElementById("btn_WG").disabled = false; 
+				   document.getElementById("btn_GY").disabled = false;
+				   document.getElementById("btn_BY").disabled = false;
+				   document.getElementById("btn_RY").disabled = false;
+				   document.getElementById("btn_YO").disabled = false;
+				}, face_delay);
 });
 
 //------------------------------------------------------------------
 const btn_by = document.getElementById('btn_BY');
 
 btn_by.addEventListener('click', function onClick() {
-merker = 1;
-step = 2;
+	document.getElementById("btn_rot_face").style.background = "blue"
+	document.getElementById("btn_WG").disabled = true;
+	document.getElementById("btn_GY").disabled = true;
+	document.getElementById("btn_OY").disabled = true;
+	document.getElementById("btn_RY").disabled = true;
+	document.getElementById("btn_YO").disabled = true;
+
+merker_rot_face = 0;
+step = 1;
 rot_side = 'b';
 prevSide = '';
  let rotation_X = 0-110;
@@ -157,13 +210,25 @@ prevSide = '';
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
 const myTimeout = setTimeout(nextMove, 2500);
+setTimeout(() => { document.getElementById("btn_WG").disabled = false; 
+				   document.getElementById("btn_GY").disabled = false;
+				   document.getElementById("btn_OY").disabled = false;
+				   document.getElementById("btn_RY").disabled = false;
+				   document.getElementById("btn_YO").disabled = false;
+				}, face_delay);
 });
 
 //------------------------------------------------------------------
 const btn_ry = document.getElementById('btn_RY');
 
 btn_ry.addEventListener('click', function onClick() {
-merker = 1;
+	document.getElementById("btn_rot_face").style.background = "red"
+	document.getElementById("btn_WG").disabled = true;
+	document.getElementById("btn_GY").disabled = true;
+	document.getElementById("btn_OY").disabled = true;
+	document.getElementById("btn_BY").disabled = true;
+	document.getElementById("btn_YO").disabled = true;
+merker_rot_face = 0;
 step = 2;
 rot_side = 'r';
 prevSide = '';
@@ -173,14 +238,26 @@ prevSide = '';
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
-const myTimeout = setTimeout(nextMove, 2500);
+const myTimeout = setTimeout(nextMove, rot_delay);
+setTimeout(() => { document.getElementById("btn_WG").disabled = false; 
+				   document.getElementById("btn_GY").disabled = false;
+				   document.getElementById("btn_OY").disabled = false;
+				   document.getElementById("btn_RY").disabled = false;
+				   document.getElementById("btn_YO").disabled = false;
+				}, face_delay);
 });
 
 //------------------------------------------------------------------
 const btn_yo = document.getElementById('btn_YO');
 
 btn_yo.addEventListener('click', function onClick() {
-merker = 1;
+	document.getElementById("btn_rot_face").style.background = "yellow"
+	document.getElementById("btn_WG").disabled = true;
+	document.getElementById("btn_GY").disabled = true;
+	document.getElementById("btn_OY").disabled = true;
+	document.getElementById("btn_BY").disabled = true;
+	document.getElementById("btn_RY").disabled = true;
+merker_rot_face = 0;
 step = 2;
 rot_side = 'd';
 prevSide = '';
@@ -190,8 +267,38 @@ prevSide = '';
  var turn = 1;
  const $ = document.querySelector.bind(document);
 $(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
-const myTimeout = setTimeout(nextMove, 2500);
+const myTimeout = setTimeout(nextMove, rot_delay);
+setTimeout(() => { document.getElementById("btn_WG").disabled = false; 
+				   document.getElementById("btn_GY").disabled = false;
+				   document.getElementById("btn_OY").disabled = false;
+				   document.getElementById("btn_BY").disabled = false;
+				   document.getElementById("btn_RY").disabled = false;
+				}, face_delay);
 });
+
+//------------------------------------------------------------------
+const face_rot = document.getElementById('btn_rot_face');
+
+face_rot.addEventListener('click', function onClick() {
+merker_rot_face = 1;
+step = 1;
+
+prevSide = '';
+/*
+ let rotation_X = 180-20;
+ let rotation_Y = 0-70;
+ let rotation_Z = 0-0;*/
+ var turn = 1;
+// const $ = document.querySelector.bind(document);
+//$(".cube").style.transform = `rotateX(${rotation_X}deg) rotateY(${rotation_Y}deg) rotateZ(${rotation_Z}deg)`;
+//const myTimeout = setTimeout(nextMove, 10);
+nextMove();
+});
+
+
+
+
+
 
 //------------------------------------------------------------------
 /*	Generates and executes random move */ 
@@ -202,12 +309,12 @@ var nextMove = function() {
 		if(document.querySelector('.cube-layer.turn')) return;
 		var side = prevSide;
 		//alert (side + prevSide);
-		if (merker == 1) {
+		if (merker_rot_face == 1) {
 			while(side == prevSide) side = rot_side; //sides[Math.random()*6|0];
 			//var step = 1 + (Math.random()*3|0);
 			setTimeout(function() {move(side+step)}, 10);
 			prevSide = side;
-			merker = 0;
+			merker_rot_face = 0;
 		}	
 	};
 }();

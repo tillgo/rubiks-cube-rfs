@@ -13,7 +13,7 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) throws Exception {
-        RTDE rtde = new RTDE("192.168.2.108");
+        RTDE rtde = new RTDE("192.168.2.40");
         rtde.connect();
         List<DataType> outputVariables = Arrays.asList(DataType.ACTUAL_TCP_POSE, DataType.SAFETY_STATUS);
         rtde.send_output_setup(outputVariables, 125);
