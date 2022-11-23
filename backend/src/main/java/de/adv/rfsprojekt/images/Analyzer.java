@@ -16,7 +16,7 @@ public class Analyzer {
     private final BufferedImage imageToAnalyze;
 
     public Analyzer(BufferedImage imageToAnalyze) {
-        this.imageToAnalyze = Pixelator.pixelate(imageToAnalyze);
+        this.imageToAnalyze = imageToAnalyze;
     }
 
     public List<String> analyze() throws IOException {
@@ -46,9 +46,26 @@ public class Analyzer {
                 .orElseThrow();
     }
 
+    public java.awt.Color averageColor(int x0, int y0, int radius) {
+        int x1 = x0 - radius;
+        int y1 = y0 - radius;
+        int x2 = x0 + radius;
+        int y2 = y0 + radius;
+        long sumr = 0, sumg = 0, sumb = 0;
+        for (int x = x1; x < x2; x++) {
+            for (int y = y1; y < y2; y++) {
+                var pixel = new java.awt.Color(imageToAnalyze.getRGB(x, y));
+                sumr += pixel.getRed();
+                sumg += pixel.getGreen();
+                sumb += pixel.getBlue();
+            }
+        }
+        int num = (int) Math.pow(radius * 2 + 1, 2);
+        return new java.awt.Color(sumr / num, sumg / num, sumb / num);
+    }
+
     private float[] getHSB(Point point){
-        imageToAnalyze.getColorModel();
-        var color = new java.awt.Color(imageToAnalyze.getRGB(point.x(),point.y()));
+        var color = averageColor(point.x(),point.y(), 20);
         return java.awt.Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), new float[3]);
     }
 
