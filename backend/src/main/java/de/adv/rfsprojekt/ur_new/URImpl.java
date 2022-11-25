@@ -13,23 +13,26 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class URImpl implements UR {
 
-    final private String host;
-    final private int port;
+    private final String host;
+    private final int port;
 
-    final private URConnection urConnection;
+    private final URConnection urConnection;
 
     @ConfigProperty(name = "ur.dashboard_port")
     int dashboardPort;
 
 
-    public URImpl(String host, int port) throws IOException {
+    public URImpl(String host, int port, boolean enabled) throws IOException {
 
         this.host = host;
         this.port = port;
 
-        Socket socket = new Socket(host, port);
-        urConnection = new URConnectionImpl(socket.getInputStream(), socket.getOutputStream());
-
+        if (enabled) {
+            Socket socket = new Socket(host, port);
+            urConnection = new URConnectionImpl(socket.getInputStream(), socket.getOutputStream());
+        } else {
+            urConnection = null;
+        }
     }
 
     /**
