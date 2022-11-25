@@ -44,7 +44,7 @@ public class TestResource {
     @Path("3")
     @GET
     public List<String> imageprocc() throws IOException {
-        BufferedImage img = ImageIO.read(new File("./src/main/resources/images/gruen.jpg"));
+        BufferedImage img = ImageIO.read(new File("./src/main/resources/images/gelb_unscharf.jpg"));
         Analyzer analyzer = new Analyzer(img);
         return analyzer.analyze();
     }
