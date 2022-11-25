@@ -17,7 +17,7 @@ public class MessagePacket extends Package {
     }
 
 
-    public static MessagePacket unwrap(ByteBuffer payload) {
+    public static MessagePacket unpack(ByteBuffer payload) {
         int messageLength = payload.get();
         byte[] messageArray = new byte[messageLength];
         payload.get(messageArray, payload.position(), messageLength);

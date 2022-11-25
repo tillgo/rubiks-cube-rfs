@@ -11,11 +11,19 @@ const GripperControlPanel = (props: GripperControlPanelProps) => {
     const {sendMessage} = props;
 
     const handleClick = (type: GripperCommandType) => {
-        sendMessage(JSON.stringify({moveType: "GRIPPER", command: type}))
+        sendMessage(JSON.stringify({commandType: "GRIPPER", command: type}))
     }
 
     return (
         <Box display={"flex"}>
+            <Button
+                onClick={() => handleClick("ACTIVATE")}
+                variant={"outlined"}
+                color={"secondary"}
+                sx={{mr: 2}}
+            >
+                ACTIVATE GRIPPER
+            </Button>
             <Button
                 onClick={() => handleClick("OPEN")}
                 variant={"outlined"}

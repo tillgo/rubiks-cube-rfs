@@ -1,7 +1,7 @@
 package de.adv.rfsprojekt.ur_new;
 
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
-import de.adv.rfsprojekt.ur_new.setup.URPorts;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +18,9 @@ public class URImpl implements UR {
 
     final private URConnection urConnection;
 
+    @ConfigProperty(name = "ur.dashboard_port")
+    int dashboardPort;
+
 
     public URImpl(String host, int port) throws IOException {
 
@@ -33,7 +36,7 @@ public class URImpl implements UR {
      * ToDo Bei Sicherheitsstopp muss Roboter wieder entriegelt werden. Wird in alter Lib in powerOn Methode geregelt
      */
     public void powerOn() throws IOException, InterruptedException {
-        try (Socket dashSocket = new Socket(host, URPorts.DASHBOARD);) {
+        try (Socket dashSocket = new Socket(host, dashboardPort);) {
             OutputStream os = dashSocket.getOutputStream();
             InputStream is = dashSocket.getInputStream();
             String message;
@@ -53,7 +56,7 @@ public class URImpl implements UR {
 
 
     public void powerOff() throws IOException {
-        try (Socket dashSocket = new Socket(host, URPorts.DASHBOARD);) {
+        try (Socket dashSocket = new Socket(host, dashboardPort);) {
             OutputStream os = dashSocket.getOutputStream();
             os.write(POWER_OFF().getBytes(UTF_8));
             os.flush();

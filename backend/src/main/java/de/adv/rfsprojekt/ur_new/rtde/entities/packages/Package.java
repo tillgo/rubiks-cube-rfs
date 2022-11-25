@@ -11,5 +11,5 @@ public abstract class Package {
         return packageType;
     }
 
-    protected abstract Object getPayload();
+    public abstract Object getPayload();
 }
