@@ -2,7 +2,9 @@ package de.adv.rfsprojekt.rest;
 
 
 import de.adv.rfsprojekt.images.Analyzer;
+import de.adv.rfsprojekt.images.ImageService;
 import de.adv.rfsprojekt.ur_new.UR;
+import de.adv.rfsprojekt.util.CubeColor;
 
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
@@ -22,6 +24,9 @@ public class TestResource {
 
     @Inject
     UR ur;
+
+    @Inject
+    ImageService imageService;
 
     @Path("1")
     @POST
@@ -43,10 +48,18 @@ public class TestResource {
 
     @Path("3")
     @GET
-    public List<String> imageprocc() throws IOException {
+    public List<CubeColor> imageprocc() throws IOException {
         BufferedImage img = ImageIO.read(new File("./src/main/resources/images/gelb_unscharf.jpg"));
-        Analyzer analyzer = new Analyzer(img);
-        return analyzer.analyze();
+        Analyzer analyzer = new Analyzer();
+        return analyzer.analyze(img);
+    }
+
+    @Path("4")
+    @GET
+    public List<CubeColor> imageService() {
+        // 52.3 -497.25 208.2 1.25 -2.96 0.97
+        System.out.println("_________________________");
+        return imageService.getCurrentCubeColors();
     }
 
 
