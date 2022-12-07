@@ -15,4 +15,16 @@ public class Config {
     public static double getMoveTime(){
         return ConfigProvider.getConfig().getValue("ur.move.time", Double.class);
     }
+
+    public static String getURHost(){
+        return ConfigProvider.getConfig().getValue("ur.hostname", String.class);
+    }
+
+    public static int getURSecondaryPort(){
+        return ConfigProvider.getConfig().getValue("ur.secondary_port", Integer.class);
+    }
+
+    public static int getURRTDEPort(){
+        return ConfigProvider.getConfig().getValue("ur.rtde_port", Integer.class);
+    }
 }

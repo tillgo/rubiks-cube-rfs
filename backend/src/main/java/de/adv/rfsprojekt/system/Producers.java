@@ -10,14 +10,9 @@ import java.io.IOException;
 
 public class Producers {
 
-    @ConfigProperty(name = "ur.hostname")
-    String urHostname;
-
-    @ConfigProperty(name = "ur.port")
-    int urPort;
 
     @Produces
     UR initUR() throws IOException {
-        return new URImpl(urHostname, urPort);
+        return new URImpl(Config.getURHost(), Config.getURSecondaryPort());
     }
 }
