@@ -1,10 +1,10 @@
 import {Box, Typography} from "@mui/material";
 import ControlButton from "./ControlButton";
-import {RobotMove} from "../../commons/types";
+import {RobotCommand} from "../../commons/types";
 import {SendMessage} from "react-use-websocket";
 
 type ControlPanelProps = {
-    moveType: RobotMove
+    moveType: RobotCommand
     sendMessage: SendMessage
 }
 const ControlPanel = (props: ControlPanelProps) => {

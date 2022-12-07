@@ -12,7 +12,7 @@ function clickPress(event) {
     }
 }
 function init_Sticker(){
-    colors = document.getElementById("sticker_color").value;
+    colors = document.getElementById("manuelle_farbeingabe").value;
     colors = colors.toUpperCase();
     arrayOfChar = Array.from(String (colors));
     sticker();

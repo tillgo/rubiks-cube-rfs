@@ -1,11 +1,11 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
-public class GripperCommand extends RoboMove {
+public class GripperCommand extends RoboComand {
 
     private final GripperCommandType command;
 
 
-    public GripperCommand(MoveType moveType, GripperCommandType commandType) {
+    public GripperCommand(CommandType moveType, GripperCommandType commandType) {
         super(moveType);
         this.command = commandType;
     }
