@@ -1,36 +1,35 @@
-import useWebSocket, {ReadyState} from "react-use-websocket";
-import ControlPanel from "./ControlPanel";
-import {Grid, Typography} from "@mui/material";
-import GripperControlPanel from "./GripperControlPanel";
+import { ReadyState } from 'react-use-websocket'
+import ControlPanel from './ControlPanel'
+import { Grid, Typography } from '@mui/material'
+import GripperControlPanel from './GripperControlPanel'
 import RoboSetupControlPanel from './RoboSetupControlPanel'
-
-export const socketUrl = 'ws://localhost:8080/manual/deinmoma'
+import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 
 const ManualControlPage = () => {
-    const {sendMessage,readyState} = useWebSocket(socketUrl)
+    const { readyState } = useAppWebSocket('MANUAL')
     const connectionStatus = ReadyState[readyState]
 
-
     return (
-        <Grid container spacing={4} sx={{padding: 2, maxWidth: "900px"}}>
-            <Grid item xs={12} display={"flex"} justifyContent={"center"}>
-                <Typography color={"black"}>Connection Status: <b>{connectionStatus}</b></Typography>
+        <Grid container spacing={4} sx={{ padding: 2, maxWidth: '900px' }}>
+            <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+                <Typography color={'black'}>
+                    Connection Status: <b>{connectionStatus}</b>
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-                <ControlPanel moveType={"ROBO_ARM"} sendMessage={sendMessage}/>
+                <ControlPanel moveType={'ROBO_ARM'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <ControlPanel moveType={"ROBO_TOOL"} sendMessage={sendMessage}/>
+                <ControlPanel moveType={'ROBO_TOOL'} />
             </Grid>
-            <Grid item xs={6} display={"flex"} justifyContent={"center"}>
-                <RoboSetupControlPanel sendMessage={sendMessage}/>
+            <Grid item xs={6} display={'flex'} justifyContent={'center'}>
+                <RoboSetupControlPanel />
             </Grid>
-            <Grid item xs={6} display={"flex"} justifyContent={"center"}>
-                <GripperControlPanel sendMessage={sendMessage}/>
+            <Grid item xs={6} display={'flex'} justifyContent={'center'}>
+                <GripperControlPanel />
             </Grid>
         </Grid>
     )
-
 }
 
 export default ManualControlPage

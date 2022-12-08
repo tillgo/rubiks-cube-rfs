@@ -1,8 +1,11 @@
 package de.adv.rfsprojekt.websocket;
 
+import com.google.gson.Gson;
 import de.adv.rfsprojekt.service.manualMovement.ManualMovementController;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.MessagePacket;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
+import de.adv.rfsprojekt.websocket.entities.*;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,6 +31,9 @@ public class ManualMovementSocket {
     @Inject
     ManualMovementController mmC;
 
+    @Inject
+    Gson gson;
+
     private Consumer<DataPackage> broadcastError;
 
     @OnOpen
@@ -49,13 +55,18 @@ public class ManualMovementSocket {
 
     @OnMessage
     public void onMessage(String message, @PathParam("clientname") String clientname) {
-        try {
-            mmC.executeMove(message);
-        } catch (IOException | InterruptedException e) {
-            sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
+        var type = MessageType.valueOf(StringUtils.substringsBetween(message, "\"", "\"")[1]);
+        var messageClass = switch (type) {
+            case ERROR, INFO -> ErrorMessage.class;
+            case COMMAND -> ManualMovementCommand.class;
+        };
+        var m = gson.fromJson(message, messageClass);
+        if (m instanceof ManualMovementCommand command) {
+            try {
+                mmC.executeMove(command.getPayload());
+            } catch (IOException | InterruptedException e) {
+                sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
+            }
         }
     }
-
-
-
 }

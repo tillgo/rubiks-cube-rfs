@@ -1,36 +1,30 @@
-import {
-    MoveType,
-    RobotCommand,
-    RobotMoveDirection,
-    RobotCommandType,
-} from '../../commons/types'
-import { Button, IconButton } from '@mui/material'
+import { RobotCommand, RobotMoveDirection } from '../../commons/types'
+import { Button } from '@mui/material'
 import { controlPanelConfig } from './controlPanelConfig'
-import useWebSocket, { SendMessage } from 'react-use-websocket'
-import { socketUrl } from './ManualControlPage'
-import { useState } from 'react'
 import sleep from '../../commons/sleep'
+import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 
 type ControlButtonProps = {
     commandType: RobotCommand
     direction: RobotMoveDirection
-    sendMessage: SendMessage
 }
 
 const ControlButton = (props: ControlButtonProps) => {
+    const { sendMessage } = useAppWebSocket('MANUAL')
+
     const config = controlPanelConfig[props.direction]
-    const { sendMessage } = props
     let buttonHold = false
 
     const handleMouseDown = async () => {
         buttonHold = true
         while (buttonHold) {
-            sendMessage(
-                JSON.stringify({
+            sendMessage({
+                type: 'COMMAND',
+                payload: {
                     commandType: props.commandType,
                     command: props.direction,
-                })
-            )
+                },
+            })
             await sleep(30)
         }
     }
