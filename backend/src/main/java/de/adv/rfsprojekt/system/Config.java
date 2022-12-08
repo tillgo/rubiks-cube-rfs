@@ -23,6 +23,18 @@ public class Config {
         return ConfigProvider.getConfig().getValue("ur.move.time", Double.class);
     }
 
+    public static String getURHost(){
+        return ConfigProvider.getConfig().getValue("ur.hostname", String.class);
+    }
+
+    public static int getURSecondaryPort(){
+        return ConfigProvider.getConfig().getValue("ur.secondary_port", Integer.class);
+    }
+
+    public static int getURRTDEPort(){
+        return ConfigProvider.getConfig().getValue("ur.rtde_port", Integer.class);
+    }
+
     public static List<Point> getPositions() {
         return List.of(
                 new Point(getPos("top-left.xpos"), getPos("top-left.ypos")),

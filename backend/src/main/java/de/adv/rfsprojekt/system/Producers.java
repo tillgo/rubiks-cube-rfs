@@ -22,6 +22,6 @@ public class Producers {
 
     @Produces
     UR initUR() throws IOException {
-        return new URImpl(urHostname, urPort, enabled);
+        return new URImpl(Config.getURHost(), Config.getURSecondaryPort(), enabled);
     }
 }

@@ -1,6 +1,8 @@
 package de.adv.rfsprojekt.websocket;
 
 import de.adv.rfsprojekt.service.manualMovement.ManualMovementController;
+import de.adv.rfsprojekt.ur_new.rtde.entities.packages.MessagePacket;
+import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 /**
  * ToDO Clientname kann redundant sein, eventuell ändern
@@ -24,6 +27,8 @@ public class ManualMovementSocket {
 
     @Inject
     ManualMovementController mmC;
+
+    private Consumer<DataPackage> broadcastError;
 
     @OnOpen
     public void onOpen(Session session, @PathParam("clientname") String clientname) {
@@ -49,14 +54,8 @@ public class ManualMovementSocket {
         } catch (IOException | InterruptedException e) {
             sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
         }
-
-        /*System.out.println(message);*/
-
     }
 
-    private void broadcast(String message) {
-
-    }
 
 
 }
