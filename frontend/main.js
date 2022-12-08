@@ -96,17 +96,21 @@ function updateCubie() {
 	}
 }
 //-----------------------------------------------------------------
+function setButtontextColor(color){ 
+	document.getElementById("text-invert").style.color = color;
+}
 
 
 const btn_wg = document.getElementById('btn_WG');
 
 btn_wg.addEventListener('click', function onClick() {
 	document.getElementById("btn_rot_face").style.background = "white"
-	document.getElementById("btn_GY").disabled = true;
-	document.getElementById("btn_OY").disabled = true;
-	document.getElementById("btn_BY").disabled = true;
-	document.getElementById("btn_RY").disabled = true;
-	document.getElementById("btn_YO").disabled = true;
+	document.getElementById("btn_GY").disabled = false;
+	document.getElementById("btn_OY").disabled = false;
+	document.getElementById("btn_BY").disabled = false;
+	document.getElementById("btn_RY").disabled = false;
+	document.getElementById("btn_YO").disabled = false;
+	setButtontextColor("black");
 
 merker_rot_face = 0;
 step = 1;
@@ -134,11 +138,12 @@ const btn_gy = document.getElementById('btn_GY');
 
 btn_gy.addEventListener('click', function onClick() {
 	document.getElementById("btn_rot_face").style.background = "green"
-	document.getElementById("btn_WG").disabled = true;
-	document.getElementById("btn_OY").disabled = true;
-	document.getElementById("btn_BY").disabled = true;
-	document.getElementById("btn_RY").disabled = true;
-	document.getElementById("btn_YO").disabled = true;
+	document.getElementById("btn_WG").disabled = false;
+	document.getElementById("btn_OY").disabled = false;
+	document.getElementById("btn_BY").disabled = false;
+	document.getElementById("btn_RY").disabled = false;
+	document.getElementById("btn_YO").disabled = false;
+	setButtontextColor("white");
 merker_rot_face = 0;
 step = 1;
 rot_side = 'f';
@@ -163,11 +168,12 @@ const btn_oy = document.getElementById('btn_OY');
 
 btn_oy.addEventListener('click', function onClick() {
 	document.getElementById("btn_rot_face").style.background = "orange"
-	document.getElementById("btn_WG").disabled = true;
-	document.getElementById("btn_GY").disabled = true;
-	document.getElementById("btn_BY").disabled = true;
-	document.getElementById("btn_RY").disabled = true;
-	document.getElementById("btn_YO").disabled = true;
+	document.getElementById("btn_WG").disabled = false;
+	document.getElementById("btn_GY").disabled = false;
+	document.getElementById("btn_BY").disabled = false;
+	document.getElementById("btn_RY").disabled = false;
+	document.getElementById("btn_YO").disabled = false;
+	setButtontextColor("black");
 merker_rot_face = 0;
 step = 2;
 rot_side = 'l';
@@ -193,11 +199,12 @@ const btn_by = document.getElementById('btn_BY');
 
 btn_by.addEventListener('click', function onClick() {
 	document.getElementById("btn_rot_face").style.background = "blue"
-	document.getElementById("btn_WG").disabled = true;
-	document.getElementById("btn_GY").disabled = true;
-	document.getElementById("btn_OY").disabled = true;
-	document.getElementById("btn_RY").disabled = true;
-	document.getElementById("btn_YO").disabled = true;
+	document.getElementById("btn_WG").disabled = false;
+	document.getElementById("btn_GY").disabled = false;
+	document.getElementById("btn_OY").disabled = false;
+	document.getElementById("btn_RY").disabled = false;
+	document.getElementById("btn_YO").disabled = false;
+	setButtontextColor("white");
 
 merker_rot_face = 0;
 step = 1;
@@ -223,11 +230,12 @@ const btn_ry = document.getElementById('btn_RY');
 
 btn_ry.addEventListener('click', function onClick() {
 	document.getElementById("btn_rot_face").style.background = "red"
-	document.getElementById("btn_WG").disabled = true;
-	document.getElementById("btn_GY").disabled = true;
-	document.getElementById("btn_OY").disabled = true;
-	document.getElementById("btn_BY").disabled = true;
-	document.getElementById("btn_YO").disabled = true;
+	document.getElementById("btn_WG").disabled = false;
+	document.getElementById("btn_GY").disabled = false;
+	document.getElementById("btn_OY").disabled = false;
+	document.getElementById("btn_BY").disabled = false;
+	document.getElementById("btn_YO").disabled = false;
+	setButtontextColor("black");
 merker_rot_face = 0;
 step = 2;
 rot_side = 'r';
@@ -252,11 +260,12 @@ const btn_yo = document.getElementById('btn_YO');
 
 btn_yo.addEventListener('click', function onClick() {
 	document.getElementById("btn_rot_face").style.background = "yellow"
-	document.getElementById("btn_WG").disabled = true;
-	document.getElementById("btn_GY").disabled = true;
-	document.getElementById("btn_OY").disabled = true;
-	document.getElementById("btn_BY").disabled = true;
-	document.getElementById("btn_RY").disabled = true;
+	document.getElementById("btn_WG").disabled = false;
+	document.getElementById("btn_GY").disabled = false;
+	document.getElementById("btn_OY").disabled = false;
+	document.getElementById("btn_BY").disabled = false;
+	document.getElementById("btn_RY").disabled = false;
+	setButtontextColor("black");
 merker_rot_face = 0;
 step = 2;
 rot_side = 'd';
@@ -332,3 +341,8 @@ var nextMove = function() {
 
 // start the first move
 //nextMove();
+
+//Tooltip Bootstrap
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip();
+  })

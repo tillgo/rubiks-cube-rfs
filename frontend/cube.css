@@ -9,9 +9,11 @@ html, body {
 
 body {
 	background: lightgrey;
-	overflow: hidden;
+	overflow: scroll;
 }
-
+#manuelle_farbeingabe{ /* Input field*/
+	max-width: 200px;
+}
 .scene {
 	margin: 150px auto 220px auto;
 	width: 100px;
@@ -345,7 +347,9 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+	height: inherit;
 	height: -webkit-fill-available;
+	
 }
 
 @media (max-width:385px) {
@@ -407,7 +411,7 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 #btn_rot_face {
 	/*background-color: #e3e762; /* Green */
 	border: none;
-	color: #050505;
+	color: #fff;
 	padding: 15px 32px;
 	text-align: center;
 	text-decoration: none;
