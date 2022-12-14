@@ -2,6 +2,7 @@ package de.adv.rfsprojekt.websocket;
 
 import com.google.gson.Gson;
 import de.adv.rfsprojekt.service.manualMovement.ManualMovementController;
+import de.adv.rfsprojekt.service.shared.ErrorAnalyzer;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.MessagePacket;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
 import de.adv.rfsprojekt.websocket.entities.*;
@@ -34,7 +35,6 @@ public class ManualMovementSocket {
     @Inject
     Gson gson;
 
-    private Consumer<DataPackage> broadcastError;
 
     @OnOpen
     public void onOpen(Session session, @PathParam("clientname") String clientname) {
@@ -68,5 +68,15 @@ public class ManualMovementSocket {
                 sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
             }
         }
+    }
+
+    private void broadcast(WebsocketMessage<?> message) {
+        sessions.values().forEach(s -> {
+            s.getAsyncRemote().sendObject(gson.toJson(message), result ->  {
+                if (result.getException() != null) {
+                    System.out.println("Unable to send message: " + result.getException());
+                }
+            });
+        });
     }
 }

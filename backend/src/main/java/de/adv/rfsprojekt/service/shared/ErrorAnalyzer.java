@@ -9,6 +9,9 @@ import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataType;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.SafetyStatus;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.SafetyStatusType;
+import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoMessage;
+import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoPayload;
+import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,10 +19,10 @@ import java.util.function.Consumer;
 
 public class ErrorAnalyzer extends Thread {
 
-    private final Consumer<DataPackage> broadcast;
+    private final Consumer<WebsocketMessage> broadcast;
     private final RTDE rtde;
 
-    public ErrorAnalyzer(Consumer<DataPackage> broadcast) {
+    public ErrorAnalyzer(Consumer<WebsocketMessage> broadcast) {
         this.broadcast = broadcast;
         rtde = new RTDE(Config.getURHost());
     }
@@ -47,7 +50,7 @@ public class ErrorAnalyzer extends Thread {
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) {
                 SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(DataType.SAFETY_STATUS);
-                broadcast.accept(dataPackage);
+                broadcast.accept(new RoboStatusInfoMessage(new RoboStatusInfoPayload(safetyStatus.getPayload())));
             }
         }
     }

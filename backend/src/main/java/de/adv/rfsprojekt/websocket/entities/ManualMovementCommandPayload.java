@@ -2,7 +2,7 @@ package de.adv.rfsprojekt.websocket.entities;
 
 import de.adv.rfsprojekt.service.manualMovement.models.CommandType;
 
-public class ManualMovementCommandPayload {
+public class ManualMovementCommandPayload implements BasePayload {
 
     private final CommandType commandType;
 

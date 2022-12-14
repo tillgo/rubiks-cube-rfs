@@ -1,19 +1,9 @@
 package de.adv.rfsprojekt.websocket.entities;
 
-public class ManualMovementCommand extends WebsocketMessage {
-
-    private final ManualMovementCommandPayload payload;
+public class ManualMovementCommand extends WebsocketMessage<ManualMovementCommandPayload> {
 
     public ManualMovementCommand(ManualMovementCommandPayload payload) {
-        this.payload = payload;
+        super(MessageType.COMMAND,payload);
     }
 
-    @Override
-    public MessageType getType() {
-        return MessageType.COMMAND;
-    }
-
-    public ManualMovementCommandPayload getPayload() {
-        return payload;
-    }
 }

@@ -1,6 +1,6 @@
 package de.adv.rfsprojekt.websocket.entities;
 
-public class ErrorPayload {
+public class ErrorPayload implements BasePayload{
 
     private final String message;
 
