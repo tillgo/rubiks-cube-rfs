@@ -10,10 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -46,11 +43,13 @@ public class ManualMovementSocket {
         sessions.remove(clientname);
     }
 
-    /**
-     * @OnError public void onError(Session session, @PathParam("clientname") String clientname){
-     * sessions.remove(clientname);
-     * }
-     **/
+
+     @OnError
+     public void onError(Session session, @PathParam("clientname") String clientname, Throwable throwable) {
+        var errorMessage = new ErrorMessage(new ErrorPayload(throwable.getMessage()));
+
+        broadcast(errorMessage);
+     }
 
 
     @OnMessage
