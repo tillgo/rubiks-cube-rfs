@@ -3,8 +3,6 @@ package de.adv.rfsprojekt.websocket;
 import com.google.gson.Gson;
 import de.adv.rfsprojekt.service.manualMovement.ManualMovementController;
 import de.adv.rfsprojekt.service.shared.ErrorAnalyzer;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.MessagePacket;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
 import de.adv.rfsprojekt.websocket.entities.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,7 +14,6 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 /**
  * ToDO Clientname kann redundant sein, eventuell ändern
@@ -29,27 +26,34 @@ public class ManualMovementSocket {
     @Inject
     ManualMovementController mmC;
 
+    private ErrorAnalyzer errorAnalyzer;
+
     @Inject
     Gson gson;
 
 
     @OnOpen
     public void onOpen(Session session, @PathParam("clientname") String clientname) {
+        if (sessions.size() == 0) {
+            errorAnalyzer = new ErrorAnalyzer(this::broadcast);
+            errorAnalyzer.start();
+        }
         sessions.put(clientname, session);
     }
 
     @OnClose
     public void onClose(Session session, @PathParam("clientname") String clientname) {
         sessions.remove(clientname);
+        if (sessions.size() == 0) errorAnalyzer.kill();
     }
 
 
-     @OnError
-     public void onError(Session session, @PathParam("clientname") String clientname, Throwable throwable) {
+    @OnError
+    public void onError(Session session, @PathParam("clientname") String clientname, Throwable throwable) {
         var errorMessage = new ErrorMessage(new ErrorPayload(throwable.getMessage()));
 
         broadcast(errorMessage);
-     }
+    }
 
 
     @OnMessage
@@ -71,7 +75,7 @@ public class ManualMovementSocket {
 
     private void broadcast(WebsocketMessage<?> message) {
         sessions.values().forEach(s -> {
-            s.getAsyncRemote().sendObject(gson.toJson(message), result ->  {
+            s.getAsyncRemote().sendObject(gson.toJson(message), result -> {
                 if (result.getException() != null) {
                     System.out.println("Unable to send message: " + result.getException());
                 }
