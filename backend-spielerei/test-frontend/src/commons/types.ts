@@ -20,6 +20,11 @@ type CommandPayload<T extends MoveType> = {
     commandType: T
     command: CommandPayloadCmd<T>
 }
+export type InfoPayload = {
+    // TODO: Generic machen
+    infoType: 'ROBO_STATUS'
+    safetyStatus: Record<string, boolean>
+}
 
 type Payload<T extends MessageType, C extends WSConnection> = T extends 'ERROR'
     ? { message: string }
@@ -27,6 +32,8 @@ type Payload<T extends MessageType, C extends WSConnection> = T extends 'ERROR'
     ? C extends 'MANUAL'
         ? CommandPayload<MoveType>
         : never
+    : T extends 'INFO'
+    ? InfoPayload
     : never
 
 export type WSConnection = 'MANUAL' | 'CUBE_SOLVER'

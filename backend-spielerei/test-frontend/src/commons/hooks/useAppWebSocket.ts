@@ -14,6 +14,7 @@ type ReturnType<T extends WSConnection> = Pick<
     'lastMessage' | 'readyState'
 > & {
     sendMessage: (m: WebsocketMessage<MessageType, T>) => void
+    data: WebsocketMessage<any, T> | undefined
 }
 export const useAppWebSocket = <T extends WSConnection>(
     type: T
@@ -26,11 +27,15 @@ export const useAppWebSocket = <T extends WSConnection>(
         const sendMessage = (message: WebsocketMessage<MessageType, T>) => {
             send(JSON.stringify(message))
         }
+        const data = lastMessage?.data
+            ? (JSON.parse(lastMessage?.data) as WebsocketMessage<any, T>)
+            : undefined
 
         return {
             sendMessage,
             readyState,
             lastMessage,
+            data,
         }
     }
 
@@ -40,5 +45,6 @@ export const useAppWebSocket = <T extends WSConnection>(
         },
         readyState: ReadyState.CONNECTING,
         lastMessage: null,
+        data: undefined,
     }
 }
