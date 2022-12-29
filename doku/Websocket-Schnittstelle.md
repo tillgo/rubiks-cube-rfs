@@ -2,52 +2,109 @@
 
 Messages werden im JSON(Derulo)-Format ausgetauscht
 
+
+Alle Messages enthalten einen Type sowie eine entsprechende Payload
+
+``{"type": <type>, "payload": <payload>}``
+
+Es gibt folgende Messagetypes:
+
+- ERROR
+- COMMAND
+- INFO
+
+
 ## Manual-Movement-Websocket:
 Pfad: /manual/{clientname}
 
 Kann die gleichen Movements wie die Manuellsen Moves beim Teach-Panel
 
-### RoboterArm bewegen (Lineare Moves):
+### Command-Payloads (Client -> Server)
+
+#### RoboterArm bewegen (Lineare Moves):
 Positive X-Achse:   
-{"moveType": "ROBO_ARM", "command": "X_PLUS"}      
+``{"commandType": "ROBO_ARM", "command": "X_PLUS"}``   
+  
 Negative X-Achse:     
-{"moveType": "ROBO_ARM", "command": "X_MINUS"}   
+``{"commandType": "ROBO_ARM", "command": "X_MINUS"}``  
+  
 Positive Y-Achse:      
-{"moveType": "ROBO_ARM", "command": "Y_PLUS"}      
+``{"commandType": "ROBO_ARM", "command": "Y_PLUS"}`` 
+  
 Negative Y-Achse:  
-{"moveType": "ROBO_ARM", "command": "Y_MINUS"}    
+``{"commandType": "ROBO_ARM", "command": "Y_MINUS"}``  
+  
 Positive Z-Achse:   
-{"moveType": "ROBO_ARM", "command": "Z_PLUS"}     
+``{"commandType": "ROBO_ARM", "command": "Z_PLUS"} `` 
+  
 Negative Z-Achse:    
-{"moveType": "ROBO_ARM", "command": "Z_MINUS"}
+``{"commandType": "ROBO_ARM", "command": "Z_MINUS"}``
 
-### TCP Orientation  
+#### TCP Orientation  
 Positive X-Achse:   
-{"moveType": "ROBO_TOOL", "command": "X_PLUS"}  
+``{"commandType": "ROBO_TOOL", "command": "X_PLUS"}``  
+  
 Negative X-Achse:  
-{"moveType": "ROBO_TOOL", "command": "X_MINUS"}  
+``{"commandType": "ROBO_TOOL", "command": "X_MINUS"} `` 
+  
 Positive Y-Achse:   
-{"moveType": "ROBO_TOOL", "command": "Y_PLUS"}    
+``{"commandType": "ROBO_TOOL", "command": "Y_PLUS"}``  
+  
 Negative Y-Achse:  
-{"moveType": "ROBO_TOOL", "command": "Y_MINUS"}  
+``{"commandType": "ROBO_TOOL", "command": "Y_MINUS"}``  
+  
 Positive Z-Achse:     
-{"moveType": "ROBO_TOOL", "command": "Z_PLUS"}     
+``{"commandType": "ROBO_TOOL", "command": "Z_PLUS"}``   
+  
 Negative Z-Achse:  
-{"moveType": "ROBO_TOOL", "command": "Z_MINUS"}  
+``{"commandType": "ROBO_TOOL", "command": "Z_MINUS"}``  
 
 
-### Gripper Bewegen  
-Gripper Öffnen:    
-{"moveType": "GRIPPER", "command": "OPEN"}   
-Gripper Schließen:    
-{"moveType": "GRIPPER", "command": "CLOSE"}
+#### Gripper Bewegen  
+Gripper aktivieren  
+``{"commandType": "GRIPPER", "command": "ACTIVATE"}``
+  
+Gripper Öffnen:      
+``{"commandType": "GRIPPER", "command": "OPEN"}``   
+  
+Gripper Schließen:      
+``{"commandType": "GRIPPER", "command": "CLOSE"}``
 
-## TODO:
 
-* Gripper aktivieren
-* Roboter aktivieren
-* Roboter stoppen
-* (Fehlermeldungen entfernen / ignorieren)
+#### Robo Setup
+Roboter aktivieren  
+``{"commandType": "ROBO_SETUP", "command": "ON"}``
+  
+Roboter deaktivieren  
+``{"commandType": "ROBO_SETUP", "command": "OFF"}``
+
+
+### INFO Payloads (Server -> Client)
+
+#### Robo-Status
+
+    ``{"infoType": "ROBO_STATUS", 
+        "safetyStatus": {
+                          "REDUCED_MODE": <boolean>
+                          "SAFETY_STOPPED": <boolean>
+                          "ROBOT_EMERGENCY_STOPPED": <boolean>
+                          "RECOVERY_MODE": <boolean>
+                          "PROTECTIVE_STOPPED": <boolean>
+                          "SYSTEM_EMERGENCY_STOPPED": <boolean> 
+                          "EMERGENCY_STOPPED": <boolean>
+                          "SAFEGUARD_STOPPED": <boolean>
+                          "VIOLATION": <boolean>
+                          "NORMAL_MODE": <boolean>
+                          "FAULT": <boolean> 
+}``
+
+### ERROR Payloads
+
+``{"message": <string>}``
+
+
+
+
 
  
 
