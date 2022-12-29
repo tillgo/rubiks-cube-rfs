@@ -64,7 +64,7 @@ public class ManualMovementSocket {
             try {
                 mmC.executeMove(command.getPayload());
             } catch (IOException | InterruptedException e) {
-                sessions.get(clientname).getAsyncRemote().sendText("Upsi Fehler");
+                throw new RuntimeException(e);
             }
         }
     }
