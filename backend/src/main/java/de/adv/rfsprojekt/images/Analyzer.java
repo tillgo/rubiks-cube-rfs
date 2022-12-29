@@ -3,14 +3,10 @@ package de.adv.rfsprojekt.images;
 import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.util.CubeColor;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Analyzer {
 
@@ -20,17 +16,16 @@ public class Analyzer {
         this.imageToAnalyze = imageToAnalyze;
     }
 
-    public List<String> analyze() {
+    public List<CubeColor> analyze() {
         return Config.getPositions().stream()
                 .map(this::getColorName)
-                .map(Objects::toString)
                 .toList();
     }
 
 
-    private CubeColor getColorName(Point point){
+    private CubeColor getColorName(Point point) {
         float[] hsb = getHSB(point);
-        float hue = hsb[0]*360;
+        float hue = hsb[0] * 360;
         float sat = hsb[1] * 100;
         float bright = hsb[2] * 100;
 
@@ -62,8 +57,8 @@ public class Analyzer {
         return new Color(sumr / num, sumg / num, sumb / num);
     }
 
-    private float[] getHSB(Point point){
-        var color = averageColor(point.x(),point.y(), 25);
+    private float[] getHSB(Point point) {
+        var color = averageColor(point.x(), point.y(), 25);
         System.out.println(color);
         return Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), new float[3]);
     }
