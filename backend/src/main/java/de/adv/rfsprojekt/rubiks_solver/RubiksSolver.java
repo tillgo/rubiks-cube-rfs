@@ -2,7 +2,6 @@ package de.adv.rfsprojekt.rubiks_solver;
 
 
 import de.adv.rfsprojekt.rubiks_solver.min2phase.Search;
-import de.adv.rfsprojekt.rubiks_solver.min2phase.Tools;
 import de.adv.rfsprojekt.rubiks_solver.models.Move;
 import de.adv.rfsprojekt.util.Face;
 
@@ -71,7 +70,8 @@ public class RubiksSolver {
     }
 
     public List<Move> calculateSolvingPath(String unsolvedCube) {
-        //ToDo: solution Methode gibt bei unlösbarem cubeString einen Error-String zurück. Stattdessen Exception werfen
+        //ToDo: solution Methode gibt bei unlösbarem cubeString einen Error-String zurück. Stattdessen Exception werfen oder Error-String handlen
+
         var solvedCube = new Search()
                 .solution(unsolvedCube, 21, 10000000, 0, 0);
 
@@ -96,7 +96,7 @@ public class RubiksSolver {
     }
 
     public static void main(String[] args) {
-        String unsolvedCube = Tools.randomCube();
+        String unsolvedCube = "URBLURRLRUFDBRBBULDUBLFRBFLDUUDDBFBDRFFDLDURRLUFLBFFDL";
         System.out.println(new Search().solution(unsolvedCube, 21, 10000000, 0, 0));
         System.out.println(new RubiksSolver().calculateSolvingPath(unsolvedCube));
     }
