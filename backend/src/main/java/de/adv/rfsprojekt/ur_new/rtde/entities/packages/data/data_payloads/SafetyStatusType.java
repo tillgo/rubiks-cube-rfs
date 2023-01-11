@@ -6,7 +6,7 @@ public enum SafetyStatusType {
     ROBOT_EMERGENCY_STOPPED(6), EMERGENCY_STOPPED(7), VIOLATION(8), FAULT(9),
     SAFETY_STOPPED(10);
 
-    private int bitIndex;
+    private final int bitIndex;
 
     SafetyStatusType(int bitIndex) {
         this.bitIndex = bitIndex;
