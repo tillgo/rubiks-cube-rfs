@@ -9,31 +9,42 @@ export type RobotMoveDirection = `${Axis}_${Direction}`
 export type GripperCommandType = 'OPEN' | 'CLOSE' | 'ACTIVATE'
 export type RoboSetupCommandType = 'ON' | 'OFF'
 
-type CommandPayloadCmd<T extends MoveType> = T extends RobotCommand
+type ManualCmd<T extends MoveType> = T extends RobotCommand
     ? RobotMoveDirection
     : T extends Extract<MoveType, 'GRIPPER'>
     ? GripperCommandType
     : T extends Extract<MoveType, 'ROBO_SETUP'>
     ? RoboSetupCommandType
     : never
-type CommandPayload<T extends MoveType> = {
+type ManualCommandPayload<T extends MoveType> = {
     commandType: T
-    command: CommandPayloadCmd<T>
+    command: ManualCmd<T>
 }
-export type InfoPayload = {
-    // TODO: Generic machen
-    infoType: 'ROBO_STATUS'
-    safetyStatus: Record<string, boolean>
+type CubeSolverCommandPayload = {
+    command: 'START_SCAN' | 'START_SOLVE' | 'STOP'
+}
+
+type InfoType = 'ROBO_STATUS' | 'SCAN_COMPLETE' | 'CUBE_UPDATE'
+type InfoData<T extends InfoType> = T extends 'ROBO_STATUS'
+    ? Record<string, boolean>
+    : T extends 'SCAN_UPDATE'
+    ? any // TODO
+    : T extends 'CUBE_UPDATE'
+    ? any // TODO
+    : never
+type InfoPayload<T extends InfoType> = {
+    infoType: T
+    data: InfoData<T>
 }
 
 type Payload<T extends MessageType, C extends WSConnection> = T extends 'ERROR'
     ? { message: string }
     : T extends 'COMMAND'
     ? C extends 'MANUAL'
-        ? CommandPayload<MoveType>
-        : never
+        ? ManualCommandPayload<MoveType>
+        : CubeSolverCommandPayload
     : T extends 'INFO'
-    ? InfoPayload
+    ? InfoPayload<InfoType>
     : never
 
 export type WSConnection = 'MANUAL' | 'CUBE_SOLVER'
