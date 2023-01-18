@@ -36,3 +36,13 @@ Die Struktur des zu lösenden Cubes muss dabei als String mit folgendem Aufbau b
 - D = Down-Face = Gelb
 - L = Left-Face = Orange
 - B = Back-Face = Blau
+
+
+# Ablauf des Lösungsprozesses aus Frontend-Sicht
+1. Frontend schickt befehl zum Einlesen von Würfel
+2. Backend schickt Fortschritt an Frontend (1/6, 2/6,... Seiten eingelesen)
+3. Wenn fertig eingelesen: Backend schickt Würfelstruktur an Frontend
+4. Frontend schickt Befehl für Lösen von Würfel
+5. Backend schickt Fortschritt und den Move der aktuell ausgeführt wird,
+   ans Frontend
+6. Frontend kann zu jeder Zeit Prozess abbrechen
