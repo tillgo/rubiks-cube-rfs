@@ -47,14 +47,12 @@ public class ManualMovementSocket {
         if (sessions.size() == 0) errorAnalyzer.kill();
     }
 
-
     @OnError
     public void onError(Session session, @PathParam("clientname") String clientname, Throwable throwable) {
         var errorMessage = new ErrorMessage(new ErrorPayload(throwable.getMessage()));
 
         broadcast(errorMessage);
     }
-
 
     @OnMessage
     public void onMessage(String message, @PathParam("clientname") String clientname) {
