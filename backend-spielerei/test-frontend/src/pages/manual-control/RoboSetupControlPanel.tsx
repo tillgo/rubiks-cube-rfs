@@ -1,36 +1,36 @@
-import { SendMessage } from 'react-use-websocket'
-import { GripperCommandType, RoboSetupCommandType } from '../../commons/types'
+import { RoboSetupCommandType } from '../../commons/types'
 import { Box, Button } from '@mui/material'
+import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 
-export type RoboSetupControlPanelProps = {
-    sendMessage: SendMessage
-}
-
-const RoboSetupControlPanel = (props: RoboSetupControlPanelProps) => {
-    const {sendMessage} = props;
-
+const RoboSetupControlPanel = () => {
+    const { sendMessage } = useAppWebSocket('MANUAL')
     const handleClick = (type: RoboSetupCommandType) => {
-        sendMessage(JSON.stringify({commandType: "ROBO_SETUP", command: type}))
+        sendMessage({
+            type: 'COMMAND',
+            payload: {
+                commandType: 'ROBO_SETUP',
+                command: type,
+            },
+        })
     }
 
     return (
-        <Box display={"flex"}>
+        <Box display={'flex'}>
             <Button
-                onClick={() => handleClick("ON")}
-                variant={"outlined"}
-                color={"success"}
-                sx={{mr: 2}}
+                onClick={() => handleClick('ON')}
+                variant={'outlined'}
+                color={'success'}
+                sx={{ mr: 2 }}
             >
                 ROBO ON
             </Button>
             <Button
-                onClick={() => handleClick("OFF")}
-                variant={"outlined"}
-                color={"error"}
+                onClick={() => handleClick('OFF')}
+                variant={'outlined'}
+                color={'error'}
             >
                 ROBO OFF
             </Button>
-
         </Box>
     )
 }

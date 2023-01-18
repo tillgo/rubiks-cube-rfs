@@ -5,6 +5,7 @@ import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.ActualTCPPose;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.DataPayload;
+import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.RobotStatus;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.SafetyStatus;
 
 import java.nio.ByteBuffer;
@@ -41,8 +42,12 @@ public class DataPackage extends Package {
                     //Not needed right now
                 }
                 case UINT32 -> {
+                    int intPayload = buffer.getInt();
                     if (dataType == DataType.SAFETY_STATUS)
-                        variables.put(dataType, SafetyStatus.unpack(buffer.getInt()));
+                        variables.put(dataType, SafetyStatus.unpack(intPayload));
+                    else if (dataType == DataType.ROBOT_STATUS) {
+                        variables.put(dataType, RobotStatus.unpack(intPayload));
+                    }
                 }
                 case UINT64 -> {
                     //Not needed right now
