@@ -104,6 +104,30 @@ Roboter deaktivieren
 
 
 
+## Cube-Solver Websocket
+Pfad: /cube-solver/{clientname}
+Schnittstelle für das Lösen des Rubiks-Cubes
+
+### Command-Payloads (Client -> Server)
+
+Scannen des Würfels starten:
+{"command": "START_SCAN"}  
+
+Starten des Lösens des Würfels (Wenn davor nicht gescannt: Error)
+{"command": "START_SOLVE"}
+
+Generelles Stoppen/Abbrechen des gesamten Vorgangs (Sowohl Einlesen als auch Lösen):
+{"command": "STOP"}
+
+
+### Info-Payloads (Server -> Client)
+ToDo
+
+### Error-Payloads (Server -> Client)
+{"message": <string>}
+
+
+
 
 
  
