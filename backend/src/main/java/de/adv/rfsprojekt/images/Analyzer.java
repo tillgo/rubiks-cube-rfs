@@ -3,38 +3,28 @@ package de.adv.rfsprojekt.images;
 import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.util.CubeColor;
 
-import javax.imageio.ImageIO;
+import javax.enterprise.context.ApplicationScoped;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+@ApplicationScoped
 public class Analyzer {
 
-    private final BufferedImage imageToAnalyze;
-
-    public Analyzer(BufferedImage imageToAnalyze) {
-        this.imageToAnalyze = imageToAnalyze;
-    }
-
-    public List<String> analyze() {
+    public List<CubeColor> analyze(BufferedImage image) {
         return Config.getPositions().stream()
-                .map(this::getColorName)
-                .map(Objects::toString)
+                .map(p -> getColorName(p, image))
                 .toList();
     }
 
-
-    private CubeColor getColorName(Point point){
-        float[] hsb = getHSB(point);
+    private CubeColor getColorName(Point point, BufferedImage image){
+        float[] hsb = getHSB(point, image);
         float hue = hsb[0]*360;
         float sat = hsb[1] * 100;
         float bright = hsb[2] * 100;
 
-        System.out.println(hue + " " + bright + " " + sat);
+        System.out.println(hue + " " + sat + " " + bright);
 
         var ranges = Config.getHSBRanges();
         return ranges.entrySet().stream()
@@ -44,7 +34,7 @@ public class Analyzer {
                 .orElseThrow();
     }
 
-    public Color averageColor(int x0, int y0, int radius) {
+    public Color averageColor(int x0, int y0, int radius, BufferedImage image) {
         int x1 = x0 - radius;
         int y1 = y0 - radius;
         int x2 = x0 + radius;
@@ -52,19 +42,18 @@ public class Analyzer {
         int sumr = 0, sumg = 0, sumb = 0;
         for (int x = x1; x < x2; x++) {
             for (int y = y1; y < y2; y++) {
-                var pixel = new Color(imageToAnalyze.getRGB(x, y));
+                var pixel = new Color(image.getRGB(x, y));
                 sumr += pixel.getRed();
                 sumg += pixel.getGreen();
                 sumb += pixel.getBlue();
             }
         }
-        int num = (int) Math.pow(radius * 2, 2);
+        int num = (int) Math.pow(radius * 2 + 1, 2);
         return new Color(sumr / num, sumg / num, sumb / num);
     }
 
-    private float[] getHSB(Point point){
-        var color = averageColor(point.x(),point.y(), 25);
-        System.out.println(color);
+    private float[] getHSB(Point point, BufferedImage image) {
+        var color = averageColor(point.x(), point.y(), 25, image);
         return Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), new float[3]);
     }
 

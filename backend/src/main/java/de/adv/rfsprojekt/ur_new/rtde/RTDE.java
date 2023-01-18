@@ -1,5 +1,6 @@
 package de.adv.rfsprojekt.ur_new.rtde;
 
+import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur_new.rtde.entities.ConnectionState;
 import de.adv.rfsprojekt.ur_new.rtde.entities.PacketHeader;
 import de.adv.rfsprojekt.ur_new.rtde.entities.exceptions.URException;
@@ -33,6 +34,7 @@ public class RTDE {
     public final static short RTDE_PROTOCOL_VERSION_2 = 2;
 
     private final String hostname;
+    private final int rtdePort;
 
     private Socket socket = null;
     private OutputStream os = null;
@@ -46,6 +48,7 @@ public class RTDE {
 
     public RTDE(String hostname) {
         this.hostname = hostname;
+        this.rtdePort = Config.getURRTDEPort();
     }
 
     public void connect() throws Exception {
@@ -53,7 +56,7 @@ public class RTDE {
             return;
         }
         try {
-            socket = new Socket(hostname, 30004);
+            socket = new Socket(hostname, rtdePort);
             os = socket.getOutputStream();
             is = socket.getInputStream();
             connectionState = ConnectionState.CONNECTED;

@@ -7,8 +7,9 @@ public class ActualTCPPose extends DataPayload {
 
     private Pose pose;
 
-    public ActualTCPPose(Object payload) {
+    public ActualTCPPose(Pose pose) {
         super(DataType.ACTUAL_TCP_POSE);
+        this.pose = pose;
     }
 
     @Override
