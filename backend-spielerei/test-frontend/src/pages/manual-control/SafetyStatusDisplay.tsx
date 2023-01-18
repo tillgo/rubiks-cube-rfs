@@ -8,7 +8,7 @@ const SafetyStatusDisplay = () => {
     const isInfo = (value: any): value is WebsocketMessage<'INFO', 'MANUAL'> =>
         value?.type === 'INFO'
 
-    const safetyStatus = isInfo(data) ? data.payload.safetyStatus : undefined
+    const safetyStatus = isInfo(data) ? data.payload.data : undefined
 
     const errors = Object.entries(safetyStatus ?? [])
         .filter((e) => e[1])

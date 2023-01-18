@@ -8,18 +8,18 @@ public class RoboStatusInfoPayload implements BasePayload {
 
     private final InfoMessageType infoType;
 
-    private final Map<SafetyStatusType, Boolean> safetyStatus;
+    private final Map<SafetyStatusType, Boolean> data;
 
     public RoboStatusInfoPayload(Map<SafetyStatusType, Boolean> safetyStatus) {
         this.infoType = InfoMessageType.ROBO_STATUS;
-        this.safetyStatus = safetyStatus;
+        this.data = safetyStatus;
     }
 
     public InfoMessageType getInfoType() {
         return infoType;
     }
 
-    public Map<SafetyStatusType, Boolean> getSafetyStatus() {
-        return safetyStatus;
+    public Map<SafetyStatusType, Boolean> getData() {
+        return data;
     }
 }

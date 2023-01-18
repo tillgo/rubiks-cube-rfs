@@ -44,7 +44,9 @@ type Payload<T extends MessageType, C extends WSConnection> = T extends 'ERROR'
         ? ManualCommandPayload<MoveType>
         : CubeSolverCommandPayload
     : T extends 'INFO'
-    ? InfoPayload<InfoType>
+    ? C extends 'MANUAL'
+        ? InfoPayload<'ROBO_STATUS'>
+        : InfoPayload<InfoType>
     : never
 
 export type WSConnection = 'MANUAL' | 'CUBE_SOLVER'
