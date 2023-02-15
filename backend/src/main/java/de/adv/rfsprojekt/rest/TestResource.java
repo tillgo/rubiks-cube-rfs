@@ -3,6 +3,7 @@ package de.adv.rfsprojekt.rest;
 
 import de.adv.rfsprojekt.images.Analyzer;
 import de.adv.rfsprojekt.images.ImageService;
+import de.adv.rfsprojekt.service.test.CubeDreher;
 import de.adv.rfsprojekt.ur_new.UR;
 import de.adv.rfsprojekt.util.CubeColor;
 
@@ -27,6 +28,8 @@ public class TestResource {
 
     @Inject
     ImageService imageService;
+
+    @Inject CubeDreher cubeDreher;
 
     @Path("1")
     @POST
@@ -60,6 +63,12 @@ public class TestResource {
         // 52.3 -497.25 208.2 1.25 -2.96 0.97
         System.out.println("_________________________");
         return imageService.getCurrentCubeColors();
+    }
+
+    @Path("cube-dreher")
+    @GET
+    public void cuberDreher() throws IOException {
+        cubeDreher.dreheWuerfel();
     }
 
 
