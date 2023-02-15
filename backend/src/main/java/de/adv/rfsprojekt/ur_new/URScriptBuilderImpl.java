@@ -1,6 +1,7 @@
 package de.adv.rfsprojekt.ur_new;
 
 import de.adv.rfsprojekt.system.Config;
+import de.adv.rfsprojekt.ur_new.entities.JointPose;
 import de.adv.rfsprojekt.ur_new.entities.Pose;
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
 
@@ -8,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static de.adv.rfsprojekt.ur_new.urscript_commands.MovementCommands.MOVE_L;
-import static de.adv.rfsprojekt.ur_new.urscript_commands.MovementCommands.SPEED_L;
+import static de.adv.rfsprojekt.ur_new.urscript_commands.CommandUtils.COMBINE_COMMANDS_TO_PROGRAMM;
+import static de.adv.rfsprojekt.ur_new.urscript_commands.MovementCommands.*;
 import static de.adv.rfsprojekt.ur_new.urscript_commands.PositionCommands.GET_POSE_RELATIVE_TO_TOOL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -19,43 +20,56 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class URScriptBuilderImpl implements URScriptBuilder {
 
-    private StringBuilder sbScript;
+    StringBuilder sb;
     private URConnection urConnection;
 
 
     public URScriptBuilderImpl(URConnection urConnection) {
-        sbScript = new StringBuilder();
+        sb = new StringBuilder();
         this.urConnection = urConnection;
     }
 
 
     /*Movement*/
 
+    public URScriptBuilder moveL(Pose pose) {
+        sb.append(MOVE_L(pose, 1, 0.2, 0, 0));
+        return this;
+    }
+
     public URScriptBuilder moveRelativeToTCP(Pose pose) {
-        sbScript.append(MOVE_L(GET_POSE_RELATIVE_TO_TOOL(
+        sb.append(MOVE_L(GET_POSE_RELATIVE_TO_TOOL(
                 pose), 1, 0.2, 0, 0));
 
         return this;
     }
 
+    public URScriptBuilder moveRelativeToTCP(JointPose joints) {
+        sb.append(MOVE_RELATIVE_TO_TOOL(joints, 1, 0.2, 0, 0));
+
+        return this;
+    }
+
+
     public URScriptBuilder speedL(Pose toolspeeds) {
-        sbScript.append(SPEED_L(toolspeeds.toStringArray(), 1, Config.getMoveTime()));
+        sb.append(SPEED_L(toolspeeds.toStringArray(), 1, Config.getMoveTime()));
         return this;
     }
 
     public URScriptBuilder customScript(String customScript) {
-        sbScript.append(customScript + "\n");
+        sb.append(customScript + "\n");
         return this;
     }
 
 
     public void execute() throws IOException {
-        String script = sbScript.toString();
+        String script = COMBINE_COMMANDS_TO_PROGRAMM(sb.toString());
         byte[] scriptData = script.getBytes(UTF_8);
+        System.out.println(script);
         OutputStream os = urConnection.getOutputStream();
         os.write(scriptData);
         os.flush();
-        sbScript = new StringBuilder();
+        sb = new StringBuilder();
     }
 
     public String executeWithMessage() throws IOException, InterruptedException {

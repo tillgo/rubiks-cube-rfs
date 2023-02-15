@@ -1,11 +1,12 @@
 package de.adv.rfsprojekt.ur_new.urscript_commands;
 
 
+import de.adv.rfsprojekt.ur_new.entities.JointPose;
 import de.adv.rfsprojekt.ur_new.entities.Pose;
 
 public class MovementCommands {
 
-    public static String MOVE_L(Pose p, double a, double v, double t, double r){
+    public static String MOVE_L(Pose p, double a, double v, double t, double r) {
         return MOVE_L(p.toString(), a, v, t, r);
     }
 
@@ -17,9 +18,33 @@ public class MovementCommands {
                 "t=" + t + ',' +
                 "r=" + r +
                 ")\n";
-
-
     }
+
+    public static String MOVE_J(Pose p, double a, double v, double t, double r) {
+        return MOVE_J(p.toString(), a, v, t, r);
+    }
+
+    public static String MOVE_J(String p, double a, double v, double t, double r) {
+        return "movej(" +
+                p + ',' +
+                "a=" + a + ',' +
+                "v=" + v + ',' +
+                "t=" + t + ',' +
+                "r=" + r +
+                ")\n";
+    }
+
+    public static String MOVE_RELATIVE_TO_TOOL(JointPose joints, double a, double v, double t, double r) {
+        return "jp = get_actual_joint_positions()\n" +
+                "movej([jp[0]+" + joints.base() + ",jp[1]+" + joints.shoulder() + ",jp[2]+" + joints.elbow() +
+                ",jp[3]+ " + joints.wrist1() + ",jp[4]+" + joints.wrist2() + ",jp[5]+" + joints.wrist3() + "]," +
+                "a=" + a + ',' +
+                "v=" + v + ',' +
+                "t=" + t + ',' +
+                "r=" + r +
+                ")\n";
+    }
+
 
     /**
      * Tool speed
@@ -63,4 +88,5 @@ public class MovementCommands {
                 "aRot=" + aRot + "," +
                 ")\n";
     }
+
 }
