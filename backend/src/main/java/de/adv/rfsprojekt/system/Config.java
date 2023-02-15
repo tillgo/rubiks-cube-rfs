@@ -3,9 +3,11 @@ package de.adv.rfsprojekt.system;
 import de.adv.rfsprojekt.images.HSBRanges;
 import de.adv.rfsprojekt.images.Point;
 import de.adv.rfsprojekt.images.Range;
+import de.adv.rfsprojekt.ur_new.entities.Pose;
 import de.adv.rfsprojekt.util.CubeColor;
 import org.eclipse.microprofile.config.ConfigProvider;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +60,17 @@ public class Config {
                 CubeColor.GREEN, getColorRanges("green"),
                 CubeColor.ORANGE, getColorRanges("orange")
         );
+    }
+
+    public static Pose getPose(String name) {
+        var conf = ConfigProvider.getConfig();
+        var value = conf.getValue("ur.default-pose.\"" + name + "\"", String.class);
+
+        var values = Arrays.stream(value.split(";"))
+                .map(Double::valueOf)
+                .toList();
+
+        return new Pose(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5));
     }
 
     private static int getPos(String name) {

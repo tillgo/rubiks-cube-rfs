@@ -3,6 +3,7 @@ package de.adv.rfsprojekt.rest;
 
 import de.adv.rfsprojekt.images.Analyzer;
 import de.adv.rfsprojekt.images.ImageService;
+import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur_new.UR;
 import de.adv.rfsprojekt.util.CubeColor;
 
@@ -48,10 +49,8 @@ public class TestResource {
 
     @Path("3")
     @GET
-    public List<CubeColor> imageprocc() throws IOException {
-        BufferedImage img = ImageIO.read(new File("./src/main/resources/images/gelb_unscharf.jpg"));
-        Analyzer analyzer = new Analyzer();
-        return analyzer.analyze(img);
+    public void test3() throws IOException {
+        System.out.println(Config.getPose("scanner"));
     }
 
     @Path("4")
