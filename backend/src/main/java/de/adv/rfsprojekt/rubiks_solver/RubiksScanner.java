@@ -39,7 +39,7 @@ public class RubiksScanner {
 
         for (var move : moves) {
             ur.execute(move.getValue());
-            Thread.sleep(50000);
+            Thread.sleep(50000); // TODO: Warten bis robo hingemoved + neues bild geschossen
 
             colors.put(move.getKey(), imageService.getCurrentCubeColors());
         }
