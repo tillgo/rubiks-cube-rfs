@@ -9,17 +9,16 @@ import static de.adv.rfsprojekt.system.Config.*;
 
 public class RubiksSolvingScripts {
 
-    private static double ZSAFE = 0.4;
-    private static double TURN_90DEG_CLOCK = -1.571;
-    private static double TURN_90DEG_COUNTERCLOCK = 1.571;
-    private static double TURN_180DEG = 3.142;
+    private static final double ZSAFE = 0.4;
 
+    private static final double RAD_90DEG = 1.571;
+
+    private static final double RAD_180DEG = RAD_90DEG * 2;
 
     private static URScript SPIN(double wrist3rad) {
         return new URScriptBuilderImpl()
                 .moveRelativeToTCP(new JointPose(0, 0, 0, 0, 0, wrist3rad))
                 .getURScript();
-
     }
 
     private static URScript SPIN_CUBE(double wrist3rad) {
@@ -34,10 +33,9 @@ public class RubiksSolvingScripts {
                 //  .openGripper()
                 .addURScript(SPIN(wrist3rad * -1))
                 .getURScript();
-
     }
 
-    private static URScript TURN_BACK_TO_TOP_WITHOUT_SAFETY =
+    private static final URScript TURN_BACK_TO_TOP_WITHOUT_SAFETY =
             new URScriptBuilderImpl()
                     //        .openGripper()
                     .moveL(GREIF_POSE)
@@ -64,9 +62,9 @@ public class RubiksSolvingScripts {
     }
 
 
-    public final static URScript SPIN_CUBE_90DEG_CLOCK = SPIN_CUBE(TURN_90DEG_CLOCK);
-    public final static URScript SPIN_CUBE_90DEG_COUNTERCLOCK = SPIN_CUBE(TURN_90DEG_COUNTERCLOCK);
-    public final static URScript SPIN_CUBE_180DEG = SPIN_CUBE(TURN_180DEG);
+    public final static URScript SPIN_CUBE_90DEG_CLOCK = SPIN_CUBE(-RAD_90DEG);
+    public final static URScript SPIN_CUBE_90DEG_COUNTERCLOCK = SPIN_CUBE(RAD_90DEG);
+    public final static URScript SPIN_CUBE_180DEG = SPIN_CUBE(RAD_180DEG);
 
 
     public final static URScript TURN_BACK_TO_TOP =
@@ -105,9 +103,9 @@ public class RubiksSolvingScripts {
                     .getURScript();
 
 
-    public static final URScript GET_SCRIPT_FOR_MOVE(Move move) {
-        URScript spinScript = SPIN(TURN_90DEG_COUNTERCLOCK * move.getCount());
-        URScript spingBackScript = SPIN(TURN_90DEG_COUNTERCLOCK * move.getCount() * -1);
+    public static URScript GET_SCRIPT_FOR_MOVE(Move move) {
+        URScript spinScript = SPIN(-RAD_90DEG * move.getCount());
+        URScript spingBackScript = SPIN(RAD_90DEG * move.getCount());
 
         URScript faceTurn = switch (move.getFace()) {
             case B -> TURN_BACK_TO_TOP;
