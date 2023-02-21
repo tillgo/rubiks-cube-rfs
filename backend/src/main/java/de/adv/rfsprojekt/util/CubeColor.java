@@ -5,7 +5,7 @@ public enum CubeColor {
     GREEN("G", "F"),
     RED("R", "R"),
     ORANGE("O", "L"),
-    WHITE("W", "T"),
+    WHITE("W", "U"),
     BLUE("B", "B");
 
     private final String color;
