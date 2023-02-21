@@ -1,8 +1,8 @@
 package de.adv.rfsprojekt.rubiks_solver;
 
 import de.adv.rfsprojekt.rubiks_solver.models.Move;
-import de.adv.rfsprojekt.ur_new.UR;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScript;
+import de.adv.rfsprojekt.ur.UR;
+import de.adv.rfsprojekt.ur.urscript_builder.URScript;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

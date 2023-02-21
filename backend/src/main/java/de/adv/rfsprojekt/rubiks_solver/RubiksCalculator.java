@@ -3,7 +3,7 @@ package de.adv.rfsprojekt.rubiks_solver;
 
 import de.adv.rfsprojekt.rubiks_solver.min2phase.Search;
 import de.adv.rfsprojekt.rubiks_solver.models.Move;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScript;
+import de.adv.rfsprojekt.ur.urscript_builder.URScript;
 import de.adv.rfsprojekt.util.Face;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -68,9 +68,6 @@ public class RubiksCalculator {
             )
 
     );
-
-    public RubiksCalculator() {
-    }
 
     public List<Move> calculateSolvingPath(String unsolvedCube) {
         //ToDo: solution Methode gibt bei unlösbarem cubeString einen Error-String zurück. Stattdessen Exception werfen oder Error-String handlen

@@ -1,18 +1,20 @@
 package de.adv.rfsprojekt.rubiks_solver;
 
 import de.adv.rfsprojekt.rubiks_solver.models.Move;
-import de.adv.rfsprojekt.ur_new.entities.JointPose;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScript;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScriptBuilderImpl;
+import de.adv.rfsprojekt.ur.entities.JointPose;
+import de.adv.rfsprojekt.ur.urscript_builder.URScript;
+import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
+import de.adv.rfsprojekt.util.Face;
+
+import java.util.List;
+import java.util.Map;
 
 import static de.adv.rfsprojekt.system.Config.*;
 
 public class RubiksSolvingScripts {
 
     private static final double ZSAFE = 0.4;
-
     private static final double RAD_90DEG = 1.571;
-
     private static final double RAD_180DEG = RAD_90DEG * 2;
 
     private static URScript SPIN(double wrist3rad) {
@@ -27,11 +29,11 @@ public class RubiksSolvingScripts {
                 //  .openGripper()
                 .moveL(GREIF_POSE)
                 //  .closeGripper()
-                .moveL(GREIF_HOCH_POSE)
+                .moveLZAxis(ZSAFE)
                 .addURScript(SPIN(wrist3rad))
                 .moveL(GREIF_POSE)
                 //  .openGripper()
-                .addURScript(SPIN(wrist3rad * -1))
+                .addURScript(SPIN(-wrist3rad))
                 .getURScript();
     }
 
@@ -64,7 +66,7 @@ public class RubiksSolvingScripts {
 
     public final static URScript SPIN_CUBE_90DEG_CLOCK = SPIN_CUBE(-RAD_90DEG);
     public final static URScript SPIN_CUBE_90DEG_COUNTERCLOCK = SPIN_CUBE(RAD_90DEG);
-    public final static URScript SPIN_CUBE_180DEG = SPIN_CUBE(RAD_180DEG);
+    public final static URScript SPIN_CUBE_180DEG = SPIN_CUBE(-RAD_180DEG);
 
 
     public final static URScript TURN_BACK_TO_TOP =
@@ -102,7 +104,6 @@ public class RubiksSolvingScripts {
                     .moveL(GREIF_HOCH_POSE)
                     .getURScript();
 
-
     public static URScript GET_SCRIPT_FOR_MOVE(Move move) {
         URScript spinScript = SPIN(-RAD_90DEG * move.getCount());
         URScript spingBackScript = SPIN(RAD_90DEG * move.getCount());
@@ -119,6 +120,14 @@ public class RubiksSolvingScripts {
         return CREATE_MOVE_SCRIPT(faceTurn, spinScript, spingBackScript);
     }
 
+    public static final Map<Face, URScript> SCAN_MOVES = Map.of(
+            Face.U, null,
+            Face.B, TURN_BACK_TO_TOP,
+            Face.D, TURN_BACK_TO_TOP,
+            Face.F, TURN_BACK_TO_TOP,
+            Face.R, TURN_RIGHT_TO_TOP,
+            Face.L, TURN_BOTTOM_TO_TOP
+    );
 
 }
 

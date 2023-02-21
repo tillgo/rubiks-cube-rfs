@@ -1,27 +1,27 @@
 package de.adv.rfsprojekt.util;
 
 public enum CubeColor {
-    YELLOW('Y', 'D'),
-    GREEN('G', 'F'),
-    RED('R', 'R'),
-    ORANGE('O', 'L'),
-    WHITE('W', 'T'),
-    BLUE('B', 'B');
+    YELLOW("Y", "D"),
+    GREEN("G", "F"),
+    RED("R", "R"),
+    ORANGE("O", "L"),
+    WHITE("W", "T"),
+    BLUE("B", "B");
 
-    private final char color;
+    private final String color;
 
-    private final char position;
+    private final String position;
 
-    CubeColor(char color, char position) {
+    CubeColor(String color, String position) {
         this.color = color;
         this.position = position;
     }
 
-    public char getColor() {
+    public String getColor() {
         return color;
     }
 
-    public char getPosition() {
+    public String getPosition() {
         return position;
     }
 }

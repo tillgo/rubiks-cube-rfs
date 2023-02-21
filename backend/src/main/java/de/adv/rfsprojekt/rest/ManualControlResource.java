@@ -1,8 +1,8 @@
 package de.adv.rfsprojekt.rest;
 
-import de.adv.rfsprojekt.ur_new.UR;
-import de.adv.rfsprojekt.ur_new.entities.Pose;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScriptBuilderImpl;
+import de.adv.rfsprojekt.ur.UR;
+import de.adv.rfsprojekt.ur.entities.Pose;
+import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;

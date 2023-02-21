@@ -1,6 +1,6 @@
 package de.adv.rfsprojekt.websocket.entities;
 
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.SafetyStatusType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.SafetyStatusType;
 
 import java.util.Map;
 

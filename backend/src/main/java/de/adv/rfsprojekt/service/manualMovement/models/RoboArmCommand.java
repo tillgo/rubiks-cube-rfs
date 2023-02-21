@@ -1,6 +1,6 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
-import de.adv.rfsprojekt.ur_new.entities.Pose;
+import de.adv.rfsprojekt.ur.entities.Pose;
 
 import static de.adv.rfsprojekt.system.Config.getMoveSpeedArm;
 
