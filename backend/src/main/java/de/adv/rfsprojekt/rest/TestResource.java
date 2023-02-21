@@ -65,7 +65,7 @@ public class TestResource {
 
     @Path("solve-test")
     @GET
-    public Response cuberDreher() throws IOException, InterruptedException {
+    public Response cuberDreher() throws Exception {
         rubiksCommander.solveCube();
         return Response.ok().build();
     }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) throws Exception {
-        RTDE rtde = new RTDE("192.168.178.30");
+        RTDE rtde = new RTDE();
         rtde.connect();
         List<DataType> outputVariables = Arrays.asList(DataType.ACTUAL_TCP_POSE, DataType.SAFETY_STATUS, DataType.ROBOT_STATUS);
         rtde.send_output_setup(outputVariables, 1);
@@ -21,7 +21,7 @@ public class main {
         PackageType[] packageTypes = {PackageType.RTDE_DATA_PACKAGE, PackageType.RTDE_TEXT_MESSAGE};
         Package[] recievedPackages = null;
         while (true) {
-            recievedPackages = rtde.reveiveMultiplePackages(packageTypes);
+            recievedPackages = rtde.receiveMultiplePackages(packageTypes);
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) handleDataPackage(dataPackage);
             MessagePacket messagePacket = (MessagePacket) recievedPackages[1];

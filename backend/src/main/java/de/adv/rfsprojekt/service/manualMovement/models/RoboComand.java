@@ -2,13 +2,13 @@ package de.adv.rfsprojekt.service.manualMovement.models;
 
 public class RoboComand {
 
-    private final CommandType commandType;
+    private final ManualMovementCommandType manualMovementCommandType;
 
-    public RoboComand(CommandType commandType) {
-        this.commandType = commandType;
+    public RoboComand(ManualMovementCommandType manualMovementCommandType) {
+        this.manualMovementCommandType = manualMovementCommandType;
     }
 
-    public CommandType getCommandType() {
-        return commandType;
+    public ManualMovementCommandType getCommandType() {
+        return manualMovementCommandType;
     }
 }

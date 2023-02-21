@@ -1,6 +1,5 @@
 package de.adv.rfsprojekt.service.shared;
 
-import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur_new.rtde.RTDE;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
@@ -23,7 +22,7 @@ public class ErrorAnalyzer extends Thread {
 
     public ErrorAnalyzer(Consumer<WebsocketMessage<RoboStatusInfoPayload>> broadcast) {
         this.broadcast = broadcast;
-        rtde = new RTDE(Config.getURHost());
+        rtde = new RTDE();
     }
 
     @Override
@@ -50,7 +49,7 @@ public class ErrorAnalyzer extends Thread {
         PackageType[] packageTypes = {PackageType.RTDE_DATA_PACKAGE};
         Package[] recievedPackages = null;
         while (doRun) {
-            recievedPackages = rtde.reveiveMultiplePackages(packageTypes);
+            recievedPackages = rtde.receiveMultiplePackages(packageTypes);
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) {
                 SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(DataType.SAFETY_STATUS);

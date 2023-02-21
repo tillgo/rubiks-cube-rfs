@@ -58,8 +58,8 @@ public class RubiksSolvingScripts {
                 // .closeGripper()
                 .addURScript(spin)
                 // .openGripper()
-                .moveL(GREIF_HOCH_POSE)
                 .addURScript(spinBack)
+                .moveL(GREIF_HOCH_POSE)
                 .getURScript();
     }
 

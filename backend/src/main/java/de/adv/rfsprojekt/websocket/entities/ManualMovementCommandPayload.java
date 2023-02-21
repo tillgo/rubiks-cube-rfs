@@ -1,20 +1,20 @@
 package de.adv.rfsprojekt.websocket.entities;
 
-import de.adv.rfsprojekt.service.manualMovement.models.CommandType;
+import de.adv.rfsprojekt.service.manualMovement.models.ManualMovementCommandType;
 
 public class ManualMovementCommandPayload implements BasePayload {
 
-    private final CommandType commandType;
+    private final ManualMovementCommandType manualMovementCommandType;
 
     private final String command;
 
-    public ManualMovementCommandPayload(CommandType commandType, String command) {
-        this.commandType = commandType;
+    public ManualMovementCommandPayload(ManualMovementCommandType manualMovementCommandType, String command) {
+        this.manualMovementCommandType = manualMovementCommandType;
         this.command = command;
     }
 
-    public CommandType getCommandType() {
-        return commandType;
+    public ManualMovementCommandType getCommandType() {
+        return manualMovementCommandType;
     }
 
     public String getCommand() {
@@ -24,7 +24,7 @@ public class ManualMovementCommandPayload implements BasePayload {
     @Override
     public String toString() {
         return "ManualMovementCommandPayload{" +
-                "commandType=" + commandType +
+                "commandType=" + manualMovementCommandType +
                 ", command=" + command +
                 '}';
     }

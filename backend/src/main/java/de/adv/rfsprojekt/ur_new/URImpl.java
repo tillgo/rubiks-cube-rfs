@@ -1,9 +1,11 @@
 package de.adv.rfsprojekt.ur_new;
 
+import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
 import de.adv.rfsprojekt.ur_new.urscript_builder.URScript;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,10 +14,14 @@ import java.net.Socket;
 import static de.adv.rfsprojekt.ur_new.urscript_commands.SetupCommands.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+@ApplicationScoped
 public class URImpl implements UR {
 
     private final String host;
+
     private final int port;
+
+    private final boolean enabled;
 
     private final URConnection urConnection;
 
@@ -23,10 +29,10 @@ public class URImpl implements UR {
     int dashboardPort;
 
 
-    public URImpl(String host, int port, boolean enabled) throws IOException {
-
-        this.host = host;
-        this.port = port;
+    public URImpl() throws IOException {
+        host = Config.getURHost();
+        port = Config.getURSecondaryPort();
+        enabled = Config.getIsUREnabled();
 
         if (enabled) {
             Socket socket = new Socket(host, port);

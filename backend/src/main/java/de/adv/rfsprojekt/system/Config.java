@@ -37,6 +37,10 @@ public class Config {
         return ConfigProvider.getConfig().getValue("ur.rtde_port", Integer.class);
     }
 
+    public static boolean getIsUREnabled() {
+        return ConfigProvider.getConfig().getOptionalValue("ur.enabled", Boolean.class).orElse(true);
+    }
+
     public static List<Point> getPositions() {
         return List.of(
                 new Point(getPos("top-left.xpos"), getPos("top-left.ypos")),

@@ -29,12 +29,10 @@ import java.util.stream.Collectors;
 /**
  * Geht aktuell nur mit Protokol Version 2
  */
+
 public class RTDE {
 
     public final static short RTDE_PROTOCOL_VERSION_2 = 2;
-
-    private final String hostname;
-    private final int rtdePort;
 
     private Socket socket = null;
     private OutputStream os = null;
@@ -46,15 +44,12 @@ public class RTDE {
     private DataConfig outputConfig;
 
 
-    public RTDE(String hostname) {
-        this.hostname = hostname;
-        this.rtdePort = Config.getURRTDEPort();
-    }
-
     public void connect() throws Exception {
         if (socket != null) {
             return;
         }
+        String hostname = Config.getURHost();
+        int rtdePort = Config.getURRTDEPort();
         try {
             socket = new Socket(hostname, rtdePort);
             os = socket.getOutputStream();
@@ -110,7 +105,7 @@ public class RTDE {
         return recvSpecificPackage(packageType);
     }
 
-    public Package[] reveiveMultiplePackages(PackageType[] packageType) throws Exception {
+    public Package[] receiveMultiplePackages(PackageType[] packageType) throws Exception {
         if (outputConfig == null) throw new URException("No Output-Variables setup");
         if (!connectionState.equals(ConnectionState.STARTED)) throw new URException("RTDE Synchronization inactive");
         return recvMultiplePackagTypes(packageType);
