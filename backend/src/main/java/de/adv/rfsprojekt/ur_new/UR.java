@@ -1,6 +1,7 @@
 package de.adv.rfsprojekt.ur_new;
 
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
+import de.adv.rfsprojekt.ur_new.urscript_builder.URScript;
 
 import java.io.IOException;
 
@@ -10,9 +11,10 @@ public interface UR {
 
     void powerOff() throws IOException;
 
-    URScriptBuilder buildScript();
+    void execute(URScript script) throws IOException;
 
-    GripperCommander commandGripper();
+
+    String executeWithMessage(URScript script) throws IOException, InterruptedException;
 
     String getHost();
 

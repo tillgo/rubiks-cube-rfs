@@ -2,8 +2,10 @@ package de.adv.rfsprojekt.rubiks_solver;
 
 import de.adv.rfsprojekt.util.CubeColor;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
+@ApplicationScoped
 public class RubiksReader {
 
     private List<CubeColor> upperColors;

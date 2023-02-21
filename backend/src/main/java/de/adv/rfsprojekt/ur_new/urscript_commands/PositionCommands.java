@@ -4,10 +4,9 @@ import de.adv.rfsprojekt.ur_new.entities.Pose;
 
 public class PositionCommands {
 
-    public static String GET_TOOL_POSE(boolean inline) {
+    public static String GET_TOOL_POSE() {
         StringBuilder sb = new StringBuilder();
         sb.append("tool_pose");
-        if (!inline) sb.append("\n");
         return sb.toString();
     }
 

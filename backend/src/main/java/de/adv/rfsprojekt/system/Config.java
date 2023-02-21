@@ -25,15 +25,15 @@ public class Config {
         return ConfigProvider.getConfig().getValue("ur.move.time", Double.class);
     }
 
-    public static String getURHost(){
+    public static String getURHost() {
         return ConfigProvider.getConfig().getValue("ur.hostname", String.class);
     }
 
-    public static int getURSecondaryPort(){
+    public static int getURSecondaryPort() {
         return ConfigProvider.getConfig().getValue("ur.secondary_port", Integer.class);
     }
 
-    public static int getURRTDEPort(){
+    public static int getURRTDEPort() {
         return ConfigProvider.getConfig().getValue("ur.rtde_port", Integer.class);
     }
 
@@ -61,6 +61,12 @@ public class Config {
                 CubeColor.ORANGE, getColorRanges("orange")
         );
     }
+
+    public static Pose SCANNER_POSE = getPose("scanner");
+    public static Pose GREIF_POSE = getPose("greif");
+    public static Pose GREIF_HOCH_POSE = getPose("greif-hoch");
+    public static Pose DROP_POSE = getPose("drop");
+    public static Pose DROP_HOCH_POSE = getPose("drop-hoch");
 
     public static Pose getPose(String name) {
         var conf = ConfigProvider.getConfig();

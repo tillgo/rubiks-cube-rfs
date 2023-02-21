@@ -1,7 +1,11 @@
 package de.adv.rfsprojekt.service.manualMovement;
 
-import de.adv.rfsprojekt.service.manualMovement.models.*;
+import de.adv.rfsprojekt.service.manualMovement.models.GripperCommand;
+import de.adv.rfsprojekt.service.manualMovement.models.RoboArmCommand;
+import de.adv.rfsprojekt.service.manualMovement.models.RoboSetupCommand;
+import de.adv.rfsprojekt.service.manualMovement.models.RoboToolCommand;
 import de.adv.rfsprojekt.ur_new.UR;
+import de.adv.rfsprojekt.ur_new.urscript_builder.URScriptBuilderImpl;
 import de.adv.rfsprojekt.websocket.entities.ManualMovementCommandPayload;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -27,27 +31,30 @@ public class ManualMovementController {
         }
     }
 
-
     private void executeRoboSetupCommand(RoboSetupCommand setupCommand) throws IOException, InterruptedException {
-        switch (setupCommand){
+        switch (setupCommand) {
             case ON -> ur.powerOn();
             case OFF -> ur.powerOff();
         }
     }
 
     private void executeRoboArmCommand(RoboArmCommand roboArmMove) throws IOException {
-        ur.buildScript().speedL(roboArmMove.getPose()).execute();
+        ur.execute(new URScriptBuilderImpl().speedL(roboArmMove.getPose()).getURScript());
+
     }
 
     private void executeRoboToolCommand(RoboToolCommand roboToolMove) throws IOException {
-        ur.buildScript().speedL(roboToolMove.getPose()).execute();
+        ur.execute(new URScriptBuilderImpl().speedL(roboToolMove.getPose()).getURScript());
     }
 
     private void executeGripperCommand(GripperCommand gripperCommand) throws IOException, InterruptedException {
         switch (gripperCommand) {
-            case OPEN -> ur.commandGripper().open();
-            case CLOSE -> ur.commandGripper().close();
-            case ACTIVATE -> ur.commandGripper().activate();
+            case OPEN -> ur.execute(new URScriptBuilderImpl().openGripper().getURScript());
+            case CLOSE -> ur.execute(new URScriptBuilderImpl().closeGripper().getURScript());
+            case ACTIVATE -> {
+                ur.execute(new URScriptBuilderImpl().activateGripper().getURScript());
+                Thread.sleep(5000);
+            }
         }
     }
 

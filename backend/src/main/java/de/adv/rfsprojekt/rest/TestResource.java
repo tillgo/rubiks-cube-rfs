@@ -1,20 +1,18 @@
 package de.adv.rfsprojekt.rest;
 
 
-import de.adv.rfsprojekt.images.Analyzer;
 import de.adv.rfsprojekt.images.ImageService;
-import de.adv.rfsprojekt.service.test.CubeDreher;
+import de.adv.rfsprojekt.rubiks_solver.RubiksCommander;
 import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur_new.UR;
+import de.adv.rfsprojekt.ur_new.urscript_builder.URScriptBuilderImpl;
 import de.adv.rfsprojekt.util.CubeColor;
 
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,7 +28,8 @@ public class TestResource {
     @Inject
     ImageService imageService;
 
-    @Inject CubeDreher cubeDreher;
+    @Inject
+    RubiksCommander rubiksCommander;
 
     @Path("1")
     @POST
@@ -46,7 +45,7 @@ public class TestResource {
     public void testNewLib() throws IOException, InterruptedException {
 
         ur.powerOn();
-        ur.buildScript().moveRelativeToTCP(new de.adv.rfsprojekt.ur_new.entities.Pose()).execute();
+        ur.execute(new URScriptBuilderImpl().moveRelativeToTCP(new de.adv.rfsprojekt.ur_new.entities.Pose()).getURScript());
 
     }
 
@@ -64,10 +63,11 @@ public class TestResource {
         return imageService.getCurrentCubeColors();
     }
 
-    @Path("cube-dreher")
+    @Path("solve-test")
     @GET
-    public void cuberDreher() throws IOException {
-        cubeDreher.dreheWuerfel();
+    public Response cuberDreher() throws IOException, InterruptedException {
+        rubiksCommander.solveCube();
+        return Response.ok().build();
     }
 
 

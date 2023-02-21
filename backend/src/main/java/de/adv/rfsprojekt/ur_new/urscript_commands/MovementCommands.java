@@ -17,7 +17,7 @@ public class MovementCommands {
                 "v=" + v + ',' +
                 "t=" + t + ',' +
                 "r=" + r +
-                ")\n";
+                ")";
     }
 
     public static String MOVE_J(Pose p, double a, double v, double t, double r) {
@@ -31,18 +31,25 @@ public class MovementCommands {
                 "v=" + v + ',' +
                 "t=" + t + ',' +
                 "r=" + r +
-                ")\n";
+                ")";
     }
 
     public static String MOVE_RELATIVE_TO_TOOL(JointPose joints, double a, double v, double t, double r) {
         return "jp = get_actual_joint_positions()\n" +
-                "movej([jp[0]+" + joints.base() + ",jp[1]+" + joints.shoulder() + ",jp[2]+" + joints.elbow() +
-                ",jp[3]+ " + joints.wrist1() + ",jp[4]+" + joints.wrist2() + ",jp[5]+" + joints.wrist3() + "]," +
+                "movej([jp[0]+(" + joints.base() + "),jp[1]+(" + joints.shoulder() + "),jp[2]+(" + joints.elbow() +
+                "),jp[3]+(" + joints.wrist1() + "),jp[4]+(" + joints.wrist2() + "),jp[5]+(" + joints.wrist3() + ")]," +
                 "a=" + a + ',' +
                 "v=" + v + ',' +
                 "t=" + t + ',' +
                 "r=" + r +
-                ")\n";
+                ")";
+    }
+
+    public static String MOVEL_Z_AXIS(double z) {
+        return "curr_pos = get_actual_tcp_pose()\n" +
+                "curr_pos[2] = + " + z + "\n" +
+                MOVE_L("curr_pos", 1, 0.2, 0, 0);
+
     }
 
 
@@ -63,7 +70,7 @@ public class MovementCommands {
                 p + "," +
                 "a=" + a + "," +
                 "t=" + t +
-                ")\n";
+                ")";
     }
 
     /**
@@ -86,7 +93,7 @@ public class MovementCommands {
                 "a=" + a + "," +
                 "t=" + t +
                 "aRot=" + aRot + "," +
-                ")\n";
+                ")";
     }
 
 }

@@ -1,6 +1,7 @@
 package de.adv.rfsprojekt.ur_new;
 
 import de.adv.rfsprojekt.ur_new.entities.URConnection;
+import de.adv.rfsprojekt.ur_new.urscript_builder.URScript;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.io.IOException;
@@ -54,7 +55,6 @@ public class URImpl implements UR {
             Thread.sleep(50);
         }
 
-
     }
 
 
@@ -66,14 +66,37 @@ public class URImpl implements UR {
         }
     }
 
-    public URScriptBuilder buildScript() {
-        return new URScriptBuilderImpl(urConnection);
+
+    @Override
+    public void execute(URScript script) throws IOException {
+        String scriptString = script.createProgramm();
+        byte[] scriptData = scriptString.getBytes(UTF_8);
+        System.out.println(scriptString);
+        OutputStream os = urConnection.getOutputStream();
+        os.write(scriptData);
+        os.flush();
     }
 
-    public GripperCommander commandGripper() {
-        return new GripperCommanderImpl(urConnection);
+    @Override
+    public String executeWithMessage(URScript script) throws IOException, InterruptedException {
+        execute(script);
+        Thread.sleep(50);
+        return readResponse(urConnection.getInputStream());
     }
 
+
+    /*ToDo Funktioniert noch nicht korrekt, möglichkeit finden bytes mit der richtigen Kodierung (UTF-8) in String umzuwandeln*/
+    private String readResponse(InputStream is) throws IOException {
+        StringBuffer sb = new StringBuffer();
+        char c;
+        do {
+            c = (char) is.read();
+            if (c == '\n')
+                break;
+            sb.append(c);
+        } while (c != -1);
+        return sb.toString();
+    }
 
     @Override
     public String getHost() {

@@ -3,7 +3,7 @@ package de.adv.rfsprojekt.ur_new.entities;
 
 import static de.adv.rfsprojekt.ur_new.Utils.DECIMAL_FORMAT;
 
-public record JointPose(int base, int shoulder, int elbow, int wrist1, int wrist2, int wrist3) {
+public record JointPose(double base, double shoulder, double elbow, double wrist1, double wrist2, double wrist3) {
 
 
     @Override
