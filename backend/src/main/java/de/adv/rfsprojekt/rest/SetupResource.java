@@ -2,7 +2,7 @@ package de.adv.rfsprojekt.rest;
 
 
 
-import de.adv.rfsprojekt.ur_new.UR;
+import de.adv.rfsprojekt.ur.UR;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;

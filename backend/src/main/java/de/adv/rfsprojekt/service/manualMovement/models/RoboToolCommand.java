@@ -1,7 +1,7 @@
 package de.adv.rfsprojekt.service.manualMovement.models;
 
 import static de.adv.rfsprojekt.system.Config.*;
-import de.adv.rfsprojekt.ur_new.entities.Pose;
+import de.adv.rfsprojekt.ur.entities.Pose;
 
 public enum RoboToolCommand {
     X_MINUS(new Pose(0, 0, 0, -getMoveSpeedTool(), 0, 0)),

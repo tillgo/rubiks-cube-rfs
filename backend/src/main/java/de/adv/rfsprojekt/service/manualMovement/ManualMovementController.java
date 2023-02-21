@@ -4,8 +4,8 @@ import de.adv.rfsprojekt.service.manualMovement.models.GripperCommand;
 import de.adv.rfsprojekt.service.manualMovement.models.RoboArmCommand;
 import de.adv.rfsprojekt.service.manualMovement.models.RoboSetupCommand;
 import de.adv.rfsprojekt.service.manualMovement.models.RoboToolCommand;
-import de.adv.rfsprojekt.ur_new.UR;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScriptBuilderImpl;
+import de.adv.rfsprojekt.ur.UR;
+import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
 import de.adv.rfsprojekt.websocket.entities.ManualMovementCommandPayload;
 
 import javax.enterprise.context.ApplicationScoped;

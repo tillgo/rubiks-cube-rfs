@@ -36,5 +36,4 @@ public class RubiksCommander {
         rubiksSolver.solve(scriptMoves, moves);
     }
 
-
 }

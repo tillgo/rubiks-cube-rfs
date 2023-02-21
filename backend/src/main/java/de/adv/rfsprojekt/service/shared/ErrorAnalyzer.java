@@ -1,11 +1,11 @@
 package de.adv.rfsprojekt.service.shared;
 
-import de.adv.rfsprojekt.ur_new.rtde.RTDE;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataType;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.SafetyStatus;
+import de.adv.rfsprojekt.ur.rtde.RTDE;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.Package;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.SafetyStatus;
 import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoMessage;
 import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoPayload;
 import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;

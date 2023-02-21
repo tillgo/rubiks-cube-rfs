@@ -6,14 +6,14 @@ public class Move {
 
     private final Face face;
 
-    //positive Zahl: CounterClockwise | negative Zahl: Cclockwise
+    //positive Zahl: Clockwise | negative Zahl: CounterClockwise
     private final int count;
 
 
     public Move(Face face, String turnOrder) {
         this.face = face;
-        if (turnOrder == null) count = -1;
-        else if (turnOrder.equals("'")) count = 1;
+        if (turnOrder == null) count = 1;
+        else if (turnOrder.equals("'")) count = -1;
         else count = 2;
     }
 

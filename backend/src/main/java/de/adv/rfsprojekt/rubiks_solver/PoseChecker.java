@@ -1,13 +1,13 @@
 package de.adv.rfsprojekt.rubiks_solver;
 
-import de.adv.rfsprojekt.ur_new.Utils;
-import de.adv.rfsprojekt.ur_new.entities.Pose;
-import de.adv.rfsprojekt.ur_new.rtde.RTDE;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.Package;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.PackageType;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataPackage;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.DataType;
-import de.adv.rfsprojekt.ur_new.rtde.entities.packages.data.data_payloads.ActualTCPPose;
+import de.adv.rfsprojekt.ur.Utils;
+import de.adv.rfsprojekt.ur.entities.Pose;
+import de.adv.rfsprojekt.ur.rtde.RTDE;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.Package;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.ActualTCPPose;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;

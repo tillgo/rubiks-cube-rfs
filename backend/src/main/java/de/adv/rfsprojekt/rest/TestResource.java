@@ -4,8 +4,8 @@ package de.adv.rfsprojekt.rest;
 import de.adv.rfsprojekt.images.ImageService;
 import de.adv.rfsprojekt.rubiks_solver.RubiksCommander;
 import de.adv.rfsprojekt.system.Config;
-import de.adv.rfsprojekt.ur_new.UR;
-import de.adv.rfsprojekt.ur_new.urscript_builder.URScriptBuilderImpl;
+import de.adv.rfsprojekt.ur.UR;
+import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
 import de.adv.rfsprojekt.util.CubeColor;
 
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ public class TestResource {
     public void testNewLib() throws IOException, InterruptedException {
 
         ur.powerOn();
-        ur.execute(new URScriptBuilderImpl().moveRelativeToTCP(new de.adv.rfsprojekt.ur_new.entities.Pose()).getURScript());
+        ur.execute(new URScriptBuilderImpl().moveRelativeToTCP(new de.adv.rfsprojekt.ur.entities.Pose()).getURScript());
 
     }
 
