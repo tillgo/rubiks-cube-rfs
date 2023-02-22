@@ -3,7 +3,11 @@ package de.adv.rfsprojekt.websocket;
 import com.google.gson.Gson;
 import de.adv.rfsprojekt.rubiks_solver.RubiksCommander;
 import de.adv.rfsprojekt.service.shared.ErrorAnalyzer;
-import de.adv.rfsprojekt.websocket.entities.*;
+import de.adv.rfsprojekt.websocket.entities.ErrorMessage;
+import de.adv.rfsprojekt.websocket.entities.ErrorPayload;
+import de.adv.rfsprojekt.websocket.entities.MessageType;
+import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;
+import de.adv.rfsprojekt.websocket.entities.rubiksSolver.RubiksSolverCommand;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -61,7 +65,7 @@ public class CubeSolverSocket {
         var m = gson.fromJson(message, messageClass);
         if (m instanceof RubiksSolverCommand command) {
             try {
-                rubiksCommander.executeCommand(command.getPayload());
+                rubiksCommander.executeCommand(command.getPayload(), this::broadcast);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

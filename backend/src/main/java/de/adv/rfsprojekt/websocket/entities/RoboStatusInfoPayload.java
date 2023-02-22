@@ -4,22 +4,10 @@ import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.SafetyStat
 
 import java.util.Map;
 
-public class RoboStatusInfoPayload implements BasePayload {
-
-    private final InfoMessageType infoType;
-
-    private final Map<SafetyStatusType, Boolean> data;
+public class RoboStatusInfoPayload extends InfoPayload<Map<SafetyStatusType, Boolean>> {
 
     public RoboStatusInfoPayload(Map<SafetyStatusType, Boolean> safetyStatus) {
-        this.infoType = InfoMessageType.ROBO_STATUS;
-        this.data = safetyStatus;
+        super(InfoMessageType.ROBO_STATUS, safetyStatus);
     }
 
-    public InfoMessageType getInfoType() {
-        return infoType;
-    }
-
-    public Map<SafetyStatusType, Boolean> getData() {
-        return data;
-    }
 }

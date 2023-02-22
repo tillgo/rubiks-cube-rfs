@@ -1,4 +1,6 @@
-package de.adv.rfsprojekt.websocket.entities;
+package de.adv.rfsprojekt.websocket.entities.rubiksSolver;
+
+import de.adv.rfsprojekt.websocket.entities.BasePayload;
 
 public class RubiksSolverCommandPayload implements BasePayload {
 

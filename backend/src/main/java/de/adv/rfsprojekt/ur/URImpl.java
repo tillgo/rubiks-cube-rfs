@@ -78,7 +78,6 @@ public class URImpl implements UR {
     public void execute(URScript script) throws IOException {
         String scriptString = script.createProgramm();
         byte[] scriptData = scriptString.getBytes(UTF_8);
-        System.out.println(scriptString);
         OutputStream os = urConnection.getOutputStream();
         os.write(scriptData);
         os.flush();

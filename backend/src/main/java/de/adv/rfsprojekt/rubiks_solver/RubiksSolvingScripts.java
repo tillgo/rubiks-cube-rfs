@@ -4,9 +4,9 @@ import de.adv.rfsprojekt.rubiks_solver.models.Move;
 import de.adv.rfsprojekt.ur.entities.JointPose;
 import de.adv.rfsprojekt.ur.urscript_builder.URScript;
 import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
+import de.adv.rfsprojekt.ur.urscript_builder.URScriptImpl;
 import de.adv.rfsprojekt.util.Face;
 
-import java.util.List;
 import java.util.Map;
 
 import static de.adv.rfsprojekt.system.Config.*;
@@ -121,7 +121,7 @@ public class RubiksSolvingScripts {
     }
 
     public static final Map<Face, URScript> SCAN_MOVES = Map.of(
-            Face.U, null,
+            Face.U, new URScriptImpl(), // Muss weil sonst NullPointerException
             Face.B, TURN_BACK_TO_TOP,
             Face.D, TURN_BACK_TO_TOP,
             Face.F, TURN_BACK_TO_TOP,

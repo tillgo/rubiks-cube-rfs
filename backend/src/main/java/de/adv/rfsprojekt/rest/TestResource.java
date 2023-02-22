@@ -1,12 +1,15 @@
 package de.adv.rfsprojekt.rest;
 
 
+import com.google.gson.Gson;
 import de.adv.rfsprojekt.images.ImageService;
 import de.adv.rfsprojekt.rubiks_solver.RubiksCommander;
 import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur.UR;
 import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
 import de.adv.rfsprojekt.util.CubeColor;
+import de.adv.rfsprojekt.websocket.entities.InfoPayload;
+import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -15,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Test Endpoint for random shit lol
@@ -30,6 +34,9 @@ public class TestResource {
 
     @Inject
     RubiksCommander rubiksCommander;
+
+    @Inject
+    Gson gson;
 
     @Path("1")
     @POST
@@ -63,10 +70,13 @@ public class TestResource {
         return imageService.getCurrentCubeColors();
     }
 
+    private final Consumer<WebsocketMessage<InfoPayload<?>>> broadcastDummy =
+            (message -> System.out.println(gson.toJson(message)));
+
     @Path("solve-test")
     @GET
     public Response cuberDreher() throws Exception {
-        rubiksCommander.solveCube();
+        rubiksCommander.solveCube(broadcastDummy);
         return Response.ok().build();
     }
 

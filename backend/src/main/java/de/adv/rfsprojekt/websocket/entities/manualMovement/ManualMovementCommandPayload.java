@@ -1,6 +1,7 @@
-package de.adv.rfsprojekt.websocket.entities;
+package de.adv.rfsprojekt.websocket.entities.manualMovement;
 
 import de.adv.rfsprojekt.service.manualMovement.models.ManualMovementCommandType;
+import de.adv.rfsprojekt.websocket.entities.BasePayload;
 
 public class ManualMovementCommandPayload implements BasePayload {
 

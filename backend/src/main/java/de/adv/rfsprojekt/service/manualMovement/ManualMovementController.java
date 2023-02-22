@@ -6,7 +6,7 @@ import de.adv.rfsprojekt.service.manualMovement.models.RoboSetupCommand;
 import de.adv.rfsprojekt.service.manualMovement.models.RoboToolCommand;
 import de.adv.rfsprojekt.ur.UR;
 import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
-import de.adv.rfsprojekt.websocket.entities.ManualMovementCommandPayload;
+import de.adv.rfsprojekt.websocket.entities.manualMovement.ManualMovementCommandPayload;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

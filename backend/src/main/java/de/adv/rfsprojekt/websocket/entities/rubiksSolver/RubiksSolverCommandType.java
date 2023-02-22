@@ -1,4 +1,4 @@
-package de.adv.rfsprojekt.websocket.entities;
+package de.adv.rfsprojekt.websocket.entities.rubiksSolver;
 
 public enum RubiksSolverCommandType {
 

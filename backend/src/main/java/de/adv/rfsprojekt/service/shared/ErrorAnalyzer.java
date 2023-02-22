@@ -6,7 +6,7 @@ import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.SafetyStatus;
-import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoMessage;
+import de.adv.rfsprojekt.websocket.entities.InfoMessage;
 import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoPayload;
 import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;
 
@@ -53,7 +53,7 @@ public class ErrorAnalyzer extends Thread {
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) {
                 SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(DataType.SAFETY_STATUS);
-                broadcast.accept(new RoboStatusInfoMessage(new RoboStatusInfoPayload(safetyStatus.getPayload())));
+                broadcast.accept(new InfoMessage<>(new RoboStatusInfoPayload(safetyStatus.getPayload())));
             }
         }
     }

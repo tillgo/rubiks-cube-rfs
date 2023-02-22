@@ -83,8 +83,8 @@ Roboter deaktivieren
 
 #### Robo-Status
 
-    ``{"infoType": "ROBO_STATUS", 
-        "safetyStatus": {
+    {"infoType": "ROBO_STATUS", 
+        "data": {
                           "REDUCED_MODE": <boolean>
                           "SAFETY_STOPPED": <boolean>
                           "ROBOT_EMERGENCY_STOPPED": <boolean>
@@ -96,7 +96,7 @@ Roboter deaktivieren
                           "VIOLATION": <boolean>
                           "NORMAL_MODE": <boolean>
                           "FAULT": <boolean> 
-}``
+    }
 
 ### ERROR Payloads
 
@@ -121,7 +121,34 @@ Generelles Stoppen/Abbrechen des gesamten Vorgangs (Sowohl Einlesen als auch Lö
 
 
 ### Info-Payloads (Server -> Client)
-ToDo  
+#### Scan-Finished
+Liefert die eingelesene Cube-Struktur sowie den berechneten Lösungsweg  
+
+        {"infoType": "SCAN_FINISHED",   
+         "data": {
+                   "cubeStructure" : "URBLURRL..."
+                   "solvingPath": [{"face": "R", "count": 1}, ...]
+                  }
+        }
+
+- face: T (Top) | R (Right) | L (Left) | D (Down) | F (Front) | B (Back)
+- count: -1 (90° Counterclockwise) | 1 (90° Clockwise) |  2 (180° Clockwise, izz aber eigentlich egal wie rum)
+
+
+#### Cube-Update
+Wird immer gesendet, wenn ein neuer Move gestartet wird
+
+        {"infoType": "CUBE_UPDATE",
+         "data": {
+                   "nthMove": <int>,
+                   "moveSum": <int>,
+                   "move: {"face": "R", "count": 1}
+                 }               
+        }
+
+- nthMove: Besagt, der wievielte Move gerade ausgeführt wird
+- moveSum: Gesamtanzahl an Moves zum Lösen ders Cubes
+- move: Siehe Scan-Finished
 
 ### Error-Payloads (Server -> Client)
 ``{"message": <string>}``  

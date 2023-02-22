@@ -3,7 +3,11 @@ package de.adv.rfsprojekt.websocket;
 import com.google.gson.Gson;
 import de.adv.rfsprojekt.service.manualMovement.ManualMovementController;
 import de.adv.rfsprojekt.service.shared.ErrorAnalyzer;
-import de.adv.rfsprojekt.websocket.entities.*;
+import de.adv.rfsprojekt.websocket.entities.ErrorMessage;
+import de.adv.rfsprojekt.websocket.entities.ErrorPayload;
+import de.adv.rfsprojekt.websocket.entities.MessageType;
+import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;
+import de.adv.rfsprojekt.websocket.entities.manualMovement.ManualMovementCommand;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.context.ApplicationScoped;
