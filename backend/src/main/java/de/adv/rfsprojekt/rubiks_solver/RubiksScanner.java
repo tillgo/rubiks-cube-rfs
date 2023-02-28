@@ -5,6 +5,7 @@ import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur.UR;
 import de.adv.rfsprojekt.util.CubeColor;
 import de.adv.rfsprojekt.util.Face;
+import io.smallrye.mutiny.tuples.Tuple2;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -26,32 +27,39 @@ public class RubiksScanner {
     @Inject
     PoseChecker poseChecker;
 
-    private final Map<Face, List<Integer>> positions = Map.of(
-            Face.U, List.of(1,2,3,4,5,6,7,8,9),
-            Face.R, List.of(7,4,1,8,5,2,9,6,3),
-            Face.F, List.of(1,2,3,4,5,6,7,8,9),
-            Face.D, List.of(1,2,3,4,5,6,7,8,9),
-            Face.L, List.of(7,4,1,8,5,2,9,6,3),
-            Face.B, List.of(9,8,7,6,5,4,3,2,1)
+    private final List<Tuple2<Face, List<Integer>>> positions = List.of(
+            Tuple2.of(Face.U, List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)),
+            Tuple2.of(Face.R, List.of(7, 4, 1, 8, 5, 2, 9, 6, 3)),
+            Tuple2.of(Face.F, List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)),
+            Tuple2.of(Face.D, List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)),
+            Tuple2.of(Face.L, List.of(7, 4, 1, 8, 5, 2, 9, 6, 3)),
+            Tuple2.of(Face.B, List.of(9, 8, 7, 6, 5, 4, 3, 2, 1))
     );
 
     private final Map<Face, List<CubeColor>> colors = new HashMap<>();
 
     public String scan() throws Exception {
-        var moves = RubiksSolvingScripts.SCAN_MOVES.entrySet();
+        RubiksSolvingScripts.SCAN_MOVES.stream().forEach((move) -> {
+                    try {
+                        ur.execute(move.getItem2());
+                        //poseChecker.waitTilReachedEndPosition(Config.SCANNER_POSE);
+                        Thread.sleep(60000);
+                    } catch (IOException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    var currCubeColors = imageService.getCurrentCubeColors();
+                    currCubeColors.forEach(System.out::println);
+                    colors.put(move.getItem1(), currCubeColors);
+                }
+        );
 
-        for (var move : moves) {
-            ur.execute(move.getValue());
-            poseChecker.waitTilReachedEndPosition(Config.SCANNER_POSE);
 
-            colors.put(move.getKey(), imageService.getCurrentCubeColors());
-        }
-
-        return positions.entrySet()
+        return positions
                 .stream()
                 .flatMap(e -> {
-                    var colorsFace = colors.get(e.getKey());
-                    return e.getValue().stream().map(i -> colorsFace.get(i).getPosition());
+                    System.out.println(e.getItem1());
+                    var colorsFace = colors.get(e.getItem1());
+                    return e.getItem2().stream().map(i -> colorsFace.get(i - 1).getPosition());
                 })
                 .reduce("", (prev, curr) -> prev + curr);
     }

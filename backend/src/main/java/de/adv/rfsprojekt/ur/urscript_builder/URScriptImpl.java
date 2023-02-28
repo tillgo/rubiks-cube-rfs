@@ -23,6 +23,7 @@ public class URScriptImpl implements URScript {
 
     @Override
     public void addURScript(URScript script) {
+        includesGripperCommand = includesGripperCommand || script.getIncludesGripperCommand();
         commands.addAll(script.getCommands());
     }
 
@@ -43,7 +44,7 @@ public class URScriptImpl implements URScript {
                 commandString + "\n" +
                 "end \n" +
                 "programm()\n";
-        return includesGripperCommand ? RobotIQGripperPreamble.getPreamble(programm) : programm;
+        return includesGripperCommand ? RobotIQGripperPreamble.getPreamble(commandString) : programm;
     }
 
 

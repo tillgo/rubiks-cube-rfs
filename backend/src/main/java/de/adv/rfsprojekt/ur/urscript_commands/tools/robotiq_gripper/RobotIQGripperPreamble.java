@@ -661,8 +661,8 @@ public class RobotIQGripperPreamble {
                 "  current_speed = [-1,-1,-1,-1]\n" +
                 "  current_force = [-1,-1,-1,-1]\n" +
                 "\n" +
-                script +
-                "  \n" +
-                "end";
+                "  " +script +
+                "\n" +
+                "end\n";
     }
 }

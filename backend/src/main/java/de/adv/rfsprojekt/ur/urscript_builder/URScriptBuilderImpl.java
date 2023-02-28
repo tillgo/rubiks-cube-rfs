@@ -97,8 +97,6 @@ public class URScriptBuilderImpl implements URScriptBuilder {
     @Override
     public URScriptBuilder addURScript(URScript script) {
         urScript.addURScript(script);
-        if (script.getIncludesGripperCommand())
-            urScript.setIncludesGripperCommand(true);
         return this;
     }
 

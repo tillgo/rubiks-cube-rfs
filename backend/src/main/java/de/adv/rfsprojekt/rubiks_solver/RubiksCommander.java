@@ -36,16 +36,17 @@ public class RubiksCommander {
         }
     }
 
-    private void analyzeRubiksCube() throws Exception {
+    public void analyzeRubiksCube() throws Exception {
         cubeString = rubiksScanner.scan();
+        System.out.println(cubeString);
     }
 
     public void solveCube(Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
         //ToDo Lösungspfad berechnen und an Frontendschichen noch in Scan Phase machen
-        //String unsolvedCube = "URBLURRLRUFDBRBBULDUBLFRBFLDUUDDBFBDRFFDLDURRLUFLBFFDL";
-        var moves = rubiksCalculator.calculateSolvingPath(cubeString);
+        String unsolvedCube = "UUUUUUFFFUBBRRRRRRRRRFFDFFDDDBDDBDDBFFDLLLLLLLLLUBBUBB";
+        var moves = rubiksCalculator.calculateSolvingPath(unsolvedCube);
         var scriptMoves = rubiksCalculator.getScriptsForMoves(moves);
-        var cubeStructure = new ScanCompleteInfo(cubeString, moves);
+        var cubeStructure = new ScanCompleteInfo(unsolvedCube, moves);
         broadcast.accept(new InfoMessage<>(new ScanCompleteInfoPayload(cubeStructure)));
         rubiksSolver.solve(scriptMoves, moves, broadcast);
     }

@@ -4,6 +4,7 @@ package de.adv.rfsprojekt.rest;
 import com.google.gson.Gson;
 import de.adv.rfsprojekt.images.ImageService;
 import de.adv.rfsprojekt.rubiks_solver.RubiksCommander;
+import de.adv.rfsprojekt.rubiks_solver.RubiksScanner;
 import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur.UR;
 import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
@@ -34,6 +35,9 @@ public class TestResource {
 
     @Inject
     RubiksCommander rubiksCommander;
+
+    @Inject
+    RubiksScanner scanner;
 
     @Inject
     Gson gson;
@@ -79,6 +83,15 @@ public class TestResource {
         rubiksCommander.solveCube(broadcastDummy);
         return Response.ok().build();
     }
+
+    @Path("scan-test")
+    @GET
+    public Response scanTest() throws Exception {
+        rubiksCommander.analyzeRubiksCube();
+        return Response.ok().build();
+    }
+
+
 
 
 }

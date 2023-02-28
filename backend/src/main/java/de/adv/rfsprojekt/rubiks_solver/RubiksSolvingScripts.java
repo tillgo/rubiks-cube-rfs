@@ -6,7 +6,9 @@ import de.adv.rfsprojekt.ur.urscript_builder.URScript;
 import de.adv.rfsprojekt.ur.urscript_builder.URScriptBuilderImpl;
 import de.adv.rfsprojekt.ur.urscript_builder.URScriptImpl;
 import de.adv.rfsprojekt.util.Face;
+import io.smallrye.mutiny.tuples.Tuple2;
 
+import java.util.List;
 import java.util.Map;
 
 import static de.adv.rfsprojekt.system.Config.*;
@@ -14,7 +16,7 @@ import static de.adv.rfsprojekt.system.Config.*;
 public class RubiksSolvingScripts {
 
     private static final double ZSAFE = 0.4;
-    private static final double RAD_90DEG = 1.571;
+    private static final double RAD_90DEG = -1.571;
     private static final double RAD_180DEG = RAD_90DEG * 2;
 
     private static URScript SPIN(double wrist3rad) {
@@ -26,26 +28,26 @@ public class RubiksSolvingScripts {
     private static URScript SPIN_CUBE(double wrist3rad) {
         return new URScriptBuilderImpl()
                 .moveL(GREIF_HOCH_POSE)
-                //  .openGripper()
+                .openGripper()
                 .moveL(GREIF_POSE)
-                //  .closeGripper()
+                .closeGripper()
                 .moveLZAxis(ZSAFE)
                 .addURScript(SPIN(wrist3rad))
-                .moveL(GREIF_POSE)
-                //  .openGripper()
+                .moveLZAxis(GREIF_POSE.getPosition().getZ())
+                .openGripper()
                 .addURScript(SPIN(-wrist3rad))
                 .getURScript();
     }
 
     private static final URScript TURN_BACK_TO_TOP_WITHOUT_SAFETY =
             new URScriptBuilderImpl()
-                    //        .openGripper()
+                    .openGripper()
                     .moveL(GREIF_POSE)
-                    //        .closeGripper()
+                    .closeGripper()
                     .moveL(GREIF_HOCH_POSE)
                     .moveL(DROP_HOCH_POSE)
                     .moveL(DROP_POSE)
-                    //        .openGripper()
+                    .openGripper()
                     .moveL(DROP_HOCH_POSE)
                     .getURScript();
 
@@ -53,11 +55,11 @@ public class RubiksSolvingScripts {
         return new URScriptBuilderImpl()
                 .addURScript(faceTurn)
                 .moveL(GREIF_HOCH_POSE)
-                // .openGripper()
+                .openGripper()
                 .moveL(GREIF_POSE)
-                // .closeGripper()
+                .closeGripper()
                 .addURScript(spin)
-                // .openGripper()
+                .openGripper()
                 .addURScript(spinBack)
                 .moveL(GREIF_HOCH_POSE)
                 .getURScript();
@@ -110,6 +112,12 @@ public class RubiksSolvingScripts {
                     .moveL(GREIF_HOCH_POSE)
                     .getURScript();
 
+    public static final URScript GET_CUBE_IN_START_POS =
+            new URScriptBuilderImpl()
+                    .addURScript(TURN_BACK_TO_TOP)
+                    .addURScript(SPIN_CUBE_90DEG_CLOCK)
+                    .getURScript();
+
     public static URScript GET_SCRIPT_FOR_MOVE(Move move) {
         URScript spinScript = SPIN(-RAD_90DEG * move.getCount());
         URScript spingBackScript = SPIN(RAD_90DEG * move.getCount());
@@ -126,14 +134,16 @@ public class RubiksSolvingScripts {
         return CREATE_MOVE_SCRIPT(faceTurn, spinScript, spingBackScript);
     }
 
-    public static final Map<Face, URScript> SCAN_MOVES = Map.of(
-            Face.U, CREATE_SCAN_SCRIPT(new URScriptImpl()), // Muss weil sonst NullPointerException
-            Face.B, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP),
-            Face.D, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP),
-            Face.F, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP),
-            Face.R, CREATE_SCAN_SCRIPT(TURN_RIGHT_TO_TOP),
-            Face.L, CREATE_SCAN_SCRIPT(TURN_BOTTOM_TO_TOP)
+    public static final List<Tuple2<Face, URScript>> SCAN_MOVES = List.of(
+            Tuple2.of(Face.U, CREATE_SCAN_SCRIPT(new URScriptImpl())), // Muss weil sonst NullPointerException
+            Tuple2.of(Face.B, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP)),
+            Tuple2.of(Face.D, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP)),
+            Tuple2.of(Face.F, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP)),
+            Tuple2.of(Face.R, CREATE_SCAN_SCRIPT(TURN_RIGHT_TO_TOP)),
+            Tuple2.of(Face.L, CREATE_SCAN_SCRIPT(TURN_BOTTOM_TO_TOP))
     );
+
+
 
 }
 

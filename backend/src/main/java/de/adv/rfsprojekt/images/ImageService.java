@@ -28,19 +28,15 @@ public class ImageService {
     public List<CubeColor> getCurrentCubeColors() {
         BufferedImage currentImage = null;
         try {
-            URL url = new URL(captureImagePath);
-            HttpURLConnection con1 = (HttpURLConnection) url.openConnection();
-            con1.setRequestMethod("GET");
-            con1.getInputStream();
-            HttpURLConnection con2 = (HttpURLConnection) url.openConnection();
-            con2.setRequestMethod("POST");
-            con2.getInputStream();
-
+            for(int i = 0; i<10;i++) {
+                currentImage = ImageIO.read(new URL(imagePath));
+            }
+            Thread.sleep(5000);
             currentImage = ImageIO.read(new URL(imagePath));
             String IMAGES_PATH = "./src/main/resources/images/";
             File outputFile = new File(IMAGES_PATH + "test.jpg");
             ImageIO.write(currentImage, "jpg",outputFile);
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
         return analyzer.analyze(currentImage);
