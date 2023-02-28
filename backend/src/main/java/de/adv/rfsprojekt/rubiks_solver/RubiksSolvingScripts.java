@@ -63,6 +63,12 @@ public class RubiksSolvingScripts {
                 .getURScript();
     }
 
+    private static URScript CREATE_SCAN_SCRIPT(URScript cubeTurn) {
+        return new URScriptBuilderImpl()
+                .addURScript(cubeTurn)
+                .moveL(SCANNER_POSE)
+                .getURScript();
+    }
 
     public final static URScript SPIN_CUBE_90DEG_CLOCK = SPIN_CUBE(-RAD_90DEG);
     public final static URScript SPIN_CUBE_90DEG_COUNTERCLOCK = SPIN_CUBE(RAD_90DEG);
@@ -121,12 +127,12 @@ public class RubiksSolvingScripts {
     }
 
     public static final Map<Face, URScript> SCAN_MOVES = Map.of(
-            Face.U, new URScriptImpl(), // Muss weil sonst NullPointerException
-            Face.B, TURN_BACK_TO_TOP,
-            Face.D, TURN_BACK_TO_TOP,
-            Face.F, TURN_BACK_TO_TOP,
-            Face.R, TURN_RIGHT_TO_TOP,
-            Face.L, TURN_BOTTOM_TO_TOP
+            Face.U, CREATE_SCAN_SCRIPT(new URScriptImpl()), // Muss weil sonst NullPointerException
+            Face.B, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP),
+            Face.D, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP),
+            Face.F, CREATE_SCAN_SCRIPT(TURN_BACK_TO_TOP),
+            Face.R, CREATE_SCAN_SCRIPT(TURN_RIGHT_TO_TOP),
+            Face.L, CREATE_SCAN_SCRIPT(TURN_BOTTOM_TO_TOP)
     );
 
 }

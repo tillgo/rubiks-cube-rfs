@@ -10,7 +10,9 @@ public interface URScript {
 
     List<String> getCommands();
 
-    void includesGripperCommand(boolean contains);
+    void setIncludesGripperCommand(boolean contains);
+
+    boolean getIncludesGripperCommand();
 
     String createURScriptString();
 

@@ -61,28 +61,28 @@ public class URScriptBuilderImpl implements URScriptBuilder {
     @Override
     public URScriptBuilder activateGripper() {
         urScript.addCommand(ACTIVATE());
-        urScript.includesGripperCommand(true);
+        urScript.setIncludesGripperCommand(true);
         return this;
     }
 
     @Override
     public URScriptBuilder openGripper() {
         urScript.addCommand(OPEN());
-        urScript.includesGripperCommand(true);
+        urScript.setIncludesGripperCommand(true);
         return this;
     }
 
     @Override
     public URScriptBuilder closeGripper() {
         urScript.addCommand(CLOSE());
-        urScript.includesGripperCommand(true);
+        urScript.setIncludesGripperCommand(true);
         return this;
     }
 
     @Override
     public URScriptBuilder moveGripper(int posInMM) {
         urScript.addCommand(MOVE(posInMM));
-        urScript.includesGripperCommand(true);
+        urScript.setIncludesGripperCommand(true);
         return this;
     }
 
@@ -97,6 +97,8 @@ public class URScriptBuilderImpl implements URScriptBuilder {
     @Override
     public URScriptBuilder addURScript(URScript script) {
         urScript.addURScript(script);
+        if (script.getIncludesGripperCommand())
+            urScript.setIncludesGripperCommand(true);
         return this;
     }
 

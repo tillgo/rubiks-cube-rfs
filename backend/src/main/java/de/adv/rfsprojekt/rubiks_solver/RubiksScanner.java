@@ -1,6 +1,7 @@
 package de.adv.rfsprojekt.rubiks_solver;
 
 import de.adv.rfsprojekt.images.ImageService;
+import de.adv.rfsprojekt.system.Config;
 import de.adv.rfsprojekt.ur.UR;
 import de.adv.rfsprojekt.util.CubeColor;
 import de.adv.rfsprojekt.util.Face;
@@ -22,7 +23,9 @@ public class RubiksScanner {
     @Inject
     ImageService imageService;
 
-    // TODO
+    @Inject
+    PoseChecker poseChecker;
+
     private final Map<Face, List<Integer>> positions = Map.of(
             Face.U, List.of(1,2,3,4,5,6,7,8,9),
             Face.R, List.of(7,4,1,8,5,2,9,6,3),
@@ -34,18 +37,16 @@ public class RubiksScanner {
 
     private final Map<Face, List<CubeColor>> colors = new HashMap<>();
 
-    public void scan() throws IOException, InterruptedException {
+    public String scan() throws Exception {
         var moves = RubiksSolvingScripts.SCAN_MOVES.entrySet();
 
         for (var move : moves) {
             ur.execute(move.getValue());
-            Thread.sleep(50000); // TODO: Warten bis robo hingemoved + neues bild geschossen
+            poseChecker.waitTilReachedEndPosition(Config.SCANNER_POSE);
 
             colors.put(move.getKey(), imageService.getCurrentCubeColors());
         }
-    }
 
-    public String getCubeString() {
         return positions.entrySet()
                 .stream()
                 .flatMap(e -> {

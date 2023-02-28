@@ -19,6 +19,11 @@ public class RubiksCommander {
     @Inject
     RubiksSolver rubiksSolver;
 
+    @Inject
+    RubiksScanner rubiksScanner;
+
+    private String cubeString;
+
 
     public void executeCommand(RubiksSolverCommandPayload commandPayload, Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
         switch (commandPayload.getCommandType()) {
@@ -28,20 +33,19 @@ public class RubiksCommander {
             }
             case START_SCAN -> analyzeRubiksCube();
             case START_SOLVE -> solveCube(broadcast);
-
         }
     }
 
-    private void analyzeRubiksCube() {
-
+    private void analyzeRubiksCube() throws Exception {
+        cubeString = rubiksScanner.scan();
     }
 
     public void solveCube(Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
         //ToDo Lösungspfad berechnen und an Frontendschichen noch in Scan Phase machen
-        String unsolvedCube = "URBLURRLRUFDBRBBULDUBLFRBFLDUUDDBFBDRFFDLDURRLUFLBFFDL";
-        var moves = rubiksCalculator.calculateSolvingPath(unsolvedCube);
+        //String unsolvedCube = "URBLURRLRUFDBRBBULDUBLFRBFLDUUDDBFBDRFFDLDURRLUFLBFFDL";
+        var moves = rubiksCalculator.calculateSolvingPath(cubeString);
         var scriptMoves = rubiksCalculator.getScriptsForMoves(moves);
-        var cubeStructure = new ScanCompleteInfo(unsolvedCube, moves);
+        var cubeStructure = new ScanCompleteInfo(cubeString, moves);
         broadcast.accept(new InfoMessage<>(new ScanCompleteInfoPayload(cubeStructure)));
         rubiksSolver.solve(scriptMoves, moves, broadcast);
     }

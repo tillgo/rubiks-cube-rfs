@@ -47,8 +47,13 @@ public class URScriptImpl implements URScript {
     }
 
 
-    public void includesGripperCommand(boolean contains) {
+    public void setIncludesGripperCommand(boolean contains) {
         includesGripperCommand = contains;
+    }
+
+    @Override
+    public boolean getIncludesGripperCommand() {
+        return includesGripperCommand;
     }
 
 

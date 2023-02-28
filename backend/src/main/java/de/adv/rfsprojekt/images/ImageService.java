@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
@@ -18,12 +19,23 @@ public class ImageService {
     @ConfigProperty(name= "ur.camera.imagepath")
     String imagePath;
 
+    @ConfigProperty(name= "ur.camera.takeimage")
+    String captureImagePath;
+
     @Inject
     Analyzer analyzer;
 
     public List<CubeColor> getCurrentCubeColors() {
         BufferedImage currentImage = null;
         try {
+            URL url = new URL(captureImagePath);
+            HttpURLConnection con1 = (HttpURLConnection) url.openConnection();
+            con1.setRequestMethod("GET");
+            con1.getInputStream();
+            HttpURLConnection con2 = (HttpURLConnection) url.openConnection();
+            con2.setRequestMethod("POST");
+            con2.getInputStream();
+
             currentImage = ImageIO.read(new URL(imagePath));
             String IMAGES_PATH = "./src/main/resources/images/";
             File outputFile = new File(IMAGES_PATH + "test.jpg");
