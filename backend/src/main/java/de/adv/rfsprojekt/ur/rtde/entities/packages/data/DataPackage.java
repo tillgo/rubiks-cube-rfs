@@ -62,13 +62,16 @@ public class DataPackage extends Package {
                     //Not needed right now
                 }
                 case VECTOR6D -> {
-                    double[] values = new double[6];
-                    for (int j = 0; j < 6; j++) {
-                        values[j] = buffer.getDouble();
+                    if (buffer.remaining() < 48) variables.put(dataType, null);
+                    else {
+                        double[] values = new double[6];
+                        for (int j = 0; j < 6; j++) {
+                            values[j] = buffer.getDouble();
+                        }
+                        variables.put(dataType,
+                                new ActualTCPPose(new Pose(values[0], values[1], values[2],
+                                        values[3], values[4], values[5])));
                     }
-                    variables.put(dataType,
-                            new ActualTCPPose(new Pose(values[0], values[1], values[2],
-                                    values[3], values[4], values[5])));
 
                 }
                 case VECTOR6INT32 -> {
