@@ -20,19 +20,35 @@ type ManualCommandPayload<T extends MoveType> = {
     commandType: T
     command: ManualCmd<T>
 }
+export type CubeSolverCommandType = 'START_SCAN' | 'START_SOLVE' | 'STOP'
 type CubeSolverCommandPayload = {
-    command: 'START_SCAN' | 'START_SOLVE' | 'STOP'
+    command: CubeSolverCommandType
 }
 
-type InfoType = 'ROBO_STATUS' | 'SCAN_COMPLETE' | 'CUBE_UPDATE'
+export type InfoType = 'ROBO_STATUS' | 'SCAN_FINISHED' | 'CUBE_UPDATE'
+export type Face = 'U' | 'D' | 'F' | 'B' | 'R' | 'L'
+export type TurnCount = 1 | 2 | -1
+export type SolvingStep = {
+    face: Face
+    count: TurnCount
+}
+export type ScanFinishedInfoData = {
+    cubeStructure: string
+    solvingPath: Array<SolvingStep>
+}
+export type CubeUpdateInfoData = {
+    nthMove: number
+    moveSum: number
+    move: SolvingStep
+}
 type InfoData<T extends InfoType> = T extends 'ROBO_STATUS'
     ? Record<string, boolean>
-    : T extends 'SCAN_UPDATE'
-    ? any // TODO
+    : T extends 'SCAN_FINISHED'
+    ? ScanFinishedInfoData
     : T extends 'CUBE_UPDATE'
-    ? any // TODO
+    ? CubeUpdateInfoData
     : never
-type InfoPayload<T extends InfoType> = {
+export type InfoPayload<T extends InfoType> = {
     infoType: T
     data: InfoData<T>
 }

@@ -4,7 +4,7 @@ import { Grid, Typography } from '@mui/material'
 import GripperControlPanel from './GripperControlPanel'
 import RoboSetupControlPanel from './RoboSetupControlPanel'
 import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
-import SafetyStatusDisplay from './SafetyStatusDisplay'
+import SafetyStatusDisplay from '../../commons/components/SafetyStatusDisplay'
 
 const ManualControlPage = () => {
     const { readyState } = useAppWebSocket('MANUAL')

@@ -1,6 +1,7 @@
-import ManualControlPage from './pages/manual-control/ManualControlPage'
 import { WSContext } from './commons/hooks/useAppWebSocket'
 import useWebSocket from 'react-use-websocket'
+import TabNav from './commons/components/TabNav'
+import { AppContextProvider } from './base/appContext'
 
 function App() {
     const socketUrl = 'ws://localhost:8080'
@@ -12,9 +13,12 @@ function App() {
             CUBE_SOLVER: cubeSolver,
         }
     }
+
     return (
         <WSContext.Provider value={defaultWSContext()}>
-            <ManualControlPage />
+            <AppContextProvider>
+                <TabNav />
+            </AppContextProvider>
         </WSContext.Provider>
     )
 }

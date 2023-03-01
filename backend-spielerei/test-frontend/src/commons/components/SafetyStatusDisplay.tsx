@@ -1,6 +1,6 @@
 import { Alert, Stack } from '@mui/material'
-import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
-import { WebsocketMessage } from '../../commons/types'
+import { useAppWebSocket } from '../hooks/useAppWebSocket'
+import { WebsocketMessage } from '../types'
 
 const SafetyStatusDisplay = () => {
     const { data } = useAppWebSocket('MANUAL')
