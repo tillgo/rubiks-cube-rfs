@@ -202,6 +202,7 @@ public class RTDE {
     }
 
     private Package onPackage(PackageType packageType, ByteBuffer payload) throws URException {
+        if (packageType == null) return null;
         switch (packageType) {
             case RTDE_REQUEST_PROTOCOL_VERSION -> {
                 return BooleanPackage.unpack(payload);
