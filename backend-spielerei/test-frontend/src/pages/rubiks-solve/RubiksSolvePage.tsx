@@ -6,6 +6,8 @@ import RubiksSolveButtons from './RubiksSolveButtons'
 import { InfoPayload, WebsocketMessage } from '../../commons/types'
 import { useEffect } from 'react'
 import { useAppDispatch } from '../../base/appContext'
+import Cube from './Cube'
+import SolvingSteps from './SolvingSteps'
 
 const RubiksSolvePage = () => {
     const { readyState, data } = useAppWebSocket('CUBE_SOLVER')
@@ -40,7 +42,7 @@ const RubiksSolvePage = () => {
     }, [data])
 
     return (
-        <Grid container spacing={3} sx={{ padding: 2, maxWidth: '900px' }}>
+        <Grid container spacing={3} sx={{ padding: 2 }}>
             <Grid item xs={12} display={'flex'} justifyContent={'center'}>
                 <Typography color={'black'}>
                     Connection Status: <b>{connectionStatus}</b>
@@ -48,6 +50,12 @@ const RubiksSolvePage = () => {
             </Grid>
             <Grid item xs={12}>
                 <SafetyStatusDisplay />
+            </Grid>
+            <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+                <Cube />
+            </Grid>
+            <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+                <SolvingSteps />
             </Grid>
             <Grid container item xs={12} justifyContent={'center'}>
                 <RubiksSolveButtons />

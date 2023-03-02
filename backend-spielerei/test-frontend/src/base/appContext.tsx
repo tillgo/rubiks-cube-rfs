@@ -9,7 +9,7 @@ type AppContextType = {
     cube: string | undefined
     currentMove: SolvingStep | undefined
     moveList: Array<SolvingStep>
-    nthMove: number | undefined
+    nthMove: number
     moveSum: number | undefined
     isCubeScanned: boolean
     isCubeSolved: boolean
@@ -19,7 +19,7 @@ const initialState: AppContextType = {
     cube: undefined,
     currentMove: undefined,
     moveList: [],
-    nthMove: undefined,
+    nthMove: 0,
     moveSum: undefined,
     isCubeScanned: false,
     isCubeSolved: false,
