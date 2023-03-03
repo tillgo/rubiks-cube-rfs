@@ -26,14 +26,15 @@ public class RubiksSolver {
 
     public void solve(List<URScript> scripts, List<Move> moves, Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
         ur.execute(RubiksSolvingScripts.GET_CUBE_IN_START_POS);
-        Thread.sleep(5000);
-        poseChecker.waitTilReachedEndPosition(Config.GREIF_POSE);
+        Thread.sleep(40000);
+        //poseChecker.waitTilReachedEndPosition(Config.GREIF_POSE);
         for (int i = 0; i < scripts.size(); i++) {
             var cubeUpdate = new CubeUpdate(i + 1, moves.size(), moves.get(i));
             broadcast.accept(new InfoMessage<>(new CubeUpdateInfoPayload(cubeUpdate)));
             ur.execute(scripts.get(i));
-            Thread.sleep(5000);
-            poseChecker.waitTilReachedEndPosition(Config.GREIF_HOCH_POSE);
+            //Thread.sleep(2000);
+            //poseChecker.waitTilReachedEndPosition(Config.GREIF_HOCH_POSE);
+            Thread.sleep(40000);
         }
 
         System.out.println("-------Finished----------");

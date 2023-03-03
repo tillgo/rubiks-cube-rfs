@@ -1,5 +1,6 @@
 package de.adv.rfsprojekt.rubiks_solver;
 
+import com.google.gson.Gson;
 import de.adv.rfsprojekt.rubiks_solver.models.ScanCompleteInfo;
 import de.adv.rfsprojekt.websocket.entities.InfoMessage;
 import de.adv.rfsprojekt.websocket.entities.InfoPayload;
@@ -26,7 +27,8 @@ public class RubiksCommander {
 
 
     public void executeCommand(RubiksSolverCommandPayload commandPayload, Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
-        switch (commandPayload.getCommandType()) {
+        System.out.println(commandPayload.getCommand());
+        switch (commandPayload.getCommand()) {
             //ToDo Roboter Ficken
             case STOP -> {
                 break;
@@ -43,12 +45,19 @@ public class RubiksCommander {
 
     public void solveCube(Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
         //ToDo Lösungspfad berechnen und an Frontendschichen noch in Scan Phase machen
-        String unsolvedCube = "UUUUUUFFFUBBRRRRRRRRRFFDFFDDDBDDBDDBFFDLLLLLLLLLUBBUBB";
-        var moves = rubiksCalculator.calculateSolvingPath(unsolvedCube);
-        var scriptMoves = rubiksCalculator.getScriptsForMoves(moves);
-        var cubeStructure = new ScanCompleteInfo(unsolvedCube, moves);
-        broadcast.accept(new InfoMessage<>(new ScanCompleteInfoPayload(cubeStructure)));
-        rubiksSolver.solve(scriptMoves, moves, broadcast);
+        //String unsolvedCube = "UUUUUULBBUFFRRRBBBFLLUFFURRFDDFDDRDDBBDFLLFLLRRRBBDLLD";
+        try {
+            var moves = rubiksCalculator.calculateSolvingPath(cubeString);
+            var scriptMoves = rubiksCalculator.getScriptsForMoves(moves);
+            var cubeStructure = new ScanCompleteInfo(cubeString, moves);
+            System.out.println(new Gson().toJson(cubeStructure));
+            broadcast.accept(new InfoMessage<>(new ScanCompleteInfoPayload(cubeStructure)));
+            rubiksSolver.solve(scriptMoves, moves, broadcast);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 }

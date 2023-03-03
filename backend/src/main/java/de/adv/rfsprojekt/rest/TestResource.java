@@ -91,6 +91,15 @@ public class TestResource {
         return Response.ok().build();
     }
 
+    @Path("move-greif")
+    @GET
+    public Response greif() throws IOException {
+        ur.execute(new URScriptBuilderImpl()
+                        .moveL(Config.DROP_HOCH_POSE)
+                        .getURScript());
+        return Response.ok().build();
+    }
+
 
 
 

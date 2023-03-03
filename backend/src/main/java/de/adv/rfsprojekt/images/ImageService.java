@@ -31,7 +31,7 @@ public class ImageService {
             for(int i = 0; i<10;i++) {
                 currentImage = ImageIO.read(new URL(imagePath));
             }
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             currentImage = ImageIO.read(new URL(imagePath));
             String IMAGES_PATH = "./src/main/resources/images/";
             File outputFile = new File(IMAGES_PATH + "test.jpg");

@@ -11,6 +11,8 @@ import static de.adv.rfsprojekt.ur.urscript_commands.tools.robotiq_gripper.Robot
 public class URScriptBuilderImpl implements URScriptBuilder {
     private final URScript urScript;
 
+    private final double toolSpeed = Config.getMoveSpeedTool();
+
 
     public URScriptBuilderImpl() {
         urScript = new URScriptImpl();
@@ -20,27 +22,27 @@ public class URScriptBuilderImpl implements URScriptBuilder {
 
     @Override
     public URScriptBuilder moveL(Pose pose) {
-        urScript.addCommand(MOVE_L(pose, 1, 0.2, 0, 0));
+        urScript.addCommand(MOVE_L(pose, 1, toolSpeed, 0, 0));
         return this;
     }
 
     @Override
     public URScriptBuilder moveJ(Pose pose) {
-        urScript.addCommand(MOVE_J(pose, 1, 0.2, 0, 0));
+        urScript.addCommand(MOVE_J(pose, 1, toolSpeed, 0, 0));
         return this;
     }
 
     @Override
     public URScriptBuilder moveRelativeToTCP(Pose pose) {
         urScript.addCommand(MOVE_L(GET_POSE_RELATIVE_TO_TOOL(
-                pose), 1, 0.2, 0, 0));
+                pose), 1, toolSpeed, 0, 0));
 
         return this;
     }
 
     @Override
     public URScriptBuilder moveRelativeToTCP(JointPose joints) {
-        urScript.addCommand(MOVE_RELATIVE_TO_TOOL(joints, 1, 0.2, 0, 0));
+        urScript.addCommand(MOVE_RELATIVE_TO_TOOL(joints, 1, toolSpeed, 0, 0));
 
         return this;
     }

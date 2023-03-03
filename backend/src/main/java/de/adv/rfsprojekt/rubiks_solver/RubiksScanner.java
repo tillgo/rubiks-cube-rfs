@@ -42,12 +42,14 @@ public class RubiksScanner {
         RubiksSolvingScripts.SCAN_MOVES.stream().forEach((move) -> {
                     try {
                         ur.execute(move.getItem2());
+                        //Thread.sleep(2000);
                         //poseChecker.waitTilReachedEndPosition(Config.SCANNER_POSE);
-                        Thread.sleep(60000);
-                    } catch (IOException | InterruptedException e) {
+                        Thread.sleep(50000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                         throw new RuntimeException(e);
                     }
-                    var currCubeColors = imageService.getCurrentCubeColors();
+            var currCubeColors = imageService.getCurrentCubeColors();
                     currCubeColors.forEach(System.out::println);
                     colors.put(move.getItem1(), currCubeColors);
                 }
