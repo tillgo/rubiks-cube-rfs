@@ -480,3 +480,16 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 	}
 
 }
+/*========================= manuelle steuerung =============================*/
+
+.arrowtext{
+	color: var(--bs-blue);
+    font-size: 2em;
+    margin: 0;
+    font-weight: bold;
+	pointer-events: none;
+}
+.arrowcolor{
+	color: var(--bs-blue);
+	pointer-events: none;
+}

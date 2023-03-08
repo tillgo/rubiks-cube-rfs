@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
 		integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
 	<!-- CSS only -->
@@ -415,24 +416,37 @@
 					<button id="btn_RY" class="btn btn-primary">Rotate_RY</button>
 					<button id="btn_YO" class="btn btn-primary">Rotate_YO</button>
 				</div>
-
+				
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-manuell" role="tabpanel" aria-labelledby="nav-manuell-tab">
 			<div class="movement-btn-grp" style="margin-top: 45px;">
-				<div id="z-pos"><button class="btn-z" style="background: url(/rubiks-cube-rfs/frontend/Arrows/z-pos.png)" ></div>
-				<div id="z-neg"><button class="btn-z" style="background: url(/rubiks-cube-rfs/frontend/Arrows/z-neg.png)" ></div>
+				<div>
+					<button id="Z_MINUS" class="btn-z"><i class="fa-solid fa-arrow-down arrowcolor" style="width: 60%;height: 60%;"></i><p class="arrowtext">Z</p></button>					
+					
+				</div>
+				<div>
+					<button id="Z_PLUS" class="btn-z"><p class="arrowtext">Z</p><i class="fa-solid fa-arrow-up arrowcolor" style="width: 60%;height: 60%;"></i></button>
+				</div>
 				
 			</div>
 			<div class="movement-btn-grp">
-				<div id="y-pos"><button class="btn-y" style="background: url(/rubiks-cube-rfs/frontend/Arrows/y-pos.png)" ></div>
+				<div>
+					<button id="Y_PLUS" class="btn-y"><p class="arrowtext">Y</p><i class="fa-solid fa-arrow-up arrowcolor" style="width: 60%;height: 60%;"></i></button>
+				</div>
 			</div>
 			<div class="movement-btn-grp">
-				<div id="x-neg"><button class="btn-x" style="background: url(/rubiks-cube-rfs/frontend/Arrows/x-neg.png)" ></div>
-				<div id="x-pos"><button class="btn-x" style="background: url(/rubiks-cube-rfs/frontend/Arrows/x-pos.png)" ></div>
+				<div>
+					<button id="X_MINUS" class="btn-x" ><i class="fa-solid fa-arrow-left arrowcolor" style="width: 80%;height: 60%;"></i><p class="arrowtext">X</p></button>
+				</div>
+				<div>
+					<button id="X_PLUS" class="btn-x" ><i class="fa-solid fa-arrow-right arrowcolor" style="width: 80%;height: 60%;"></i><p class="arrowtext">X</p></button>
+				</div>
 			</div>
 			<div class="movement-btn-grp">
-				<div id="y-neg"><button class="btn-y" style="background: url(/rubiks-cube-rfs/frontend/Arrows/y-neg.png)" ></div>
+				<div>
+					<button id="Y_MINUS" class="btn-y"><i class="fa-solid fa-arrow-down arrowcolor" style="width: 60%;height: 60%;"></i><p class="arrowtext">Y</p></button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -440,6 +454,7 @@
 
 	<!--<script src="rotate.js"></script>-->
 	<!-- JavaScript Bundle with Popper -->
+	<script src="fontawesome-free-6.3.0-web/js/all.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>

@@ -347,23 +347,68 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
   });
 
-// Websocket
-const btn_Color = document.getElementById('btn_Color');
+/*=============================================================*/
+/*=========================Websocket===========================*/
+/*=============================================================*/
+
+const Z_PLUS = document.getElementById('Z_PLUS');
+const Z_MINUS = document.getElementById('Z_MINUS');
+const Y_PLUS = document.getElementById('Y_PLUS');
+const X_MINUS = document.getElementById('X_MINUS');
+const X_PLUS = document.getElementById('X_PLUS');
+const Y_MINUS = document.getElementById('Y_MINUS');
+
+//Array of Elements that trigger a message to Backend
+var socketElementArray = [Z_MINUS,Z_PLUS,Y_MINUS,Y_PLUS,X_MINUS,X_PLUS];
+
+//Add Modus Robo Arm / Tool
+
 
 let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
 
 socket.onopen = function(e) {
-  alert("[open] Connection established");
-  
-  btn_Color.addEventListener('click', function onClick() {
-	alert("Sending to server");
-	socket.send("My name is John");
-  });
-  
+	var mousedownID = -1;  //Global ID of mouse down interval
+	function mousedown(event) {
+		//console.log(event);
+		var mouseElement = document.elementFromPoint(event.clientX, event.clientY);
+		//console.log(mouseElement);
+	    if(mousedownID==-1)  //Prevent multimple loops!
+			mousedownID = setInterval(whilemousedown(mouseElement), 10 /*execute every 10ms*/);;
+			
+			
+	}
+	function mouseup(event) {
+		//console.log(event);
+	   if(mousedownID!=-1) {  //Only stop if exists
+		 clearInterval(mousedownID);
+		 mousedownID=-1;
+	   }
+	}
+	function whilemousedown(elementFromPoint) {
+	   //Check what element gets pressed
+	   
+	   socketElementArray.forEach(element => {
+		if(element == elementFromPoint){
+	   		//If Backend-Button, send info per websocket
+			console.log(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
+	   		socket.send(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
+		}
+	   });
+
+	}
+	//Assign events
+	document.addEventListener("mousedown", mousedown);
+	document.addEventListener("mouseup", mouseup);
+	//Also clear the interval when user leaves the window with mouse
+	document.addEventListener("mouseout", mouseup);
+    //alert("[open] Connection established");
+    
+    
 };
 
 socket.onmessage = function(event) {
-  alert(`[message] Data received from server: ${event.data}`);
+  //alert(`[message] Data received from server: ${event.data}`);
+  console.log(event.data);
 };
 
 socket.onclose = function(event) {
@@ -379,3 +424,6 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
   alert(`[error]`);
 };
+/*=============================================================*/
+/*======================Websocket=ENDE=========================*/
+/*=============================================================*/
