@@ -455,6 +455,20 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 	width: 155px;
 	height: 130px;
 }
+.btn-z:active{
+	transform: translateY(2px);
+}
+.btn-y:active{
+	transform: translateY(2px);
+}
+.btn-x:active{
+	transform: translateY(2px);
+}
+.button:active {
+	background-color: #3e8e41;
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+  }
 /*=============================================================*/
 /*===============tablet layout (small - large)=================*/
 /*=============================================================*/
