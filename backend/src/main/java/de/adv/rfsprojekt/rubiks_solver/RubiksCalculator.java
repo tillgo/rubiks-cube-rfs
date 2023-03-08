@@ -73,7 +73,7 @@ public class RubiksCalculator {
         //ToDo: solution Methode gibt bei unlösbarem cubeString einen Error-String zurück. Stattdessen Exception werfen oder Error-String handlen
 
         var solvedCube = new Search()
-                .solution(unsolvedCube, 21, 10000000, 0, 0);
+                .solution(unsolvedCube, 21, 10000000, 50000, 0);
 
 
         var moveStrings = Arrays.stream(solvedCube.split(" "))
@@ -101,7 +101,10 @@ public class RubiksCalculator {
 
     public static void main(String[] args) {
         String unsolvedCube = "URBLURRLRUFDBRBBULDUBLFRBFLDUUDDBFBDRFFDLDURRLUFLBFFDL";
-        System.out.println(new Search().solution(unsolvedCube, 21, 10000000, 0, 0));
-        System.out.println(new RubiksCalculator().calculateSolvingPath(unsolvedCube));
+        System.out.println(new Search().solution(unsolvedCube, 21, 10000000, 50000, 0));
+        var test = new RubiksCalculator().calculateSolvingPath(unsolvedCube);
+        System.out.println(test.size());
+        System.out.println(test);
+
     }
 }

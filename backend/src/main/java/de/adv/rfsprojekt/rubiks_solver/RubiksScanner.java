@@ -22,8 +22,8 @@ public class RubiksScanner {
     @Inject
     ImageService imageService;
 
-    @Inject
-    PoseChecker poseChecker;
+
+    PoseChecker poseChecker = new PoseChecker();
 
     private final List<Tuple2<Face, List<Integer>>> positions = List.of(
             Tuple2.of(Face.U, List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)),
@@ -36,12 +36,15 @@ public class RubiksScanner {
 
     private final Map<Face, List<CubeColor>> colors = new HashMap<>();
 
+    public RubiksScanner() throws Exception {
+    }
+
     public String scan() throws Exception {
         RubiksSolvingScripts.SCAN_MOVES.forEach((move) -> {
                     try {
                         ur.execute(move.getItem2());
                         Thread.sleep(5000);
-                        poseChecker.waitTilReachedEndPosition(Config.SCANNER_POSE);
+                        poseChecker.waitTilReachedEndPosition(Config.SCANNER_WAIT_POSE);
                         //Thread.sleep(50000);
                     } catch (Exception e) {
                         e.printStackTrace();

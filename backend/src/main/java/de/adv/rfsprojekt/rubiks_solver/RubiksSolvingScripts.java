@@ -117,6 +117,7 @@ public class RubiksSolvingScripts {
                     .addURScript(TURN_BACK_TO_TOP)
                     .addURScript(SPIN_CUBE_90DEG_CLOCK)
                     .addURScript(TURN_BACK_TO_TOP)
+                    .moveL(GREIF_HOCH_POSE)
                     .getURScript();
 
     public static URScript GET_SCRIPT_FOR_MOVE(Move move) {
