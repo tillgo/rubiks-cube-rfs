@@ -439,7 +439,22 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 .btn {
 	margin: 2px;
 }
-
+.movement-btn-grp{
+	display: flex;
+	justify-content: space-around;
+}
+.btn-z{
+	width: 	127px;
+	height: 145px;
+}
+.btn-y{
+	width: 	130px;
+	height: 152px ;
+}
+.btn-x{
+	width: 155px;
+	height: 130px;
+}
 /*=============================================================*/
 /*===============tablet layout (small - large)=================*/
 /*=============================================================*/

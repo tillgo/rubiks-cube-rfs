@@ -26,6 +26,16 @@
 		</a>
 	</div>
 	<div id="header">
+		<nav id="menu" aria-label="Menü Tabs">
+			<div class="nav nav-tabs " id="nav-tab" role="tablist">
+				<button class="nav-link btn-primary active" id="nav-cube-tab" data-bs-toggle="tab"
+					data-bs-target="#nav-cube" type="button" role="tab" aria-controls="nav-cube"
+					aria-selected="true">Cube</button>
+				<button class="nav-link" id="nav-manuell-tab" data-bs-toggle="tab" data-bs-target="#nav-manuell"
+					type="button" role="tab" aria-controls="nav-manuell" aria-selected="false">Manuell</button>
+			</div>
+		</nav>
+		<!-- old design
 		<div id="menu" role="group" class="btn-toolbar" aria-label="Menü Tabs">
 			<nav>
 				<div class="nav nav-pills" id="nav-tab" role="tablist">
@@ -34,13 +44,15 @@
 				</div>
 			  </nav>
 		</div>
+		-->
+
 	</div>
 
-	  <div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-cube" role="tabpanel" aria-labelledby="nav-cube-tab">
 			<div class="scene">
 				<div class="cube">
-		
+
 					<!-- corners White,Green,Red -->
 					<div class="cube-layer">
 						<div class="cubie cubie-corner-position-0">
@@ -144,7 +156,7 @@
 							</div>
 						</div>
 					</div>
-		
+
 					<!-- edges; White, Green-->
 					<div class="cube-layer">
 						<div class="cubie cubie-edge-position-0">
@@ -302,7 +314,7 @@
 							</div>
 						</div>
 					</div>
-		
+
 					<!-- middles -->
 					<div class="cube-layer">
 						<div class="cubie cubie-middle-r">
@@ -367,33 +379,34 @@
 				</div>
 			</div>
 			<div class="grid-layout">
-		
-		
+
+
 				<!--------------------------------------------------------------------------------->
 				<!--<form action="#">
-						<select name="Color" id="col">
-						<option value="White">White</option>
-						<option value="Red">Red</option>
-						<option value="Green">Green</option>
-						<option value="Blue">Blue</option>
-						<option value="Yellow">Yellow</option>
-						<option value="Orange">Orange</option>
-						</select>
-					</form>-->
+				<select name="Color" id="col">
+				<option value="White">White</option>
+				<option value="Red">Red</option>
+				<option value="Green">Green</option>
+				<option value="Blue">Blue</option>
+				<option value="Yellow">Yellow</option>
+				<option value="Orange">Orange</option>
+				</select>
+			</form>-->
 				<button id="btn_rot_face" class="btn btn-primary"><span id="text-invert">Face_rotate</span></button>
 				<div id="input-form" class="input-group w-50">
 					<span class="input-group-text" id="basic-addon1" data-toggle="tooltip" data-placement="bottom"
 						title="Die Würfelfarben werden durch Eingabe von Farbkürzeln gesetzt. 
-						Das Kürzel an der 5. Position bestimmt welche Würfelseite eingefärbt wird. Die Eingabe YYYYGYYYY färbt alle beweglichen Flächen der grünen Seite gelb.">
+				Das Kürzel an der 5. Position bestimmt welche Würfelseite eingefärbt wird. Die Eingabe YYYYGYYYY färbt alle beweglichen Flächen der grünen Seite gelb.">
 						<i class="bi bi-info-circle"></i>
 					</span>
-					<input type="text" id="manuelle_farbeingabe" class="form-control" aria-label="Eingabe der Würfelfarben"
-						aria-describedby="basic-addon1" onkeypress="clickPress(event)" placeholder="WWWBGBRRR" value="">
+					<input type="text" id="manuelle_farbeingabe" class="form-control"
+						aria-label="Eingabe der Würfelfarben" aria-describedby="basic-addon1"
+						onkeypress="clickPress(event)" placeholder="WWWBGBRRR" value="">
 					<button id="btn_Color" class="btn btn-primary">Fertig</button>
-		
+
 				</div>
-		
-		
+
+
 				<div id="rotation-button-group" role="group" class="btn-toolbar" aria-label="Buttons zur Würfeldrehung">
 					<button id="btn_WG" class="btn btn-primary">Rotate_WG</button>
 					<button id="btn_GY" class="btn btn-primary">Rotate_GY</button>
@@ -402,14 +415,27 @@
 					<button id="btn_RY" class="btn btn-primary">Rotate_RY</button>
 					<button id="btn_YO" class="btn btn-primary">Rotate_YO</button>
 				</div>
-		
+
 			</div>
 		</div>
-		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-			
+		<div class="tab-pane fade" id="nav-manuell" role="tabpanel" aria-labelledby="nav-manuell-tab">
+			<div class="movement-btn-grp" style="margin-top: 45px;">
+				<div id="z-pos"><button class="btn-z" style="background: url(/rubiks-cube-rfs/frontend/Arrows/z-pos.png)" ></div>
+				<div id="z-neg"><button class="btn-z" style="background: url(/rubiks-cube-rfs/frontend/Arrows/z-neg.png)" ></div>
+				
+			</div>
+			<div class="movement-btn-grp">
+				<div id="y-pos"><button class="btn-y" style="background: url(/rubiks-cube-rfs/frontend/Arrows/y-pos.png)" ></div>
+			</div>
+			<div class="movement-btn-grp">
+				<div id="x-neg"><button class="btn-x" style="background: url(/rubiks-cube-rfs/frontend/Arrows/x-neg.png)" ></div>
+				<div id="x-pos"><button class="btn-x" style="background: url(/rubiks-cube-rfs/frontend/Arrows/x-pos.png)" ></div>
+			</div>
+			<div class="movement-btn-grp">
+				<div id="y-neg"><button class="btn-y" style="background: url(/rubiks-cube-rfs/frontend/Arrows/y-neg.png)" ></div>
+			</div>
 		</div>
-	  </div>
-	  
+	</div>
 
 
 	<!--<script src="rotate.js"></script>-->
