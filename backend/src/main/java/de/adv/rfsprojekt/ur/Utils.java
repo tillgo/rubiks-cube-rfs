@@ -14,9 +14,10 @@ public class Utils {
         return Math.abs(pose1.getPosition().getX() - pose2.getPosition().getX()) < toleranz
                 && Math.abs(pose1.getPosition().getY() - pose2.getPosition().getY()) < toleranz
                 && Math.abs(pose1.getPosition().getZ() - pose2.getPosition().getZ()) < toleranz
-                && Math.abs(pose1.getOrientation().getX() - pose2.getOrientation().getX()) < toleranz
-                && Math.abs(pose1.getOrientation().getY() - pose2.getOrientation().getY()) < toleranz
-                && Math.abs(pose1.getOrientation().getZ() - pose2.getOrientation().getZ()) < toleranz;
+                //&& Math.abs(pose1.getOrientation().getX() - pose2.getOrientation().getX()) < toleranz
+               // && Math.abs(pose1.getOrientation().getY() - pose2.getOrientation().getY()) < toleranz
+               // && Math.abs(pose1.getOrientation().getZ() - pose2.getOrientation().getZ()) < toleranz
+        ;
 
 
     }

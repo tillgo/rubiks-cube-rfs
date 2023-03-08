@@ -62,7 +62,10 @@ public class DataPackage extends Package {
                     //Not needed right now
                 }
                 case VECTOR6D -> {
-                    if (buffer.remaining() < 48) variables.put(dataType, null);
+                    if (buffer.remaining() < 48) {
+                        buffer.clear();
+                        variables.put(dataType, null);
+                    }
                     else {
                         double[] values = new double[6];
                         for (int j = 0; j < 6; j++) {

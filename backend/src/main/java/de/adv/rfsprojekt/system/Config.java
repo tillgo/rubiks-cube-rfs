@@ -72,6 +72,8 @@ public class Config {
     public static Pose DROP_POSE = getPose("drop");
     public static Pose DROP_HOCH_POSE = getPose("drop-hoch");
 
+    public static Pose SCANNER_WAIT_POSE = getPose("scanner-wait");
+
     public static Pose getPose(String name) {
         var conf = ConfigProvider.getConfig();
         var value = conf.getValue("ur.default-pose.\"" + name + "\"", String.class);

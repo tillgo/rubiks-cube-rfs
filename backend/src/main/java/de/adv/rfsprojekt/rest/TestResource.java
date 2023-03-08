@@ -84,13 +84,6 @@ public class TestResource {
         return Response.ok().build();
     }
 
-    @Path("scan-test")
-    @GET
-    public Response scanTest() throws Exception {
-        rubiksCommander.analyzeRubiksCube();
-        return Response.ok().build();
-    }
-
     @Path("move-greif")
     @GET
     public Response greif() throws IOException {

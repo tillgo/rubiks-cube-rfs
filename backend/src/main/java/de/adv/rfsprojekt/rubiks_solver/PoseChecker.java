@@ -41,6 +41,7 @@ public class PoseChecker {
             if (dataPackage != null) {
                 ActualTCPPose actualPose = (ActualTCPPose) dataPackage.getPayload().get(DataType.ACTUAL_TCP_POSE);
                 if (actualPose != null) {
+                    System.out.println(actualPose.getPayload());
                     correctnessCounter = Utils.comparePositions(endPose, actualPose.getPayload()) ? correctnessCounter + 1 : 0;
                 }
             }
