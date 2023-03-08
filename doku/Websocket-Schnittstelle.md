@@ -1,4 +1,4 @@
-# Websucker-Schniddsdelle Defincion
+# Websucker-Schniddsdelle Definicion
 
 Messages werden im JSON(Derulo)-Format ausgetauscht
 
