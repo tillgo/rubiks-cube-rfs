@@ -426,6 +426,8 @@ socketManual.onerror = function(error) {
 };
 
 //Cube solver socket
+
+/*
 let socketSolver = new WebSocket("wss://"+clientAdress+"/cube-solver/{clientname}");
 
 socketSolver.onopen = function(e) {
@@ -449,6 +451,7 @@ socketSolver.onclose = function(event) {
 socketSolver.onerror = function(error) {
 	alert(`[error]`);
 };
+
 /*=============================================================*/
 /*======================Websocket=ENDE=========================*/
 /*=============================================================*/
