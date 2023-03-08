@@ -15,7 +15,7 @@ corners  _.-'-._                 edges    _.-'-._
 u(weiß) f(green)   R(red)   L(orange)   B(blue)    D(yellow)
 up      front      right    left        back       down
 */
-
+const clientAdress = '192.168.56.1';
 var layers = {
 	u: {corners: [0, 1, 3, 2], edges: [0, 1, 3, 2]},
 	f: {corners: [1, 0, 4, 5], edges: [0, 8, 4, 9]},
@@ -361,15 +361,16 @@ const Y_MINUS = document.getElementById('Y_MINUS');
 //Array of Elements that trigger a message to Backend
 var socketElementArray = [Z_MINUS,Z_PLUS,Y_MINUS,Y_PLUS,X_MINUS,X_PLUS];
 
-//Add Modus Robo Arm / Tool
+//ToDo: Add Modus Robo Arm / Tool
 
+//Manuelle Steuerung
+let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
 
-let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
-
-socket.onopen = function(e) {
+socketManual.onopen = function(e) {
 	var mousedownID = -1;  //Global ID of mouse down interval
 	function mousedown(event) {
 		//console.log(event);
+		//Check what element gets pressed
 		var mouseElement = document.elementFromPoint(event.clientX, event.clientY);
 		//console.log(mouseElement);
 	    if(mousedownID==-1)  //Prevent multimple loops!
@@ -385,13 +386,11 @@ socket.onopen = function(e) {
 	   }
 	}
 	function whilemousedown(elementFromPoint) {
-	   //Check what element gets pressed
-	   
 	   socketElementArray.forEach(element => {
 		if(element == elementFromPoint){
 	   		//If Backend-Button, send info per websocket
 			console.log(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
-	   		socket.send(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
+	   		socketManual.send(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
 		}
 	   });
 
@@ -406,12 +405,12 @@ socket.onopen = function(e) {
     
 };
 
-socket.onmessage = function(event) {
+socketManual.onmessage = function(event) {
   //alert(`[message] Data received from server: ${event.data}`);
   console.log(event.data);
 };
 
-socket.onclose = function(event) {
+socketManual.onclose = function(event) {
   if (event.wasClean) {
     alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
   } else {
@@ -421,8 +420,33 @@ socket.onclose = function(event) {
   }
 };
 
-socket.onerror = function(error) {
+socketManual.onerror = function(error) {
   alert(`[error]`);
+};
+
+//Cube solver socket
+let socketSolver = new WebSocket("wss://"+clientAdress+"/cube-solver/{clientname}");
+
+socketSolver.onopen = function(e) {
+
+}
+socketSolver.onmessage = function(event) {
+	//alert(`[message] Data received from server: ${event.data}`);
+	console.log(event.data);
+};
+
+socketSolver.onclose = function(event) {
+	if (event.wasClean) {
+	alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+} else {
+	// e.g. server process killed or network down
+	// event.code is usually 1006 in this case
+	alert('[close] Connection died');
+	}
+};
+ 
+socketSolver.onerror = function(error) {
+	alert(`[error]`);
 };
 /*=============================================================*/
 /*======================Websocket=ENDE=========================*/
