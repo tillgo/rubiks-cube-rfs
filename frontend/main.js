@@ -364,7 +364,8 @@ var socketElementArray = [Z_MINUS,Z_PLUS,Y_MINUS,Y_PLUS,X_MINUS,X_PLUS];
 //ToDo: Add Modus Robo Arm / Tool
 
 //Manuelle Steuerung
-let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
+//let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
+let socketManual = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
 
 socketManual.onopen = function(e) {
 	var mousedownID = -1;  //Global ID of mouse down interval
