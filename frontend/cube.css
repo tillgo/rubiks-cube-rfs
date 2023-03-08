@@ -431,7 +431,17 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 .grid-layout {
 	margin: 0 10px;
 }
-
+#solver-button-group{
+	margin: 15px 0 15px 0;
+}
+#START_SCAN{
+	background-color:var(--bs-success) ;
+	border-color: var(--bs-success)  ;
+}
+#START_SOLVE{
+	background-color:rgb(0, 114, 0) ;
+	border-color: rgb(0, 114, 0) ;
+}
 #rotation-button-group {
 	margin: 15px 0 0 0;
 }
