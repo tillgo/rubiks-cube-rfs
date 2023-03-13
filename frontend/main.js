@@ -427,15 +427,31 @@ socketManual.onerror = function(error) {
 
 //Cube solver socket
 
-/*
-let socketSolver = new WebSocket("wss://"+clientAdress+"/cube-solver/{clientname}");
+
+let socketSolver = new WebSocket("ws://localhost:1337");
+//wss://"+clientAdress+"/cube-solver/{clientname}
+//wss://javascript.info/article/websocket/demo/hello
 
 socketSolver.onopen = function(e) {
+	console.log("Solver open");
+	
+	const START_SCAN = document.getElementById('START_SCAN');
+	const START_SOLVE = document.getElementById('START_SOLVE');
+	const STOP = document.getElementById('STOP');
 
+	START_SCAN.addEventListener('click', function onClick() {
+		socketSolver.send(`{"command": "START_SCAN"}`);
+	});
+	START_SOLVE.addEventListener('click', function onClick() {
+		socketSolver.send(`{"command": "START_SOLVE"}`);
+	});
+	STOP.addEventListener('click', function onClick() {
+		socketSolver.send(`{"command": "STOP"}`);
+	});
 }
 socketSolver.onmessage = function(event) {
-	//alert(`[message] Data received from server: ${event.data}`);
 	console.log(event.data);
+
 };
 
 socketSolver.onclose = function(event) {
