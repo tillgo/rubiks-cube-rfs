@@ -20,23 +20,23 @@ public class RubiksCalculator {
     Map<Face, Map<Face, Face>> map = Map.of(
             Face.U, Map.of(
                     Face.U, Face.U,
-                    Face.F, Face.B,
-                    Face.L, Face.R,
-                    Face.R, Face.L,
+                    Face.F, Face.F,
+                    Face.L, Face.F,
+                    Face.R, Face.F,
                     Face.B, Face.F,
                     Face.D, Face.D
             ),
             Face.F, Map.of(
                     Face.U, Face.F,
                     Face.F, Face.U,
-                    Face.L, Face.F,
-                    Face.R, Face.F,
+                    Face.L, Face.L,
+                    Face.R, Face.R,
                     Face.B, Face.D,
                     Face.D, Face.B
             ),
             Face.L, Map.of(
                     Face.U, Face.L,
-                    Face.F, Face.L,
+                    Face.F, Face.R,
                     Face.L, Face.U,
                     Face.R, Face.D,
                     Face.B, Face.L,
@@ -44,7 +44,7 @@ public class RubiksCalculator {
             ),
             Face.R, Map.of(
                     Face.U, Face.R,
-                    Face.F, Face.R,
+                    Face.F, Face.L,
                     Face.L, Face.D,
                     Face.R, Face.U,
                     Face.B, Face.R,
@@ -53,16 +53,16 @@ public class RubiksCalculator {
             Face.B, Map.of(
                     Face.U, Face.B,
                     Face.F, Face.D,
-                    Face.L, Face.B,
-                    Face.R, Face.B,
+                    Face.L, Face.R,
+                    Face.R, Face.L,
                     Face.B, Face.U,
                     Face.D, Face.F
             ),
             Face.D, Map.of(
                     Face.U, Face.D,
-                    Face.F, Face.F,
-                    Face.L, Face.L,
-                    Face.R, Face.R,
+                    Face.F, Face.B,
+                    Face.L, Face.B,
+                    Face.R, Face.B,
                     Face.B, Face.B,
                     Face.D, Face.U
             )
@@ -73,7 +73,7 @@ public class RubiksCalculator {
         //ToDo: solution Methode gibt bei unlösbarem cubeString einen Error-String zurück. Stattdessen Exception werfen oder Error-String handlen
 
         var solvedCube = new Search()
-                .solution(unsolvedCube, 21, 10000000, 0, 0);
+                .solution(unsolvedCube, 21, 10000000, 50000, 0);
 
 
         var moveStrings = Arrays.stream(solvedCube.split(" "))
@@ -101,7 +101,10 @@ public class RubiksCalculator {
 
     public static void main(String[] args) {
         String unsolvedCube = "URBLURRLRUFDBRBBULDUBLFRBFLDUUDDBFBDRFFDLDURRLUFLBFFDL";
-        System.out.println(new Search().solution(unsolvedCube, 21, 10000000, 0, 0));
-        System.out.println(new RubiksCalculator().calculateSolvingPath(unsolvedCube));
+        System.out.println(new Search().solution(unsolvedCube, 21, 10000000, 50000, 0));
+        var test = new RubiksCalculator().calculateSolvingPath(unsolvedCube);
+        System.out.println(test.size());
+        System.out.println(test);
+
     }
 }

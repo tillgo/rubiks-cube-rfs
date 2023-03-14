@@ -431,7 +431,21 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 .grid-layout {
 	margin: 0 10px;
 }
-
+#solver-button-group{
+	margin: 15px 0 15px 0;
+}
+#START_SCAN{
+	background-color:rgb(0, 114, 0) ;
+	border-color: rgb(0, 114, 0) ;
+}
+#START_SOLVE{
+	background-color:rgb(184, 0, 0) ;
+	border-color: rgb(184, 0, 0) ;
+}
+#STOP{
+	background-color:rgb(184, 0, 0) ;
+	border-color: rgb(184, 0, 0) ;
+}
 #rotation-button-group {
 	margin: 15px 0 0 0;
 }
@@ -439,7 +453,31 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 .btn {
 	margin: 2px;
 }
-
+.movement-btn-grp{
+	display: flex;
+	justify-content: space-around;
+}
+.btn-z{
+	width: 	127px;
+	height: 145px;
+}
+.btn-y{
+	width: 	130px;
+	height: 152px ;
+}
+.btn-x{
+	width: 155px;
+	height: 130px;
+}
+.btn-z:active{
+	transform: translateY(2px);
+}
+.btn-y:active{
+	transform: translateY(2px);
+}
+.btn-x:active{
+	transform: translateY(2px);
+}
 /*=============================================================*/
 /*===============tablet layout (small - large)=================*/
 /*=============================================================*/
@@ -464,4 +502,17 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 		transform: scale(1);
 	}
 
+}
+/*========================= manuelle steuerung =============================*/
+
+.arrowtext{
+	color: var(--bs-blue);
+    font-size: 2em;
+    margin: 0;
+    font-weight: bold;
+	pointer-events: none;
+}
+.arrowcolor{
+	color: var(--bs-blue);
+	pointer-events: none;
 }

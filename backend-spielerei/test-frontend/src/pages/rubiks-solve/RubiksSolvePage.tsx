@@ -10,7 +10,7 @@ import Cube from './Cube'
 import SolvingSteps from './SolvingSteps'
 
 const RubiksSolvePage = () => {
-    const { readyState, data } = useAppWebSocket('CUBE_SOLVER')
+    const [, { data, readyState }] = useAppWebSocket('CUBE_SOLVER')
     const connectionStatus = ReadyState[readyState]
 
     const dispatch = useAppDispatch()

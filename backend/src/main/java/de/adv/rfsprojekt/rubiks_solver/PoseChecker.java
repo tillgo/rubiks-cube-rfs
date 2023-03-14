@@ -12,7 +12,7 @@ import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.ActualTCPP
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
-@ApplicationScoped
+
 public class PoseChecker {
 
     private final RTDE rtde;
@@ -36,11 +36,14 @@ public class PoseChecker {
         PackageType[] packageTypes = {PackageType.RTDE_DATA_PACKAGE};
         int correctnessCounter = 0;
         while (true) {
+            System.out.println("Test");
             recievedPackages = rtde.receiveMultiplePackages(packageTypes);
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) {
+                System.out.println("war im pose checker");
                 ActualTCPPose actualPose = (ActualTCPPose) dataPackage.getPayload().get(DataType.ACTUAL_TCP_POSE);
                 if (actualPose != null) {
+                    System.out.println(actualPose.getPayload());
                     correctnessCounter = Utils.comparePositions(endPose, actualPose.getPayload()) ? correctnessCounter + 1 : 0;
                 }
             }

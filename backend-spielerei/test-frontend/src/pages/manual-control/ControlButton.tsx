@@ -3,6 +3,7 @@ import { Button } from '@mui/material'
 import { controlPanelConfig } from './controlPanelConfig'
 import sleep from '../../commons/sleep'
 import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
+import { useEffect, useState } from 'react'
 
 type ControlButtonProps = {
     commandType: RobotCommand
@@ -10,7 +11,7 @@ type ControlButtonProps = {
 }
 
 const ControlButton = (props: ControlButtonProps) => {
-    const { sendMessage } = useAppWebSocket('MANUAL')
+    const [sendMessage] = useAppWebSocket('MANUAL')
 
     const config = controlPanelConfig[props.direction]
     let buttonHold = false

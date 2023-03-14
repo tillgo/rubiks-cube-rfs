@@ -1,22 +1,15 @@
-import { ReadyState } from 'react-use-websocket'
 import ControlPanel from './ControlPanel'
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import GripperControlPanel from './GripperControlPanel'
 import RoboSetupControlPanel from './RoboSetupControlPanel'
-import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 import SafetyStatusDisplay from '../../commons/components/SafetyStatusDisplay'
+import ReadyStateDisplay from './ReadyStateDisplay'
 
 const ManualControlPage = () => {
-    const { readyState } = useAppWebSocket('MANUAL')
-    const connectionStatus = ReadyState[readyState]
-
+    console.log('war hier')
     return (
         <Grid container spacing={3} sx={{ padding: 2, maxWidth: '900px' }}>
-            <Grid item xs={12} display={'flex'} justifyContent={'center'}>
-                <Typography color={'black'}>
-                    Connection Status: <b>{connectionStatus}</b>
-                </Typography>
-            </Grid>
+            <ReadyStateDisplay />
             <Grid item xs={12}>
                 <SafetyStatusDisplay />
             </Grid>

@@ -3,7 +3,7 @@ import { GripperCommandType } from '../../commons/types'
 import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 
 const GripperControlPanel = () => {
-    const { sendMessage } = useAppWebSocket('MANUAL')
+    const [sendMessage] = useAppWebSocket('MANUAL')
     const handleClick = (type: GripperCommandType) => {
         sendMessage({
             type: 'COMMAND',

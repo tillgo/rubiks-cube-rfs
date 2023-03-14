@@ -7,7 +7,7 @@ import de.adv.rfsprojekt.websocket.entities.InfoPayload;
 public class ScanCompleteInfoPayload extends InfoPayload<ScanCompleteInfo> {
 
     public ScanCompleteInfoPayload(ScanCompleteInfo scanCompleteInfo) {
-        super(InfoMessageType.SCAN_COMPLETE, scanCompleteInfo);
+        super(InfoMessageType.SCAN_FINISHED, scanCompleteInfo);
     }
 
 }

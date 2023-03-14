@@ -15,7 +15,7 @@ corners  _.-'-._                 edges    _.-'-._
 u(weiß) f(green)   R(red)   L(orange)   B(blue)    D(yellow)
 up      front      right    left        back       down
 */
-
+const clientAdress = '192.168.56.1';
 var layers = {
 	u: {corners: [0, 1, 3, 2], edges: [0, 1, 3, 2]},
 	f: {corners: [1, 0, 4, 5], edges: [0, 8, 4, 9]},
@@ -345,4 +345,221 @@ var nextMove = function() {
 //Tooltip Bootstrap
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
-  })
+  });
+
+/*=============================================================*/
+/*=========================Websocket===========================*/
+/*=============================================================*/
+
+const Z_PLUS = document.getElementById('Z_PLUS');
+const Z_MINUS = document.getElementById('Z_MINUS');
+const Y_PLUS = document.getElementById('Y_PLUS');
+const X_MINUS = document.getElementById('X_MINUS');
+const X_PLUS = document.getElementById('X_PLUS');
+const Y_MINUS = document.getElementById('Y_MINUS');
+
+//Array of Elements that trigger a message to Backend
+var socketElementArray = [Z_MINUS,Z_PLUS,Y_MINUS,Y_PLUS,X_MINUS,X_PLUS];
+
+//ToDo: Add Modus Robo Arm / Tool
+
+//Manuelle Steuerung
+//let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
+let socketManual = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
+
+socketManual.onopen = function(e) {
+	var mousedownID = -1;  //Global ID of mouse down interval
+	function mousedown(event) {
+		//console.log(event);
+		//Check what element gets pressed
+		var mouseElement = document.elementFromPoint(event.clientX, event.clientY);
+		//console.log(mouseElement);
+	    if(mousedownID==-1)  //Prevent multimple loops!
+			mousedownID = setInterval(whilemousedown(mouseElement), 10 /*execute every 10ms*/);;
+			
+			
+	}
+	function mouseup(event) {
+		//console.log(event);
+	   if(mousedownID!=-1) {  //Only stop if exists
+		 clearInterval(mousedownID);
+		 mousedownID=-1;
+	   }
+	}
+	function whilemousedown(elementFromPoint) {
+	   socketElementArray.forEach(element => {
+		if(element == elementFromPoint){
+	   		//If Backend-Button, send info per websocket
+			console.log(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
+	   		socketManual.send(`{"commandType": "ROBO_ARM", "command": "`+element.id+`"}`);
+		}
+	   });
+
+	}
+	//Assign events
+	document.addEventListener("mousedown", mousedown);
+	document.addEventListener("mouseup", mouseup);
+	//Also clear the interval when user leaves the window with mouse
+	document.addEventListener("mouseout", mouseup);
+    //alert("[open] Connection established");
+    
+    
+};
+
+socketManual.onmessage = function(event) {
+  //alert(`[message] Data received from server: ${event.data}`);
+  console.log(event.data);
+};
+
+socketManual.onclose = function(event) {
+  if (event.wasClean) {
+    alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+  } else {
+    // e.g. server process killed or network down
+    // event.code is usually 1006 in this case
+    alert('[close] Connection died');
+  }
+};
+
+socketManual.onerror = function(error) {
+  alert(`[error]`);
+};
+
+//Cube solver socket
+
+
+let socketSolver = new WebSocket("ws://localhost:1337");
+//wss://"+clientAdress+"/cube-solver/{clientname}
+//wss://javascript.info/article/websocket/demo/hello
+
+socketSolver.onopen = function(e) {
+	console.log("Solver open");
+	
+	const START_SCAN = document.getElementById('START_SCAN');
+	const START_SOLVE = document.getElementById('START_SOLVE');
+	const STOP = document.getElementById('STOP');
+
+	START_SCAN.addEventListener('click', function onClick() {
+		socketSolver.send(`{"command": "START_SCAN"}`);
+	});
+	START_SOLVE.addEventListener('click', function onClick() {
+		//socketSolver.send(`{"command": "START_SOLVE"}`);
+		socketSolver.send(`
+		{"infoType": "SCAN_FINISHED",   
+         "data": {
+                   "cubeStructure" : "URBLURRL...",
+                   "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+                  }
+        }`);
+	});
+	STOP.addEventListener('click', function onClick() {
+		//socketSolver.send(`{"command": "STOP"}`);
+		socketSolver.send(`
+		{"infoType": "CUBE_UPDATE",
+         "data": {
+                   "nthMove": 1,
+                   "moveSum": 3,
+                   "move": {"face": "T", "count": 1}
+                 }               
+        }`);
+	});
+}
+socketSolver.onmessage = function(event) {
+	//console.log(event.data);
+	const jasonMessage = JSON.parse(event.data);
+	if(jasonMessage.infoType == "SCAN_FINISHED"){
+		console.log("scan sucess");
+		$('#START_SOLVE').css("background-color","rgb(0, 114, 0)");
+		$('#START_SOLVE').css("border-color","rgb(0, 114, 0)");
+	}
+	if(jasonMessage.infoType == "CUBE_UPDATE"){
+		//ToDo: Richtige Buttons zuordnen
+		switch(jasonMessage.data.move.face){
+			case 'T':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_WG').click();
+			break;
+			case 'R':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_GY').click();
+			break;
+			case 'L':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_OY').click();
+			break;
+			case 'D':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_BY').click();
+			break;
+			case 'F':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_RY').click();
+			break;
+			case 'B':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_YO').click();
+			break;
+			
+
+
+		}
+	}
+};
+
+socketSolver.onclose = function(event) {
+	if (event.wasClean) {
+	alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+} else {
+	// e.g. server process killed or network down
+	// event.code is usually 1006 in this case
+	alert('[close] Connection died');
+	}
+};
+ 
+socketSolver.onerror = function(error) {
+	alert(`[error]`);
+};
+
+
+
+/*=============================================================*/
+/*=====================Websocket=Executor======================*/
+/*=============================================================*/
+
+function cubeRotator(){
+	
+}
+function cubeUpdateHandler(jasonObject){
+	switch(jasonObject.data.move.face){
+		case 'T':
+			console.log(jasonObject.data.move.face);
+			$('#btn_WG').click();
+		break;
+		case 'R':
+			console.log(jasonObject.data.move.face);
+			$('#btn_GY').click();
+		break;
+		case 'L':
+			console.log(jasonObject.data.move.face);
+			$('#btn_OY').click();
+		break;
+		case 'D':
+			console.log(jasonObject.data.move.face);
+			$('#btn_BY').click();
+		break;
+		case 'F':
+			console.log(jasonObject.data.move.face);
+			$('#btn_RY').click();
+		break;
+		case 'B':
+			console.log(jasonObject.data.move.face);
+			$('#btn_YO').click();
+		break;
+
+	}
+}
+
+
+/*=============================================================*/
+/*======================Websocket=ENDE=========================*/
+/*=============================================================*/

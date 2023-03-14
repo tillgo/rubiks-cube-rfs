@@ -4,13 +4,13 @@ import de.adv.rfsprojekt.websocket.entities.BasePayload;
 
 public class RubiksSolverCommandPayload implements BasePayload {
 
-    private final RubiksSolverCommandType rubiksSolverCommandType;
+    private final RubiksSolverCommandType command;
 
-    public RubiksSolverCommandPayload(RubiksSolverCommandType rubiksSolverCommandType) {
-        this.rubiksSolverCommandType = rubiksSolverCommandType;
+    public RubiksSolverCommandPayload(RubiksSolverCommandType command) {
+        this.command = command;
     }
 
-    public RubiksSolverCommandType getCommandType() {
-        return rubiksSolverCommandType;
+    public RubiksSolverCommandType getCommand() {
+        return command;
     }
 }

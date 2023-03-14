@@ -9,6 +9,7 @@ import de.adv.rfsprojekt.websocket.entities.MessageType;
 import de.adv.rfsprojekt.websocket.entities.WebsocketMessage;
 import de.adv.rfsprojekt.websocket.entities.rubiksSolver.RubiksSolverCommand;
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,10 +33,13 @@ public class CubeSolverSocket {
     @Inject
     Gson gson;
 
+    @ConfigProperty(name = "ur.erroranalyzer.enabled")
+    boolean analyzerEnabled;
+
 
     @OnOpen
     public void onOpen(Session session, @PathParam("clientname") String clientname) {
-        if (sessions.size() == 0) {
+        if (sessions.size() == 0 && analyzerEnabled) {
             errorAnalyzer = new ErrorAnalyzer(this::broadcast);
             errorAnalyzer.start();
         }
@@ -45,7 +49,10 @@ public class CubeSolverSocket {
     @OnClose
     public void onClose(Session session, @PathParam("clientname") String clientname) {
         sessions.remove(clientname);
-        if (sessions.size() == 0) errorAnalyzer.kill();
+        if (sessions.size() == 0 && analyzerEnabled) {
+            errorAnalyzer.kill();
+            errorAnalyzer = null;
+        }
     }
 
     @OnError
