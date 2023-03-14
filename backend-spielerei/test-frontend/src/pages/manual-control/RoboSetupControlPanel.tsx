@@ -3,7 +3,7 @@ import { Box, Button } from '@mui/material'
 import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 
 const RoboSetupControlPanel = () => {
-    const { sendMessage } = useAppWebSocket('MANUAL')
+    const [sendMessage] = useAppWebSocket('MANUAL')
     const handleClick = (type: RoboSetupCommandType) => {
         sendMessage({
             type: 'COMMAND',

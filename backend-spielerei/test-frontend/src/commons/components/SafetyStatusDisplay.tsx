@@ -3,7 +3,7 @@ import { useAppWebSocket } from '../hooks/useAppWebSocket'
 import { WebsocketMessage } from '../types'
 
 const SafetyStatusDisplay = () => {
-    const { data } = useAppWebSocket('MANUAL')
+    const [, { data }] = useAppWebSocket('MANUAL')
 
     const isInfo = (value: any): value is WebsocketMessage<'INFO', 'MANUAL'> =>
         value?.type === 'INFO'

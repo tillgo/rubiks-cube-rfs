@@ -3,7 +3,7 @@ import { Box, Button } from '@mui/material'
 import { useAppWebSocket } from '../../commons/hooks/useAppWebSocket'
 
 const RubiksSolveButtons = () => {
-    const { sendMessage } = useAppWebSocket('CUBE_SOLVER')
+    const [sendMessage] = useAppWebSocket('CUBE_SOLVER')
     const handleClick = (type: CubeSolverCommandType) => {
         sendMessage({
             type: 'COMMAND',

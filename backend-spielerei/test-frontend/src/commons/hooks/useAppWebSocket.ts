@@ -9,13 +9,13 @@ export const WSContext = createContext<Record<
     UseWSHookType
 > | null>(null)
 
-type ReturnType<T extends WSConnection> = Pick<
-    UseWSHookType,
-    'lastMessage' | 'readyState'
-> & {
-    sendMessage: (m: WebsocketMessage<MessageType, T>) => void
-    data: WebsocketMessage<any, T> | undefined
-}
+type ReturnType<T extends WSConnection> = [
+    (m: WebsocketMessage<MessageType, T>) => void,
+    {
+        data: WebsocketMessage<any, T> | undefined
+        readyState: UseWSHookType['readyState']
+    }
+]
 export const useAppWebSocket = <T extends WSConnection>(
     type: T
 ): ReturnType<T> => {
@@ -31,20 +31,13 @@ export const useAppWebSocket = <T extends WSConnection>(
             ? (JSON.parse(lastMessage?.data) as WebsocketMessage<any, T>)
             : undefined
 
-        return {
-            sendMessage,
-            readyState,
-            lastMessage,
-            data,
-        }
+        return [sendMessage, { data, readyState }]
     }
 
-    return {
-        sendMessage: () => {
+    return [
+        () => {
             console.error('Wartsch mal gschwind eyy')
         },
-        readyState: ReadyState.CONNECTING,
-        lastMessage: null,
-        data: undefined,
-    }
+        { data: undefined, readyState: ReadyState.CONNECTING },
+    ]
 }

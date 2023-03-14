@@ -29,6 +29,7 @@ public class ErrorAnalyzer extends Thread {
     public void run() {
         try {
             analyzeError();
+            rtde.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

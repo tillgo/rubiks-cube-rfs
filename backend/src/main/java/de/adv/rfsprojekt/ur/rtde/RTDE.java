@@ -67,6 +67,10 @@ public class RTDE {
         }
     }
 
+    public void close() throws IOException {
+        socket.close();
+    }
+
 
     public DataConfig send_output_setup(List<DataType> variables, double frequency) throws Exception {
         ByteBuffer buffer = ByteBuffer.allocate(2048);
