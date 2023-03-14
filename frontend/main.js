@@ -443,15 +443,67 @@ socketSolver.onopen = function(e) {
 		socketSolver.send(`{"command": "START_SCAN"}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "START_SOLVE"}`);
+		//socketSolver.send(`{"command": "START_SOLVE"}`);
+		socketSolver.send(`
+		{"infoType": "SCAN_FINISHED",   
+         "data": {
+                   "cubeStructure" : "URBLURRL...",
+                   "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+                  }
+        }`);
 	});
 	STOP.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "STOP"}`);
+		//socketSolver.send(`{"command": "STOP"}`);
+		socketSolver.send(`
+		{"infoType": "CUBE_UPDATE",
+         "data": {
+                   "nthMove": 1,
+                   "moveSum": 3,
+                   "move": {"face": "T", "count": 1}
+                 }               
+        }`);
 	});
 }
 socketSolver.onmessage = function(event) {
-	console.log(event.data);
+	//console.log(event.data);
+	const jasonMessage = JSON.parse(event.data);
+	if(jasonMessage.infoType == "SCAN_FINISHED"){
+		console.log("scan sucess");
+		$('#START_SOLVE').css("background-color","rgb(0, 114, 0)");
+		$('#START_SOLVE').css("border-color","rgb(0, 114, 0)");
+	}
+	if(jasonMessage.infoType == "CUBE_UPDATE"){
+		//ToDo: Richtige Buttons zuordnen
+		switch(jasonMessage.data.move.face){
+			case 'T':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_WG').click();
+			break;
+			case 'R':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_GY').click();
+			break;
+			case 'L':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_OY').click();
+			break;
+			case 'D':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_BY').click();
+			break;
+			case 'F':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_RY').click();
+			break;
+			case 'B':
+				console.log(jasonMessage.data.move.face);
+				$('#btn_YO').click();
+			break;
+			
 
+
+		}
+	}
 };
 
 socketSolver.onclose = function(event) {
@@ -467,6 +519,46 @@ socketSolver.onclose = function(event) {
 socketSolver.onerror = function(error) {
 	alert(`[error]`);
 };
+
+
+
+/*=============================================================*/
+/*=====================Websocket=Executor======================*/
+/*=============================================================*/
+
+function cubeRotator(){
+	
+}
+function cubeUpdateHandler(jasonObject){
+	switch(jasonObject.data.move.face){
+		case 'T':
+			console.log(jasonObject.data.move.face);
+			$('#btn_WG').click();
+		break;
+		case 'R':
+			console.log(jasonObject.data.move.face);
+			$('#btn_GY').click();
+		break;
+		case 'L':
+			console.log(jasonObject.data.move.face);
+			$('#btn_OY').click();
+		break;
+		case 'D':
+			console.log(jasonObject.data.move.face);
+			$('#btn_BY').click();
+		break;
+		case 'F':
+			console.log(jasonObject.data.move.face);
+			$('#btn_RY').click();
+		break;
+		case 'B':
+			console.log(jasonObject.data.move.face);
+			$('#btn_YO').click();
+		break;
+
+	}
+}
+
 
 /*=============================================================*/
 /*======================Websocket=ENDE=========================*/

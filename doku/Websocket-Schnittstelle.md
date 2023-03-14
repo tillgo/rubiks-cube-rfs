@@ -142,7 +142,7 @@ Wird immer gesendet, wenn ein neuer Move gestartet wird
          "data": {
                    "nthMove": <int>,
                    "moveSum": <int>,
-                   "move: {"face": "R", "count": 1}
+                   "move": {"face": "R", "count": 1}
                  }               
         }
 
