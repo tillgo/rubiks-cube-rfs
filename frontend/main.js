@@ -586,20 +586,22 @@ function cubeColorSetter(jasonObject) {
 		}
 	}
 	colorString = facecolorArray.reduce((prev, curr) => prev + curr, '');
+	let translateArray = [3,6,9,2,5,8,1,4,7];
 
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
-		cubeColorArray[i] = colorString.slice(i, i + 9);
-		if (cubeColorArray[i].charAt(4) == 'Y') {
-			var splitString = cubeColorArray[i].split(""); // var splitString = "hello".split("");
-
-			// Step 2. Use the reverse() method to reverse the new created array
-			var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
-
-			// Step 3. Use the join() method to join all elements of the array into a string
-			cubeColorArray[i] = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
-
+		var sliceString = colorString.slice(i, i + 9);
+		var tempCharArray = [];
+		//Translate yellow side
+		if(slice.charAt(4) == 'Y'){
+			for(var j = 0; j<sliceString.length;){
+				tempCharArray[j]=sliceString.charAt(translateArray[j]);
+			}
+			cubeColorArray[i] = tempCharArray.reduce((prev, curr) => prev + curr, '');
+		}else{
+			cubeColorArray[i] = tempSlice;
 		}
+
 		console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
