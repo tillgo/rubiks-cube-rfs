@@ -381,7 +381,6 @@ async function mousedown(event) {
 	//console.log(interval);
 }
 function mouseup(event) {
-
 	window.clearInterval(interval);
 	interval = null;
 	// timer is no longer "running"
@@ -393,14 +392,14 @@ function whilemousedown(elementFromPoint) {
 		if (element == elementFromPoint) {
 			//If Backend-Button, send info per websocket
 			console.log(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
-			socketManual.send(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
+			socketManual.send(`{"type": "COMMAND", "payload": {"commandType": "ROBO_ARM", "command": "` + element.id + `"}}`);
 		}
 	});
 }
 
 //let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
 //wss://javascript.info/article/websocket/demo/hello
-let socketManual = new WebSocket("ws://localhost:1337");
+let socketManual = new WebSocket("ws://localhost:8080/manual/deinpopa");
 
 socketManual.onopen = function (e) {
 
@@ -436,7 +435,7 @@ socketManual.onerror = function (error) {
 //Cube solver socket
 
 
-let socketSolver = new WebSocket("ws://localhost:1337");
+let socketSolver = new WebSocket("ws://localhost:8080/cube-solver/deinpopa");
 //wss://"+clientAdress+"/cube-solver/{clientname}
 //wss://javascript.info/article/websocket/demo/hello
 
@@ -448,44 +447,44 @@ socketSolver.onopen = function (e) {
 	const STOP = document.getElementById('STOP');
 
 	START_SCAN.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "START_SCAN"}`);
-		console.log('### Echo trigger ###');
-		socketSolver.send(`
-		{"infoType": "SCAN_FINISHED",   
-         "data": {
-                   "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
-                   "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
-                  }
-        }`);
+		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SCAN"}}`);
+		//console.log('### Echo trigger ###');
+		//socketSolver.send(`
+		//{"infoType": "SCAN_FINISHED",   
+		// "data": {
+		//           "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
+		//           "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+		//          }
+		//}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "START_SOLVE"}`);
-		console.log('### Echo trigger ###');
-		socketSolver.send(`
-		{"infoType": "CUBE_UPDATE",
-         "data": {
-                   "nthMove": 1,
-                   "moveSum": 3,
-                   "move": {"face": "R", "count": 5}
-                 }               
-        }`);
+		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
+		//&console.log('### Echo trigger ###');
+		//&socketSolver.send(`
+		//&{"infoType": "CUBE_UPDATE",
+		//& "data": {
+		//&           "nthMove": 1,
+		//&           "moveSum": 3,
+		//&           "move": {"face": "R", "count": -1}
+		//&         }               
+		//&}`);
 	});
 	STOP.addEventListener('click', function onClick() {
-		//socketSolver.send(`{"command": "STOP"}`);
+		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "STOP"}}`);
 
 	});
 }
 socketSolver.onmessage = function (event) {
 	console.log(event.data);
 	const jasonMessage = JSON.parse(event.data);
-	if (jasonMessage.infoType == "SCAN_FINISHED") {
+	if (jasonMessage.payload.infoType == "SCAN_FINISHED") {
 		console.log("scan sucess");
 		$('#START_SOLVE').css("background-color", "rgb(0, 114, 0)");
 		$('#START_SOLVE').css("border-color", "rgb(0, 114, 0)");
 		$('#btn_WG').click();
 		cubeColorSetter(jasonMessage);
 	}
-	if (jasonMessage.infoType == "CUBE_UPDATE") {
+	if (jasonMessage.payload.infoType == "CUBE_UPDATE") {
 		//ToDo: Richtige Buttons zuordnen
 		cubeUpdateHandler(jasonMessage);
 	}
@@ -513,37 +512,44 @@ socketSolver.onerror = function (error) {
 
 //Live cube rotation data handling
 async function cubeRotator(jasonObject) {
-	for (var i = 0; i < jasonObject.data.move.count; i++) {
+	var rotateCount;
+	if (jasonObject.payload.data.move.count == -1) {
+		rotateCount = 3;
+	} else {
+		rotateCount = jasonObject.payload.data.move.count;
+	}
+	console.log(rotateCount);
+	for (var i = 0; i < rotateCount; i++) {
 		await new Promise((resolve, reject) => setTimeout(resolve, 800));
 		$('#btn_rot_face').click();
 		//console.log(i + 1 + ". rotation");
 	}
 }
 function cubeUpdateHandler(jasonObject) {
-	switch (jasonObject.data.move.face) {
+	switch (jasonObject.payload.data.move.face) {
 		case 'T':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_WG').click();
 			break;
 		case 'R':
-			console.log(jasonObject.data.move.face);
-			$('#btn_GY').click();
+			console.log(jasonObject.payload.data.move.face);
+			$('#btn_RY').click();
 			break;
 		case 'L':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_OY').click();
 			break;
 		case 'D':
-			console.log(jasonObject.data.move.face);
-			$('#btn_BY').click();
+			console.log(jasonObject.payload.data.move.face);
+			$('#btn_YO').click();
 			break;
 		case 'F':
-			console.log(jasonObject.data.move.face);
-			$('#btn_RY').click();
+			console.log(jasonObject.payload.data.move.face);
+			$('#btn_GY').click();
 			break;
 		case 'B':
-			console.log(jasonObject.data.move.face);
-			$('#btn_YO').click();
+			console.log(jasonObject.payload.data.move.face);
+			$('#btn_BY').click();
 			break;
 
 	}
@@ -551,11 +557,54 @@ function cubeUpdateHandler(jasonObject) {
 }
 //Cube structure handler
 function cubeColorSetter(jasonObject) {
-	let colorString = jasonObject.data.cubeStructure;
+	let colorString = jasonObject.payload.data.cubeStructure;
+	//Translate Colors
+	let facecolorArray = [];
+	var temp;
+	for (var i = 0; i < colorString.length; i++) {
+		temp = colorString.charAt(i);
+		facecolorArray[i];
+		switch (temp) {
+			case 'U':
+				facecolorArray[i] = 'W';
+				break;
+			case 'R':
+				facecolorArray[i] = 'R';
+				break;
+			case 'L':
+				facecolorArray[i] = 'O';
+				break;
+			case 'D':
+				facecolorArray[i] = 'Y';
+				break;
+			case 'F':
+				facecolorArray[i] = 'G';
+				break;
+			case 'B':
+				facecolorArray[i] = 'B';
+				break;
+		}
+	}
+	colorString = facecolorArray.reduce((prev, curr) => prev + curr, '');
+	console.log('Color String: '+ colorString);
+	let translateArray = [3,6,9,2,5,8,1,4,7];
+
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
-		cubeColorArray[i] = colorString.slice(i, i + 9);
-		//console.log(cubeColorArray[i]);
+		var sliceString = colorString.slice(i, i + 9);
+		var tempCharArray = [];
+		//Translate yellow side
+		if(slice.charAt(4) == 'Y'){
+			for(var j = 0; j<sliceString.length;){
+				tempCharArray[j]=sliceString.charAt(translateArray[j]);
+			}
+			cubeColorArray[i] = tempCharArray.reduce((prev, curr) => prev + curr, '');
+			console.log('Translated String: '+ cubeColorArray[i]);
+		}else{
+			cubeColorArray[i] = tempSlice;
+		}
+
+		console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
 		i += 9;
