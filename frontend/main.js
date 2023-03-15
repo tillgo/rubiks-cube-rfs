@@ -370,39 +370,40 @@ var socketElementArray = [Z_MINUS, Z_PLUS, Y_MINUS, Y_PLUS, X_MINUS, X_PLUS];
 //ToDo: Add Modus Robo Arm / Tool
 
 //Manuelle Steuerung
+var interval;  //Global ID of mouse down interval
+async function mousedown(event) {
+	//Check what element gets pressed
+	var mouseElement = document.elementFromPoint(event.clientX, event.clientY);
+	//
+	interval = setInterval(() => whilemousedown(mouseElement), 100); // update every 10ms
+
+	whilemousedown(mouseElement);
+	console.log(interval);
+}
+function mouseup(event) {
+
+	window.clearInterval(interval);
+	interval = null;
+	// timer is no longer "running"
+
+
+}
+function whilemousedown(elementFromPoint) {
+	socketElementArray.forEach(element => {
+		if (element == elementFromPoint) {
+			//If Backend-Button, send info per websocket
+			console.log(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
+			socketManual.send(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
+		}
+	});
+}
+
 //let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
 //wss://javascript.info/article/websocket/demo/hello
 let socketManual = new WebSocket("ws://localhost:1337");
 
 socketManual.onopen = function (e) {
-	var mousedownID = -1;  //Global ID of mouse down interval
-	function mousedown(event) {
-		//console.log(event);
-		//Check what element gets pressed
-		var mouseElement = document.elementFromPoint(event.clientX, event.clientY);
-		//console.log(mouseElement);
-		if (mousedownID == -1)  //Prevent multimple loops!
-			mousedownID = setInterval(whilemousedown(mouseElement), 10 /*execute every 10ms*/);;
 
-
-	}
-	function mouseup(event) {
-		//console.log(event);
-		if (mousedownID != -1) {  //Only stop if exists
-			clearInterval(mousedownID);
-			mousedownID = -1;
-		}
-	}
-	function whilemousedown(elementFromPoint) {
-		socketElementArray.forEach(element => {
-			if (element == elementFromPoint) {
-				//If Backend-Button, send info per websocket
-				console.log(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
-				socketManual.send(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
-			}
-		});
-
-	}
 	//Assign events
 	document.addEventListener("mousedown", mousedown);
 	document.addEventListener("mouseup", mouseup);
@@ -471,7 +472,7 @@ socketSolver.onopen = function (e) {
 	});
 	STOP.addEventListener('click', function onClick() {
 		//socketSolver.send(`{"command": "STOP"}`);
-		
+
 	});
 }
 socketSolver.onmessage = function (event) {
@@ -515,7 +516,7 @@ async function cubeRotator(jasonObject) {
 	for (var i = 0; i < jasonObject.data.move.count; i++) {
 		await new Promise((resolve, reject) => setTimeout(resolve, 800));
 		$('#btn_rot_face').click();
-		console.log(i+1 +". rotation");
+		console.log(i + 1 + ". rotation");
 	}
 }
 function cubeUpdateHandler(jasonObject) {
@@ -549,15 +550,15 @@ function cubeUpdateHandler(jasonObject) {
 	cubeRotator(jasonObject);
 }
 //Cube structure handler
-function cubeColorSetter(jasonObject){
+function cubeColorSetter(jasonObject) {
 	let colorString = jasonObject.data.cubeStructure;
-	let cubeColorArray = [] ;
-	for(var i=0; i < colorString.length;){
-		cubeColorArray[i] = colorString.slice(i,i+9);
+	let cubeColorArray = [];
+	for (var i = 0; i < colorString.length;) {
+		cubeColorArray[i] = colorString.slice(i, i + 9);
 		//console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
-		i+=9;
+		i += 9;
 	}
 }
 
