@@ -558,6 +558,34 @@ function cubeUpdateHandler(jasonObject) {
 //Cube structure handler
 function cubeColorSetter(jasonObject) {
 	let colorString = jasonObject.payload.data.cubeStructure;
+	//Translate Colors
+	let facecolorArray = [];
+	var temp;
+	for (var i = 0; i < colorString.length;i++) {
+		temp = colorString.charAt(i);
+		facecolorArray[i];
+		switch (temp){
+			case 'U':
+				facecolorArray[i] = 'W';
+				break;
+			case 'R':
+				facecolorArray[i] = 'R';		
+				break;
+			case 'L':
+				facecolorArray[i] = 'O';
+				break;
+			case 'D':
+				facecolorArray[i] = 'Y';		
+				break;
+			case 'F':
+				facecolorArray[i] = 'G';
+				break;
+			case 'B':
+				facecolorArray[i] = 'B';
+				break;
+		}
+	}
+	colorString = facecolorArray.reduce((prev, curr) => prev+curr, '');
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
 		cubeColorArray[i] = colorString.slice(i, i + 9);
