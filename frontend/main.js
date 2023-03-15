@@ -378,7 +378,7 @@ async function mousedown(event) {
 	interval = setInterval(() => whilemousedown(mouseElement), 100); // update every 10ms
 
 	whilemousedown(mouseElement);
-	console.log(interval);
+	//console.log(interval);
 }
 function mouseup(event) {
 
@@ -516,7 +516,7 @@ async function cubeRotator(jasonObject) {
 	for (var i = 0; i < jasonObject.data.move.count; i++) {
 		await new Promise((resolve, reject) => setTimeout(resolve, 800));
 		$('#btn_rot_face').click();
-		console.log(i + 1 + ". rotation");
+		//console.log(i + 1 + ". rotation");
 	}
 }
 function cubeUpdateHandler(jasonObject) {
