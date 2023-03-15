@@ -381,7 +381,6 @@ async function mousedown(event) {
 	//console.log(interval);
 }
 function mouseup(event) {
-
 	window.clearInterval(interval);
 	interval = null;
 	// timer is no longer "running"
@@ -466,7 +465,7 @@ socketSolver.onopen = function (e) {
          "data": {
                    "nthMove": 1,
                    "moveSum": 3,
-                   "move": {"face": "R", "count": 5}
+                   "move": {"face": "R", "count": -1}
                  }               
         }`);
 	});
@@ -513,7 +512,14 @@ socketSolver.onerror = function (error) {
 
 //Live cube rotation data handling
 async function cubeRotator(jasonObject) {
-	for (var i = 0; i < jasonObject.data.move.count; i++) {
+	var rotateCount;
+	if(jasonObject.data.move.count == -1){
+		rotateCount = 3;
+	}else{
+		rotateCount = jasonObject.data.move.count;
+	}
+	console.log(rotateCount);
+	for (var i = 0; i < rotateCount; i++) {
 		await new Promise((resolve, reject) => setTimeout(resolve, 800));
 		$('#btn_rot_face').click();
 		//console.log(i + 1 + ". rotation");
@@ -527,7 +533,7 @@ function cubeUpdateHandler(jasonObject) {
 			break;
 		case 'R':
 			console.log(jasonObject.data.move.face);
-			$('#btn_GY').click();
+			$('#btn_RY').click();			
 			break;
 		case 'L':
 			console.log(jasonObject.data.move.face);
@@ -535,15 +541,15 @@ function cubeUpdateHandler(jasonObject) {
 			break;
 		case 'D':
 			console.log(jasonObject.data.move.face);
-			$('#btn_BY').click();
+			$('#btn_YO').click();			
 			break;
 		case 'F':
 			console.log(jasonObject.data.move.face);
-			$('#btn_RY').click();
+			$('#btn_GY').click();
 			break;
 		case 'B':
 			console.log(jasonObject.data.move.face);
-			$('#btn_YO').click();
+			$('#btn_BY').click();
 			break;
 
 	}
@@ -555,7 +561,7 @@ function cubeColorSetter(jasonObject) {
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
 		cubeColorArray[i] = colorString.slice(i, i + 9);
-		//console.log(cubeColorArray[i]);
+		console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
 		i += 9;
