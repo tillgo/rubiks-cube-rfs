@@ -58,7 +58,7 @@ public class CubeSolverSocket {
     @OnError
     public void onError(Session session, @PathParam("clientname") String clientname, Throwable throwable) {
         var errorMessage = new ErrorMessage(new ErrorPayload(throwable.getMessage()));
-
+        throwable.printStackTrace();
         broadcast(errorMessage);
     }
 

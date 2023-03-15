@@ -400,7 +400,7 @@ function whilemousedown(elementFromPoint) {
 
 //let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
 //wss://javascript.info/article/websocket/demo/hello
-let socketManual = new WebSocket("ws://localhost:1337");
+let socketManual = new WebSocket("ws://localhost:8080/manual/deinpopa");
 
 socketManual.onopen = function (e) {
 
@@ -436,7 +436,7 @@ socketManual.onerror = function (error) {
 //Cube solver socket
 
 
-let socketSolver = new WebSocket("ws://localhost:1337");
+let socketSolver = new WebSocket("ws://localhost:8080/cube-solver/deinpopa");
 //wss://"+clientAdress+"/cube-solver/{clientname}
 //wss://javascript.info/article/websocket/demo/hello
 
