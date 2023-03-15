@@ -586,6 +586,7 @@ function cubeColorSetter(jasonObject) {
 		}
 	}
 	colorString = facecolorArray.reduce((prev, curr) => prev + curr, '');
+	console.log('Color String: '+ colorString);
 	let translateArray = [3,6,9,2,5,8,1,4,7];
 
 	let cubeColorArray = [];
@@ -598,6 +599,7 @@ function cubeColorSetter(jasonObject) {
 				tempCharArray[j]=sliceString.charAt(translateArray[j]);
 			}
 			cubeColorArray[i] = tempCharArray.reduce((prev, curr) => prev + curr, '');
+			console.log('Translated String: '+ cubeColorArray[i]);
 		}else{
 			cubeColorArray[i] = tempSlice;
 		}
