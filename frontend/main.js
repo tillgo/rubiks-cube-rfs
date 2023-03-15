@@ -451,23 +451,23 @@ socketSolver.onopen = function (e) {
 		//console.log('### Echo trigger ###');
 		//socketSolver.send(`
 		//{"infoType": "SCAN_FINISHED",   
-        // "data": {
-        //           "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
-        //           "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
-        //          }
-        //}`);
+		// "data": {
+		//           "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
+		//           "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+		//          }
+		//}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
 		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
 		//&console.log('### Echo trigger ###');
 		//&socketSolver.send(`
 		//&{"infoType": "CUBE_UPDATE",
-        //& "data": {
-        //&           "nthMove": 1,
-        //&           "moveSum": 3,
-        //&           "move": {"face": "R", "count": -1}
-        //&         }               
-        //&}`);
+		//& "data": {
+		//&           "nthMove": 1,
+		//&           "moveSum": 3,
+		//&           "move": {"face": "R", "count": -1}
+		//&         }               
+		//&}`);
 	});
 	STOP.addEventListener('click', function onClick() {
 		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "STOP"}}`);
@@ -513,9 +513,9 @@ socketSolver.onerror = function (error) {
 //Live cube rotation data handling
 async function cubeRotator(jasonObject) {
 	var rotateCount;
-	if(jasonObject.payload.data.move.count == -1){
+	if (jasonObject.payload.data.move.count == -1) {
 		rotateCount = 3;
-	}else{
+	} else {
 		rotateCount = jasonObject.payload.data.move.count;
 	}
 	console.log(rotateCount);
@@ -533,7 +533,7 @@ function cubeUpdateHandler(jasonObject) {
 			break;
 		case 'R':
 			console.log(jasonObject.payload.data.move.face);
-			$('#btn_RY').click();			
+			$('#btn_RY').click();
 			break;
 		case 'L':
 			console.log(jasonObject.payload.data.move.face);
@@ -541,7 +541,7 @@ function cubeUpdateHandler(jasonObject) {
 			break;
 		case 'D':
 			console.log(jasonObject.payload.data.move.face);
-			$('#btn_YO').click();			
+			$('#btn_YO').click();
 			break;
 		case 'F':
 			console.log(jasonObject.payload.data.move.face);
@@ -561,21 +561,21 @@ function cubeColorSetter(jasonObject) {
 	//Translate Colors
 	let facecolorArray = [];
 	var temp;
-	for (var i = 0; i < colorString.length;i++) {
+	for (var i = 0; i < colorString.length; i++) {
 		temp = colorString.charAt(i);
 		facecolorArray[i];
-		switch (temp){
+		switch (temp) {
 			case 'U':
 				facecolorArray[i] = 'W';
 				break;
 			case 'R':
-				facecolorArray[i] = 'R';		
+				facecolorArray[i] = 'R';
 				break;
 			case 'L':
 				facecolorArray[i] = 'O';
 				break;
 			case 'D':
-				facecolorArray[i] = 'Y';		
+				facecolorArray[i] = 'Y';
 				break;
 			case 'F':
 				facecolorArray[i] = 'G';
@@ -585,10 +585,21 @@ function cubeColorSetter(jasonObject) {
 				break;
 		}
 	}
-	colorString = facecolorArray.reduce((prev, curr) => prev+curr, '');
+	colorString = facecolorArray.reduce((prev, curr) => prev + curr, '');
+
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
 		cubeColorArray[i] = colorString.slice(i, i + 9);
+		if (cubeColorArray[i].charAt(4) == 'Y') {
+			var splitString = cubeColorArray[i].split(""); // var splitString = "hello".split("");
+
+			// Step 2. Use the reverse() method to reverse the new created array
+			var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
+
+			// Step 3. Use the join() method to join all elements of the array into a string
+			cubeColorArray[i] = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
+
+		}
 		console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
