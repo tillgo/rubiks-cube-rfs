@@ -65,7 +65,7 @@ public class Analyzer {
         var isOverflow = hueR.max() < hueR.min();
         var hueFits = isOverflow ? hue < hueR.max() || hue >= hueR.min() : hue >= hueR.min() && hue < hueR.max();
 
-        return hueFits && sat >= satR.min() && sat < satR.max() && bright >= brightR.min() && bright < brightR.max();
+        return hueFits && sat >= satR.min() && sat <= satR.max() && bright >= brightR.min() && bright <= brightR.max();
     }
 
 }
