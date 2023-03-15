@@ -392,7 +392,7 @@ function whilemousedown(elementFromPoint) {
 		if (element == elementFromPoint) {
 			//If Backend-Button, send info per websocket
 			console.log(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
-			socketManual.send(`{"commandType": "ROBO_ARM", "command": "` + element.id + `"}`);
+			socketManual.send(`{"type": "COMMAND", "payload": {"commandType": "ROBO_ARM", "command": "` + element.id + `"}}`);
 		}
 	});
 }
@@ -447,7 +447,7 @@ socketSolver.onopen = function (e) {
 	const STOP = document.getElementById('STOP');
 
 	START_SCAN.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "START_SCAN"}`);
+		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SCAN"}}`);
 		//console.log('### Echo trigger ###');
 		//socketSolver.send(`
 		//{"infoType": "SCAN_FINISHED",   
@@ -458,7 +458,7 @@ socketSolver.onopen = function (e) {
         //}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "START_SOLVE"}`);
+		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
 		//&console.log('### Echo trigger ###');
 		//&socketSolver.send(`
 		//&{"infoType": "CUBE_UPDATE",
@@ -470,21 +470,21 @@ socketSolver.onopen = function (e) {
         //&}`);
 	});
 	STOP.addEventListener('click', function onClick() {
-		socketSolver.send(`{"command": "STOP"}`);
+		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "STOP"}}`);
 
 	});
 }
 socketSolver.onmessage = function (event) {
 	console.log(event.data);
 	const jasonMessage = JSON.parse(event.data);
-	if (jasonMessage.infoType == "SCAN_FINISHED") {
+	if (jasonMessage.payload.infoType == "SCAN_FINISHED") {
 		console.log("scan sucess");
 		$('#START_SOLVE').css("background-color", "rgb(0, 114, 0)");
 		$('#START_SOLVE').css("border-color", "rgb(0, 114, 0)");
 		$('#btn_WG').click();
 		cubeColorSetter(jasonMessage);
 	}
-	if (jasonMessage.infoType == "CUBE_UPDATE") {
+	if (jasonMessage.payload.infoType == "CUBE_UPDATE") {
 		//ToDo: Richtige Buttons zuordnen
 		cubeUpdateHandler(jasonMessage);
 	}
@@ -513,10 +513,10 @@ socketSolver.onerror = function (error) {
 //Live cube rotation data handling
 async function cubeRotator(jasonObject) {
 	var rotateCount;
-	if(jasonObject.data.move.count == -1){
+	if(jasonObject.payload.data.move.count == -1){
 		rotateCount = 3;
 	}else{
-		rotateCount = jasonObject.data.move.count;
+		rotateCount = jasonObject.payload.data.move.count;
 	}
 	console.log(rotateCount);
 	for (var i = 0; i < rotateCount; i++) {
@@ -526,29 +526,29 @@ async function cubeRotator(jasonObject) {
 	}
 }
 function cubeUpdateHandler(jasonObject) {
-	switch (jasonObject.data.move.face) {
+	switch (jasonObject.payload.data.move.face) {
 		case 'T':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_WG').click();
 			break;
 		case 'R':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_RY').click();			
 			break;
 		case 'L':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_OY').click();
 			break;
 		case 'D':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_YO').click();			
 			break;
 		case 'F':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_GY').click();
 			break;
 		case 'B':
-			console.log(jasonObject.data.move.face);
+			console.log(jasonObject.payload.data.move.face);
 			$('#btn_BY').click();
 			break;
 
@@ -557,7 +557,7 @@ function cubeUpdateHandler(jasonObject) {
 }
 //Cube structure handler
 function cubeColorSetter(jasonObject) {
-	let colorString = jasonObject.data.cubeStructure;
+	let colorString = jasonObject.payload.data.cubeStructure;
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
 		cubeColorArray[i] = colorString.slice(i, i + 9);
