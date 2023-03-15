@@ -448,29 +448,29 @@ socketSolver.onopen = function (e) {
 
 	START_SCAN.addEventListener('click', function onClick() {
 		socketSolver.send(`{"command": "START_SCAN"}`);
-		console.log('### Echo trigger ###');
-		socketSolver.send(`
-		{"infoType": "SCAN_FINISHED",   
-         "data": {
-                   "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
-                   "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
-                  }
-        }`);
+		//console.log('### Echo trigger ###');
+		//socketSolver.send(`
+		//{"infoType": "SCAN_FINISHED",   
+        // "data": {
+        //           "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
+        //           "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+        //          }
+        //}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
 		socketSolver.send(`{"command": "START_SOLVE"}`);
-		console.log('### Echo trigger ###');
-		socketSolver.send(`
-		{"infoType": "CUBE_UPDATE",
-         "data": {
-                   "nthMove": 1,
-                   "moveSum": 3,
-                   "move": {"face": "R", "count": -1}
-                 }               
-        }`);
+		//&console.log('### Echo trigger ###');
+		//&socketSolver.send(`
+		//&{"infoType": "CUBE_UPDATE",
+        //& "data": {
+        //&           "nthMove": 1,
+        //&           "moveSum": 3,
+        //&           "move": {"face": "R", "count": -1}
+        //&         }               
+        //&}`);
 	});
 	STOP.addEventListener('click', function onClick() {
-		//socketSolver.send(`{"command": "STOP"}`);
+		socketSolver.send(`{"command": "STOP"}`);
 
 	});
 }
