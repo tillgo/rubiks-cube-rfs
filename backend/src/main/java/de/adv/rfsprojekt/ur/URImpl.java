@@ -20,7 +20,7 @@ public class URImpl implements UR {
 
     private final String host;
 
-    private final int port;
+    private final int secondaryPort;
 
     private final boolean enabled;
 
@@ -32,11 +32,11 @@ public class URImpl implements UR {
 
     public URImpl() throws IOException {
         host = Config.getURHost();
-        port = Config.getURSecondaryPort();
+        secondaryPort = Config.getURSecondaryPort();
         enabled = Config.getIsUREnabled();
 
         if (enabled) {
-            Socket socket = new Socket(host, port);
+            Socket socket = new Socket(host, secondaryPort);
             urConnection = new URConnectionImpl(socket.getInputStream(), socket.getOutputStream());
         } else {
             urConnection = null;
@@ -110,8 +110,8 @@ public class URImpl implements UR {
     }
 
     @Override
-    public int getPort() {
-        return port;
+    public int getSecondaryPort() {
+        return secondaryPort;
     }
 
     @Override

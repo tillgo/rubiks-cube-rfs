@@ -18,7 +18,7 @@ public interface UR {
 
     String getHost();
 
-    int getPort();
+    int getSecondaryPort();
 
     URConnection getURConnection();
 
