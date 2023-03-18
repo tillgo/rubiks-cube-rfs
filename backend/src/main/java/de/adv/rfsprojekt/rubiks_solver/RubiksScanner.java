@@ -39,28 +39,25 @@ public class RubiksScanner {
     public RubiksScanner() throws Exception {
     }
 
-    public String scan() throws Exception {
+    public String scan() {
         RubiksSolvingScripts.SCAN_MOVES.forEach((move) -> {
                     try {
                         ur.execute(move.getItem2());
                         Thread.sleep(5000);
                         poseChecker.waitTilReachedEndPosition(Config.SCANNER_WAIT_POSE);
-                        //Thread.sleep(50000);
                     } catch (Exception e) {
                         e.printStackTrace();
                         throw new RuntimeException(e);
                     }
-            var currCubeColors = imageService.getCurrentCubeColors();
+                    var currCubeColors = imageService.getCurrentCubeColors();
                     currCubeColors.forEach(System.out::println);
                     colors.put(move.getItem1(), currCubeColors);
                 }
         );
 
-
         return positions
                 .stream()
                 .flatMap(e -> {
-                    System.out.println(e.getItem1());
                     var colorsFace = colors.get(e.getItem1());
                     return e.getItem2().stream().map(i -> colorsFace.get(i - 1).getPosition());
                 })
