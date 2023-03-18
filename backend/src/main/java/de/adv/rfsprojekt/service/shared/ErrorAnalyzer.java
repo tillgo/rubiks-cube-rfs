@@ -44,7 +44,7 @@ public class ErrorAnalyzer extends Thread {
     private void analyzeError() throws Exception {
         rtde.connect();
         List<DataType> outputVariables = List.of(DataType.SAFETY_STATUS);
-        rtde.send_output_setup(outputVariables, 10);
+        rtde.sendOutputSetup(outputVariables, 10);
         rtde.sendStart();
         Thread.sleep(10);
         PackageType[] packageTypes = {PackageType.RTDE_DATA_PACKAGE};

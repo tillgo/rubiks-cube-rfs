@@ -9,7 +9,6 @@ import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.ActualTCPPose;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 
@@ -27,7 +26,7 @@ public class PoseChecker {
     private void setupRTDE() throws Exception {
         rtde.connect();
         List<DataType> outputVariables = List.of(DataType.ACTUAL_TCP_POSE);
-        rtde.send_output_setup(outputVariables, 5);
+        rtde.sendOutputSetup(outputVariables, 5);
         rtde.sendStart();
     }
 

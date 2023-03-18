@@ -72,7 +72,7 @@ public class RTDE {
     }
 
 
-    public DataConfig send_output_setup(List<DataType> variables, double frequency) throws Exception {
+    public DataConfig sendOutputSetup(List<DataType> variables, double frequency) throws Exception {
         ByteBuffer buffer = ByteBuffer.allocate(2048);
         buffer.putDouble(frequency);
         String variableString = variables.stream()
@@ -86,8 +86,8 @@ public class RTDE {
         return outputConfig;
     }
 
-    public DataConfig send_output_setup(List<DataType> variables) throws Exception {
-        return send_output_setup(variables, 125);
+    public DataConfig sendOutputSetup(List<DataType> variables) throws Exception {
+        return sendOutputSetup(variables, 125);
     }
 
     public boolean sendStart() throws Exception {

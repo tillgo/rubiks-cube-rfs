@@ -15,7 +15,7 @@ public class main {
         RTDE rtde = new RTDE();
         rtde.connect();
         List<DataType> outputVariables = Arrays.asList(DataType.ACTUAL_TCP_POSE, DataType.SAFETY_STATUS, DataType.ROBOT_STATUS);
-        rtde.send_output_setup(outputVariables, 1);
+        rtde.sendOutputSetup(outputVariables, 1);
         rtde.sendStart();
         Thread.sleep(10);
         PackageType[] packageTypes = {PackageType.RTDE_DATA_PACKAGE, PackageType.RTDE_TEXT_MESSAGE};
