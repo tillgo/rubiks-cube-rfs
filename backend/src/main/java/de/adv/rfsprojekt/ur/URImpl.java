@@ -83,26 +83,6 @@ public class URImpl implements UR {
         os.flush();
     }
 
-    @Override
-    public String executeWithMessage(URScript script) throws IOException, InterruptedException {
-        execute(script);
-        Thread.sleep(50);
-        return readResponse(urConnection.getInputStream());
-    }
-
-
-    /*ToDo Funktioniert noch nicht korrekt, möglichkeit finden bytes mit der richtigen Kodierung (UTF-8) in String umzuwandeln*/
-    private String readResponse(InputStream is) throws IOException {
-        StringBuffer sb = new StringBuffer();
-        char c;
-        do {
-            c = (char) is.read();
-            if (c == '\n')
-                break;
-            sb.append(c);
-        } while (c != -1);
-        return sb.toString();
-    }
 
     @Override
     public String getHost() {

@@ -14,8 +14,6 @@ public interface UR {
     void execute(URScript script) throws IOException;
 
 
-    String executeWithMessage(URScript script) throws IOException, InterruptedException;
-
     String getHost();
 
     int getSecondaryPort();
