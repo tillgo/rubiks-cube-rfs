@@ -103,7 +103,7 @@ public class RTDE {
 
     }
 
-    public Package reveive(PackageType packageType) throws Exception {
+    public Package receive(PackageType packageType) throws Exception {
         if (outputConfig == null) throw new URException("No Output-Variables setup");
         if (!connectionState.equals(ConnectionState.STARTED)) throw new URException("RTDE Synchronization inactive");
         return recvSpecificPackage(packageType);
