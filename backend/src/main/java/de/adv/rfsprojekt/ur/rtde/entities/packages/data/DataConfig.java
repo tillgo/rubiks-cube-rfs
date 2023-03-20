@@ -4,19 +4,19 @@ import java.util.List;
 
 public class DataConfig {
 
-    private List<VariableType> variableTypes;
     private List<DataType> dataTypes;
+    private List<VariableType> variableTypes;
 
-    public DataConfig(List<VariableType> variableTypes, List<DataType> dataTypes) {
-        this.variableTypes = variableTypes;
+    public DataConfig(List<DataType> dataTypes, List<VariableType> variableTypes) {
         this.dataTypes = dataTypes;
+        this.variableTypes = variableTypes;
     }
 
-    public List<VariableType> getVariableTypes() {
-        return variableTypes;
-    }
-
-    public List<DataType> getDataTypes() {
+    public List<DataType> getVariableTypes() {
         return dataTypes;
+    }
+
+    public List<VariableType> getDataTypes() {
+        return variableTypes;
     }
 }

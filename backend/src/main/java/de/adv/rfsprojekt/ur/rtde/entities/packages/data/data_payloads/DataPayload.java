@@ -1,16 +1,16 @@
 package de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads;
 
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 
 public abstract class DataPayload {
-    private DataType dataType;
+    private VariableType variableType;
 
-    public DataPayload(DataType dataType) {
-        this.dataType = dataType;
+    public DataPayload(VariableType variableType) {
+        this.variableType = variableType;
     }
 
-    public DataType getDataType() {
-        return dataType;
+    public VariableType getDataType() {
+        return variableType;
     }
 
     public abstract Object getPayload();

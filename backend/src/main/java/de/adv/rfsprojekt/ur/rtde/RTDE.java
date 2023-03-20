@@ -13,7 +13,7 @@ import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.ConfigPackage;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataConfig;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,11 +72,11 @@ public class RTDE {
     }
 
 
-    public DataConfig sendOutputSetup(List<DataType> variables, double frequency) throws Exception {
+    public DataConfig sendOutputSetup(List<VariableType> variables, double frequency) throws Exception {
         ByteBuffer buffer = ByteBuffer.allocate(2048);
         buffer.putDouble(frequency);
         String variableString = variables.stream()
-                .map(DataType::getName)
+                .map(VariableType::getName)
                 .collect(Collectors.joining(","));
         buffer.put(variableString.getBytes(StandardCharsets.UTF_8));
 
@@ -86,7 +86,7 @@ public class RTDE {
         return outputConfig;
     }
 
-    public DataConfig sendOutputSetup(List<DataType> variables) throws Exception {
+    public DataConfig sendOutputSetup(List<VariableType> variables) throws Exception {
         return sendOutputSetup(variables, 125);
     }
 

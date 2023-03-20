@@ -16,25 +16,25 @@ import java.util.Map;
 public class DataPackage extends Package {
 
     private int reciepeID;
-    private Map<DataType, DataPayload> payload;
+    private Map<VariableType, DataPayload> payload;
 
-    public DataPackage(int reciepeID, PackageType packageType, Map<DataType, DataPayload> payload) {
+    public DataPackage(int reciepeID, PackageType packageType, Map<VariableType, DataPayload> payload) {
         super(packageType);
         this.payload = payload;
         this.reciepeID = reciepeID;
     }
 
     public static Package unpack(ByteBuffer buffer, DataConfig config) {
-        Map<DataType, DataPayload> variables = new HashMap<>();
-        List<VariableType> variableTypes = config.getVariableTypes();
-        List<DataType> dataTypes = config.getDataTypes();
+        Map<VariableType, DataPayload> variables = new HashMap<>();
+        List<DataType> dataTypes = config.getVariableTypes();
+        List<VariableType> variableTypes = config.getDataTypes();
         int id = buffer.get();
-        for (int i = 0; i < variableTypes.size(); i++) {
+        for (int i = 0; i < dataTypes.size(); i++) {
 
-            VariableType variableType = variableTypes.get(i);
             DataType dataType = dataTypes.get(i);
+            VariableType variableType = variableTypes.get(i);
 
-            switch (variableType) {
+            switch (dataType) {
                 case BOOL -> {
                     //Not needed right now
                 }
@@ -43,10 +43,10 @@ public class DataPackage extends Package {
                 }
                 case UINT32 -> {
                     int intPayload = buffer.getInt();
-                    if (dataType == DataType.SAFETY_STATUS)
-                        variables.put(dataType, SafetyStatus.unpack(intPayload));
-                    else if (dataType == DataType.ROBOT_STATUS) {
-                        variables.put(dataType, RobotStatus.unpack(intPayload));
+                    if (variableType == VariableType.SAFETY_STATUS)
+                        variables.put(variableType, SafetyStatus.unpack(intPayload));
+                    else if (variableType == VariableType.ROBOT_STATUS) {
+                        variables.put(variableType, RobotStatus.unpack(intPayload));
                     }
                 }
                 case UINT64 -> {
@@ -64,14 +64,13 @@ public class DataPackage extends Package {
                 case VECTOR6D -> {
                     if (buffer.remaining() < 48) {
                         buffer.clear();
-                        variables.put(dataType, null);
-                    }
-                    else {
+                        variables.put(variableType, null);
+                    } else {
                         double[] values = new double[6];
                         for (int j = 0; j < 6; j++) {
                             values[j] = buffer.getDouble();
                         }
-                        variables.put(dataType,
+                        variables.put(variableType,
                                 new ActualTCPPose(new Pose(values[0], values[1], values[2],
                                         values[3], values[4], values[5])));
                     }
@@ -91,7 +90,7 @@ public class DataPackage extends Package {
 
 
     @Override
-    public Map<DataType, DataPayload> getPayload() {
+    public Map<VariableType, DataPayload> getPayload() {
         return payload;
     }
 }

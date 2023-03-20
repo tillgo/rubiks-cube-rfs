@@ -1,18 +1,35 @@
 package de.adv.rfsprojekt.ur.rtde.entities.packages.data;
 
+import de.adv.rfsprojekt.ur.rtde.entities.exceptions.URRuntimeException;
+
 public enum DataType {
-    ACTUAL_TCP_POSE("actual_TCP_pose"),
-    SAFETY_STATUS("safety_status_bits"),
+    BOOL("BOOL"),
+    UNINT8("UINT8"),
+    UINT32("UINT32"),
+    UINT64("UINT64"),
+    INT32("INT32"),
+    DOUBLE("DOUBLE"),
+    VECTOR3D("VECTOR3D"),
+    VECTOR6D("VECTOR6D"),
+    VECTOR6INT32("VECTOR6INT32"),
+    VECTOR6UINT32("VECTOR6UINT32");
 
-    ROBOT_STATUS("robot_status_bits");
+    private String type;
 
-    private String name;
-
-    DataType(String name) {
-        this.name = name;
+    DataType(String type) {
+        this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
+    }
+
+    public static DataType valueOfLabel(String label) {
+        for (DataType e : values()) {
+            if (e.getType().equals(label)) {
+                return e;
+            }
+        }
+        throw new URRuntimeException("VariableType doesnt exist");
     }
 }

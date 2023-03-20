@@ -6,7 +6,7 @@ import de.adv.rfsprojekt.ur.rtde.RTDE;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.ActualTCPPose;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class PoseChecker {
 
     private void setupRTDE() throws Exception {
         rtde.connect();
-        List<DataType> outputVariables = List.of(DataType.ACTUAL_TCP_POSE);
+        List<VariableType> outputVariables = List.of(VariableType.ACTUAL_TCP_POSE);
         rtde.sendOutputSetup(outputVariables, 5);
         rtde.sendStart();
     }
@@ -40,7 +40,7 @@ public class PoseChecker {
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) {
                 System.out.println("war im pose checker");
-                ActualTCPPose actualPose = (ActualTCPPose) dataPackage.getPayload().get(DataType.ACTUAL_TCP_POSE);
+                ActualTCPPose actualPose = (ActualTCPPose) dataPackage.getPayload().get(VariableType.ACTUAL_TCP_POSE);
                 if (actualPose != null) {
                     System.out.println(actualPose.getPayload());
                     correctnessCounter = Utils.comparePositions(endPose, actualPose.getPayload()) ? correctnessCounter + 1 : 0;

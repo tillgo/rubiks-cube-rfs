@@ -4,7 +4,7 @@ import de.adv.rfsprojekt.ur.rtde.RTDE;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.SafetyStatus;
 import de.adv.rfsprojekt.websocket.entities.InfoMessage;
 import de.adv.rfsprojekt.websocket.entities.RoboStatusInfoPayload;
@@ -43,7 +43,7 @@ public class ErrorAnalyzer extends Thread {
 
     private void analyzeError() throws Exception {
         rtde.connect();
-        List<DataType> outputVariables = List.of(DataType.SAFETY_STATUS);
+        List<VariableType> outputVariables = List.of(VariableType.SAFETY_STATUS);
         rtde.sendOutputSetup(outputVariables, 10);
         rtde.sendStart();
         Thread.sleep(10);
@@ -53,7 +53,7 @@ public class ErrorAnalyzer extends Thread {
             recievedPackages = rtde.receiveMultiplePackages(packageTypes);
             DataPackage dataPackage = (DataPackage) recievedPackages[0];
             if (dataPackage != null) {
-                SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(DataType.SAFETY_STATUS);
+                SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(VariableType.SAFETY_STATUS);
                 broadcast.accept(new InfoMessage<>(new RoboStatusInfoPayload(safetyStatus.getPayload())));
             }
         }

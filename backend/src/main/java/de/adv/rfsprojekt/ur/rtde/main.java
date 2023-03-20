@@ -4,7 +4,7 @@ import de.adv.rfsprojekt.ur.rtde.entities.packages.MessagePacket;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.Package;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.*;
 
 import java.util.Arrays;
@@ -12,9 +12,10 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) throws Exception {
+
         RTDE rtde = new RTDE();
         rtde.connect();
-        List<DataType> outputVariables = Arrays.asList(DataType.ACTUAL_TCP_POSE, DataType.SAFETY_STATUS, DataType.ROBOT_STATUS);
+        List<VariableType> outputVariables = Arrays.asList(VariableType.ACTUAL_TCP_POSE, VariableType.SAFETY_STATUS, VariableType.ROBOT_STATUS);
         rtde.sendOutputSetup(outputVariables, 1);
         rtde.sendStart();
         Thread.sleep(10);
@@ -32,7 +33,7 @@ public class main {
     }
 
     public static void handleDataPackage(DataPackage dataPackage) {
-        SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(DataType.SAFETY_STATUS);
+        SafetyStatus safetyStatus = (SafetyStatus) dataPackage.getPayload().get(VariableType.SAFETY_STATUS);
         if (safetyStatus != null) {
             for (SafetyStatusType type : safetyStatus.getPayload().keySet()) {
                 // System.out.println(type + ": " + safetyStatus.getPayload().get(type));
@@ -40,7 +41,7 @@ public class main {
             }
         }
 
-        RobotStatus robotStatus = (RobotStatus) dataPackage.getPayload().get(DataType.ROBOT_STATUS);
+        RobotStatus robotStatus = (RobotStatus) dataPackage.getPayload().get(VariableType.ROBOT_STATUS);
         if (robotStatus != null) {
             for (RobotStatusType type : robotStatus.getPayload().keySet()) {
                 System.out.println(type + ": " + robotStatus.getPayload().get(type));
@@ -48,7 +49,7 @@ public class main {
             }
         }
 
-        ActualTCPPose tcpPose = (ActualTCPPose) dataPackage.getPayload().get(DataType.ACTUAL_TCP_POSE);
+        ActualTCPPose tcpPose = (ActualTCPPose) dataPackage.getPayload().get(VariableType.ACTUAL_TCP_POSE);
         if (tcpPose != null) {
             System.out.println(tcpPose.getPayload());
         }

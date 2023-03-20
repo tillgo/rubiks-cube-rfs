@@ -1,6 +1,6 @@
 package de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads;
 
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class SafetyStatus extends DataPayload {
     private Map<SafetyStatusType, Boolean> safetyStatusMap;
 
     public SafetyStatus(Map<SafetyStatusType, Boolean> safetyStatusMap) {
-        super(DataType.SAFETY_STATUS);
+        super(VariableType.SAFETY_STATUS);
         this.safetyStatusMap = safetyStatusMap;
     }
 

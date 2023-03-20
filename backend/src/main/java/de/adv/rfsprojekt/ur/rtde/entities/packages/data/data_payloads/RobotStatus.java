@@ -1,6 +1,6 @@
 package de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads;
 
-import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class RobotStatus extends DataPayload {
     private Map<RobotStatusType, Boolean> robotStatusMap;
 
     public RobotStatus(Map<RobotStatusType, Boolean> robotStatusMap) {
-        super(DataType.ROBOT_STATUS);
+        super(VariableType.ROBOT_STATUS);
         this.robotStatusMap = robotStatusMap;
     }
 
