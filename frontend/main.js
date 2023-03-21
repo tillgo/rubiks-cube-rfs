@@ -398,8 +398,9 @@ function whilemousedown(elementFromPoint) {
 }
 
 //let socketManual = new WebSocket("wss://"+clientAdress+"/manual/{clientname}");
+let socketManual = new WebSocket("ws://localhost:1337");
 //wss://javascript.info/article/websocket/demo/hello
-let socketManual = new WebSocket("ws://localhost:8080/manual/deinpopa");
+//let socketManual = new WebSocket("ws://localhost:8080/manual/deinpopa");
 
 socketManual.onopen = function (e) {
 
@@ -435,7 +436,8 @@ socketManual.onerror = function (error) {
 //Cube solver socket
 
 
-let socketSolver = new WebSocket("ws://localhost:8080/cube-solver/deinpopa");
+//let socketSolver = new WebSocket("ws://localhost:8080/cube-solver/deinpopa");
+let socketSolver = new WebSocket("ws://localhost:1337");
 //wss://"+clientAdress+"/cube-solver/{clientname}
 //wss://javascript.info/article/websocket/demo/hello
 
@@ -447,27 +449,27 @@ socketSolver.onopen = function (e) {
 	const STOP = document.getElementById('STOP');
 
 	START_SCAN.addEventListener('click', function onClick() {
-		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SCAN"}}`);
-		//console.log('### Echo trigger ###');
-		//socketSolver.send(`
-		//{"infoType": "SCAN_FINISHED",   
-		// "data": {
-		//           "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
-		//           "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
-		//          }
-		//}`);
+		//socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SCAN"}}`);
+		console.log('### Echo trigger ###');
+		socketSolver.send(`{"type": "COMMAND", "payload": 
+		{"infoType": "SCAN_FINISHED",   
+			"data": {
+				  "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
+				  "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+				 }
+	   	}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
-		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
-		//&console.log('### Echo trigger ###');
-		//&socketSolver.send(`
-		//&{"infoType": "CUBE_UPDATE",
-		//& "data": {
-		//&           "nthMove": 1,
-		//&           "moveSum": 3,
-		//&           "move": {"face": "R", "count": -1}
-		//&         }               
-		//&}`);
+		//socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
+		console.log('### Echo trigger ###');
+		socketSolver.send(`{"type": "COMMAND", "payload": 
+			{"infoType": "CUBE_UPDATE",
+				"data": {
+					  "nthMove": 1,
+					  "moveSum": 3,
+					  "move": {"face": "R", "count": -1}
+					}               
+	   		}`);
 	});
 	STOP.addEventListener('click', function onClick() {
 		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "STOP"}}`);
