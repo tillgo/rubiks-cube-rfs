@@ -587,23 +587,12 @@ function cubeColorSetter(jasonObject) {
 	}
 	colorString = facecolorArray.reduce((prev, curr) => prev + curr, '');
 	console.log('Color String: '+ colorString);
-	let translateArray = [3,6,9,2,5,8,1,4,7];
+	
 
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
-		var sliceString = colorString.slice(i, i + 9);
-		var tempCharArray = [];
-		//Translate yellow side
-		if(slice.charAt(4) == 'Y'){
-			for(var j = 0; j<sliceString.length;){
-				tempCharArray[j]=sliceString.charAt(translateArray[j]);
-			}
-			cubeColorArray[i] = tempCharArray.reduce((prev, curr) => prev + curr, '');
-			console.log('Translated String: '+ cubeColorArray[i]);
-		}else{
-			cubeColorArray[i] = tempSlice;
-		}
-
+		cubeColorArray[i] = colorString.slice(i, i + 9);
+	
 		console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
