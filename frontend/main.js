@@ -454,10 +454,10 @@ socketSolver.onopen = function (e) {
 		socketSolver.send(`{"type": "COMMAND", "payload": 
 		{"infoType": "SCAN_FINISHED",   
 			"data": {
-				  "cubeStructure" : "GGGGGGGGGWWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYOOOOOOOOO",
-				  "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 2}]
+				  "cubeStructure" : "FFFFFFFFFUUUUUUUUURRRRRRRRRBBBBBBBBBDDDDDDDDDLLLLLLLLL",
+				  "solvingPath": [{"face": "R", "count": 1},{"face": "G", "count": 3},{"face": "Y", "count": 1}]
 				 }
-	   	}`);
+	   	}}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
 		//socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
@@ -469,7 +469,7 @@ socketSolver.onopen = function (e) {
 					  "moveSum": 3,
 					  "move": {"face": "R", "count": -1}
 					}               
-	   		}`);
+	   		}}`);
 	});
 	STOP.addEventListener('click', function onClick() {
 		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "STOP"}}`);
@@ -485,6 +485,7 @@ socketSolver.onmessage = function (event) {
 		$('#START_SOLVE').css("border-color", "rgb(0, 114, 0)");
 		$('#btn_WG').click();
 		cubeColorSetter(jasonMessage);
+		pathTablePopulator(jasonMessage);
 	}
 	if (jasonMessage.payload.infoType == "CUBE_UPDATE") {
 		//ToDo: Richtige Buttons zuordnen
@@ -588,31 +589,90 @@ function cubeColorSetter(jasonObject) {
 		}
 	}
 	colorString = facecolorArray.reduce((prev, curr) => prev + curr, '');
-	console.log('Color String: '+ colorString);
-	let translateArray = [3,6,9,2,5,8,1,4,7];
+	//console.log('Color String: '+ colorString);
+	//let translateArray = [3,6,9,2,5,8,1,4,7];
 
 	let cubeColorArray = [];
 	for (var i = 0; i < colorString.length;) {
-		var sliceString = colorString.slice(i, i + 9);
-		var tempCharArray = [];
-		//Translate yellow side
-		if(slice.charAt(4) == 'Y'){
-			for(var j = 0; j<sliceString.length;){
-				tempCharArray[j]=sliceString.charAt(translateArray[j]);
-			}
-			cubeColorArray[i] = tempCharArray.reduce((prev, curr) => prev + curr, '');
-			console.log('Translated String: '+ cubeColorArray[i]);
-		}else{
-			cubeColorArray[i] = tempSlice;
-		}
+		cubeColorArray[i] = colorString.slice(i, i + 9);
+		
 
-		console.log(cubeColorArray[i]);
+		//console.log(cubeColorArray[i]);
 		$('#manuelle_farbeingabe').val(cubeColorArray[i]);
 		$('#btn_Color').click();
 		i += 9;
 	}
 }
 
+//Path Table population
+
+function faceToColor(face){
+	switch (face) {
+		case 'W':
+			return 'White';
+		case 'R':
+			return 'Red';
+		case 'O':
+			return 'Orange';
+		case 'Y':
+			return 'Yellow';
+		case 'G':
+			return 'Green';
+		case 'B':
+			return 'Blau';
+	}
+}
+
+function pathTablePopulator(jasonObject){
+	var tableRef = document.getElementById('path-table').getElementsByTagName('tbody')[0];
+	var element = jasonObject.payload.data.solvingPath;
+	console.log(jasonObject.payload.data.solvingPath+"  |  "+element+"  |  "+element.count);
+	
+	
+	var newRow,newCell,newText,rotateCount;
+	for(var i=0; i<element.length;i++){
+		console.log(element[i].face+ element[i].count);
+		if (element[i].count == -1) {
+			rotateCount = 3;
+		} else {
+			rotateCount = element[i].count;
+		}
+		newRow   = tableRef.insertRow(tableRef.rows.length);  
+		for(var j=0;j<3;j++){
+			newCell  = newRow.insertCell();
+			switch(j){
+				case 0:
+					newText  = document.createTextNode(i+1);
+					break;
+				case 1:
+					newText  = document.createTextNode(faceToColor(element[i].face));
+					break;
+				case 2:
+					newText  = document.createTextNode(rotateCount);
+					break;
+				default :
+			}
+			newCell.appendChild(newText);
+		}
+		//var newCell1  = newRow.insertCell();
+		//var newText  = document.createTextNode(i);
+		//var newText2  = document.createTextNode(i);
+		//newCell1.appendChild(newText);
+		//newCell2.appendChild(newText2+"-");
+	}
+	
+}
+
+/*
+  
+  var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+  
+  var newCell  = newRow.insertCell(0);
+
+  
+  var newText  = document.createTextNode('New row')
+  newCell.appendChild(newText);
 
 /*=============================================================*/
 /*======================Websocket=ENDE=========================*/

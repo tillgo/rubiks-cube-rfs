@@ -516,3 +516,11 @@ div .cubie-face.face-d.cubie-sticker.sticker-d_6_5 {
 	color: var(--bs-blue);
 	pointer-events: none;
 }
+/*========================= Rotation Table =============================*/
+#path-table-container{
+	top: 15vh;
+    width: 20vw;
+    position: absolute;
+    right: 30px;
+    background: var(--bs-gray-100);
+}
