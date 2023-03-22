@@ -438,6 +438,7 @@ socketManual.onerror = function (error) {
 let socketSolver = new WebSocket("ws://localhost:8080/cube-solver/deinpopa");
 //wss://"+clientAdress+"/cube-solver/{clientname}
 //wss://javascript.info/article/websocket/demo/hello
+let solverScanStarted = false;
 
 socketSolver.onopen = function (e) {
 	console.log("Solver open");
@@ -458,7 +459,10 @@ socketSolver.onopen = function (e) {
 		//}`);
 	});
 	START_SOLVE.addEventListener('click', function onClick() {
-		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
+		if (!solverScanStarted){
+			socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
+			solverScanStarted = true;
+		}		
 		//&console.log('### Echo trigger ###');
 		//&socketSolver.send(`
 		//&{"infoType": "CUBE_UPDATE",
