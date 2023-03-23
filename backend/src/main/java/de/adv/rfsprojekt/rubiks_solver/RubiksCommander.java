@@ -36,7 +36,7 @@ public class RubiksCommander {
     public void executeCommand(RubiksSolverCommandPayload commandPayload, Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
         System.out.println(commandPayload.getCommand());
         switch (commandPayload.getCommand()) {
-            //ToDo Roboter Ficken
+
             case STOP -> {
                 break;
             }
@@ -56,11 +56,10 @@ public class RubiksCommander {
     }
 
     public void solveCube(Consumer<WebsocketMessage<InfoPayload<?>>> broadcast) throws Exception {
-        //ToDo Lösungspfad berechnen und an Frontendschichen noch in Scan Phase machen
-        //String unsolvedCube = "UUUUUULBBUFFRRRBBBFLLUFFURRFDDFDDRDDBBDFLLFLLRRRBBDLLD";
+
         try {
             rubiksSolver.solve(scriptMoves, moves, broadcast);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

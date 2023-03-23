@@ -10,7 +10,6 @@ import static de.adv.rfsprojekt.system.Config.getMoveSpeedArm;
  * it schould move in the corresponding direction
  */
 public enum RoboArmCommand {
-    /* ToDo Toolspeed aus Env-Variablen nutzen  */
     X_MINUS(new Pose(getMoveSpeedArm(), 0, 0, 0, 0, 0)),
     X_PLUS(new Pose(-getMoveSpeedArm(), 0, 0, 0, 0, 0)),
     Y_PLUS(new Pose(0, getMoveSpeedArm(), 0, 0, 0, 0)),

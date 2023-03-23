@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * ToDO Clientname kann redundant sein, eventuell ändern
- **/
+
 @ServerEndpoint("/manual/{clientname}")
 @ApplicationScoped
 public class ManualMovementSocket {

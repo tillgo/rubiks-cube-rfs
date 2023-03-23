@@ -17,7 +17,7 @@ public class DashboardListener extends Thread {
         socket = new Socket(host, 29999);
     }
 
-    //ToDo soll zukuenftig Methode zum broadcasten an WebSocket clients erhalten
+
     @Override
     public void run() {
         try {

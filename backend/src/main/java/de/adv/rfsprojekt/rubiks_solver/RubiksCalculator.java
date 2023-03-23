@@ -15,7 +15,6 @@ import java.util.Map;
 @ApplicationScoped
 public class RubiksCalculator {
 
-    //ToDo gescheiten Namen finden
     //Map<AktuelleFace, Map<VorherigeFace, NeueFace>>
     Map<Face, Map<Face, Face>> map = Map.of(
             Face.U, Map.of(
@@ -70,7 +69,6 @@ public class RubiksCalculator {
     );
 
     public List<Move> calculateSolvingPath(String unsolvedCube) {
-        //ToDo: solution Methode gibt bei unlösbarem cubeString einen Error-String zurück. Stattdessen Exception werfen oder Error-String handlen
 
         var solvedCube = new Search()
                 .solution(unsolvedCube, 21, 10000000, 50000, 0);
@@ -82,7 +80,6 @@ public class RubiksCalculator {
                 .toList();
 
         var moves = new ArrayList<Move>();
-        //ToDo Nur zum Testen der Grundlegenden Logik. Kann deutlich schöner gemacht werden
         for (int i = 0; i < moveStrings.size(); i++) {
             String[] moveString = moveStrings.get(i);
             String turnOrder = moveString.length >= 2 ? moveString[1] : null;

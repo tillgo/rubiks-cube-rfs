@@ -80,7 +80,7 @@ public class RTDE {
                 .collect(Collectors.joining(","));
         buffer.put(variableString.getBytes(StandardCharsets.UTF_8));
 
-        //ToDo Packages über Generics lösen
+
         ConfigPackage configPackage = (ConfigPackage) sendAndReceive(PackageType.RTDE_CONTROL_PACKAGE_SETUP_OUTPUTS, cutOffByteBufferToCorrectSize(buffer));
         outputConfig = new DataConfig(configPackage.getPayload(), variables);
         return outputConfig;
@@ -180,7 +180,6 @@ public class RTDE {
         byte[] message = Arrays.copyOfRange(input, 0, bytesRead);
 
         if (message.length == 0) {
-            /*ToDo Spezifische Exception werfen und disconnecten*/
             throw new Exception();
         }
         buffer = ByteBuffer.wrap(message);

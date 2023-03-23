@@ -43,9 +43,7 @@ public class URImpl implements UR {
         }
     }
 
-    /**
-     * ToDo Bei Sicherheitsstopp muss Roboter wieder entriegelt werden. Wird in alter Lib in powerOn Methode geregelt
-     */
+    
     public void powerOn() throws IOException, InterruptedException {
         try (Socket dashSocket = new Socket(host, dashboardPort);) {
             OutputStream os = dashSocket.getOutputStream();

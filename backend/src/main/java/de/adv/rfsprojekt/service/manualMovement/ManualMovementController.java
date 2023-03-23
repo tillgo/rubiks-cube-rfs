@@ -19,8 +19,7 @@ public class ManualMovementController {
     UR ur;
 
     /**
-     * Je nach Befehlstyp wird anderer Objekttyp aus JSON erzeugt
-     * ToDo Error-Message zurückgeben, falls Gson Error wirft
+     * Je nach Befehlstyp wird anderer Objekttyp aus JSON erzeugt     *
      **/
     public void executeMove(ManualMovementCommandPayload data) throws IOException, InterruptedException {
         switch (data.getCommandType()) {
