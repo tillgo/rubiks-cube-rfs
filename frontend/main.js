@@ -463,15 +463,15 @@ socketSolver.onopen = function (e) {
 			socketSolver.send(`{"type": "COMMAND", "payload": {"command": "START_SOLVE"}}`);
 			solverScanStarted = true;
 		}		
-		//&console.log('### Echo trigger ###');
-		//&socketSolver.send(`
-		//&{"infoType": "CUBE_UPDATE",
-		//& "data": {
-		//&           "nthMove": 1,
-		//&           "moveSum": 3,
-		//&           "move": {"face": "R", "count": -1}
-		//&         }               
-		//&}`);
+		//console.log('### Echo trigger ###');
+		//socketSolver.send(`
+		//{"infoType": "CUBE_UPDATE",
+		// "data": {
+		//           "nthMove": 1,
+		//           "moveSum": 3,
+		//           "move": {"face": "R", "count": -1}
+		//         }               
+		//}`);
 	});
 	STOP.addEventListener('click', function onClick() {
 		socketSolver.send(`{"type": "COMMAND", "payload": {"command": "STOP"}}`);
