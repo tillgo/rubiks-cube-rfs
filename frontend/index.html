@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CSS Rubik's Cube</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+		integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="cube.css">
+	<!--<link rel="stylesheet" type="text/css" href="cuberotation.css">
+		<script src="useragent-message.js"></script>-->
+</head>
+
+<body class="scrollbar-primary">
+	<!-- github ribbon -->
+	<div class="ribbon-h82k1j9">
+		<a href="https://github.com/Crayee/rubiks-cube-rfs/" class="git-link">
+			<span class="git-link-border">
+				<span class="git-link-inner">GitHub</span>
+			</span>
+		</a>
+	</div>
+	<div id="header">
+		<nav id="menu" aria-label="Menü Tabs">
+			<div class="nav nav-tabs " id="nav-tab" role="tablist">
+				<button class="nav-link btn-primary active" id="nav-cube-tab" data-bs-toggle="tab"
+					data-bs-target="#nav-cube" type="button" role="tab" aria-controls="nav-cube"
+					aria-selected="true">Cube</button>
+				<button class="nav-link" id="nav-manuell-tab" data-bs-toggle="tab" data-bs-target="#nav-manuell"
+					type="button" role="tab" aria-controls="nav-manuell" aria-selected="false">Manuell</button>
+			</div>
+		</nav>
+		<!-- old design
+		<div id="menu" role="group" class="btn-toolbar" aria-label="Menü Tabs">
+			<nav>
+				<div class="nav nav-pills" id="nav-tab" role="tablist">
+				  <button class="nav-link btn btn-primary active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Cube</button>
+				  <button class="nav-link btn btn-primary" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Manuell</button>
+				</div>
+			  </nav>
+		</div>
+		-->
+
+	</div>
+
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-cube" role="tabpanel" aria-labelledby="nav-cube-tab">
+			<div class="scene">
+				<div class="cube">
+
+					<!-- corners White,Green,Red -->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-0">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="u_1_9" class="cubie-face face-u cubie-sticker sticker-u_1_9"></div>
+								<div id="f_2_3" class="cubie-face face-f cubie-sticker sticker-f_2_3"></div>
+								<div id="r_5_1" class="cubie-face face-r cubie-sticker sticker-r_5_1"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--White,Green,Orange  -->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-1">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="u_1_7" class="cubie-face face-u cubie-sticker sticker-u_1_7"></div>
+								<div id="l_3_3" class="cubie-face face-f cubie-sticker sticker-l_3_3"></div>
+								<div id="f_2_1" class="cubie-face face-r cubie-sticker sticker-f_2_1"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--White,Red,Blue-->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-2">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="u_1_3" class="cubie-face face-u cubie-sticker sticker-u_1_3"></div>
+								<div id="r_5_3" class="cubie-face face-f cubie-sticker sticker-r_5_3"></div>
+								<div id="b_4_1" class="cubie-face face-r cubie-sticker sticker-b_4_1"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--White,Orange,Blue-->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-3">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="u_1_1" class="cubie-face face-u cubie-sticker sticker-u_1_1"></div>
+								<div id="b_4_3" class="cubie-face face-f cubie-sticker sticker-b_4_3"></div>
+								<div id="l_3_1" class="cubie-face face-r cubie-sticker sticker-l_3_1"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Red, Green-->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-4">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="d_6_3" class="cubie-face face-u cubie-sticker sticker-d_6_3"></div>
+								<div id="r_5_7" class="cubie-face face-f cubie-sticker sticker-r_5_7"></div>
+								<div id="f_2_9" class="cubie-face face-r cubie-sticker sticker-f_2_9"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-5">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="d_6_1" class="cubie-face face-u cubie-sticker sticker-d_6_1"></div>
+								<div id="f_2_7" class="cubie-face face-f cubie-sticker sticker-f_2_7"></div>
+								<div id="l_3_9" class="cubie-face face-r cubie-sticker sticker-l_3_9"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Blue, Red-->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-6">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="d_6_9" class="cubie-face face-u cubie-sticker sticker-d_6_9"></div>
+								<div id="b_4_7" class="cubie-face face-f cubie-sticker sticker-b_4_7"></div>
+								<div id="r_5_9" class="cubie-face face-r cubie-sticker sticker-r_5_9"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Orange, Blue-->
+					<div class="cube-layer">
+						<div class="cubie cubie-corner-position-7">
+							<div class="cubie cubie-corner-orientation-0">
+								<div id="d_6_7" class="cubie-face face-u cubie-sticker sticker-d_6_7"></div>
+								<div id="l_3_7" class="cubie-face face-f cubie-sticker sticker-l_3_7"></div>
+								<div id="b_4_9" class="cubie-face face-r cubie-sticker sticker-b_4_9"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- edges; White, Green-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-0">
+							<div class="cubie cubie-edge-orientation-0">
+								<!--<div class="cubie-face face-u cubie-sticker sticker-u"><img alt="" src="Sticker/Green.png" height="100px" width="100px"></div>-->
+								<div id="u_1_8" class="cubie-face face-u cubie-sticker sticker-u_1_8"></div>
+								<div id="f_2_2" class="cubie-face face-f cubie-sticker sticker-f_2_2"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--White, Orange-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-1">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="u_1_4" class="cubie-face face-u cubie-sticker sticker-u_1_4"></div>
+								<div id="l_3_2" class="cubie-face face-f cubie-sticker sticker-l_3_2"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--White, Red-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-2">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="u_1_6" class="cubie-face face-u cubie-sticker sticker-u_1_6"></div>
+								<div id="r_5_2" class="cubie-face face-f cubie-sticker sticker-r_5_2"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--White, Blue-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-3">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="u_1_2" class="cubie-face face-u cubie-sticker sticker-u_1_2"></div>
+								<div id="b_4_2" class="cubie-face face-f cubie-sticker sticker-b_4_2"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Green-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-4">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="d_6_2" class="cubie-face face-u cubie-sticker sticker-d_6_2"></div>
+								<div id="f_2_8" class="cubie-face face-f cubie-sticker sticker-f_2_8"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Orange-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-5">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="d_6_4" class="cubie-face face-u cubie-sticker sticker-d_6_4"></div>
+								<div id="l_3_8" class="cubie-face face-f cubie-sticker sticker-l_3_8"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Red-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-6">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="d_6_6" class="cubie-face face-u cubie-sticker sticker-d_6_6"></div>
+								<div id="r_5_8" class="cubie-face face-f cubie-sticker sticker-r_5_8"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Yellow, Blue-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-7">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="d_6_8" class="cubie-face face-u cubie-sticker sticker-d_6_8"></div>
+								<div id="b_4_8" class="cubie-face face-f cubie-sticker sticker-b_4_8"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Green, Red-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-8">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="f_2_6" class="cubie-face face-u cubie-sticker sticker-f_2_6"></div>
+								<div id="r_5_4" class="cubie-face face-f cubie-sticker sticker-r_5_4"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Green, Orange-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-9">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="f_2_4" class="cubie-face face-u cubie-sticker sticker-f_2_4"></div>
+								<div id="l_3_6" class="cubie-face face-f cubie-sticker sticker-l_3_6"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Blue, Red-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-10">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="b_4_4" class="cubie-face face-u cubie-sticker sticker-b_4_4"></div>
+								<div id="r_5_6" class="cubie-face face-f cubie-sticker sticker-r_5_6"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+					<!--Blue, Orange-->
+					<div class="cube-layer">
+						<div class="cubie cubie-edge-position-11">
+							<div class="cubie cubie-edge-orientation-0">
+								<div id="b_4_6" class="cubie-face face-u cubie-sticker sticker-b_4_6"></div>
+								<div id="l_3_4" class="cubie-face face-f cubie-sticker sticker-l_3_4"></div>
+								<div class="cubie-face face-r"></div>
+								<div class="cubie-face face-l"></div>
+								<div class="cubie-face face-b"></div>
+								<div class="cubie-face face-d"></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- middles -->
+					<div class="cube-layer">
+						<div class="cubie cubie-middle-r">
+							<div class="cubie-face face-r cubie-sticker sticker-r_5_5"></div>
+							<div class="cubie-face face-l"></div>
+							<div class="cubie-face face-f"></div>
+							<div class="cubie-face face-b"></div>
+							<div class="cubie-face face-u"></div>
+							<div class="cubie-face face-d"></div>
+						</div>
+					</div>
+					<div class="cube-layer">
+						<div class="cubie cubie-middle-l">
+							<div class="cubie-face face-r"></div>
+							<div class="cubie-face face-l cubie-sticker sticker-l_3_5"></div>
+							<div class="cubie-face face-f"></div>
+							<div class="cubie-face face-b"></div>
+							<div class="cubie-face face-u"></div>
+							<div class="cubie-face face-d"></div>
+						</div>
+					</div>
+					<div class="cube-layer">
+						<div class="cubie cubie-middle-f">
+							<div class="cubie-face face-r"></div>
+							<div class="cubie-face face-l"></div>
+							<div class="cubie-face face-f cubie-sticker sticker-f_2_5"></div>
+							<div class="cubie-face face-b"></div>
+							<div class="cubie-face face-u"></div>
+							<div class="cubie-face face-d"></div>
+						</div>
+					</div>
+					<div class="cube-layer">
+						<div class="cubie cubie-middle-b">
+							<div class="cubie-face face-r"></div>
+							<div class="cubie-face face-l"></div>
+							<div class="cubie-face face-f"></div>
+							<div class="cubie-face face-b cubie-sticker sticker-b_4_5"></div>
+							<div class="cubie-face face-u"></div>
+							<div class="cubie-face face-d"></div>
+						</div>
+					</div>
+					<div class="cube-layer">
+						<div class="cubie cubie-middle-u">
+							<div class="cubie-face face-r"></div>
+							<div class="cubie-face face-l"></div>
+							<div class="cubie-face face-f"></div>
+							<div class="cubie-face face-b"></div>
+							<div class="cubie-face face-u cubie-sticker sticker-u_1_5"></div>
+							<div class="cubie-face face-d"></div>
+						</div>
+					</div>
+					<div class="cube-layer">
+						<div class="cubie cubie-middle-d">
+							<div class="cubie-face face-r"></div>
+							<div class="cubie-face face-l"></div>
+							<div class="cubie-face face-f"></div>
+							<div class="cubie-face face-b"></div>
+							<div class="cubie-face face-u"></div>
+							<div class="cubie-face face-d cubie-sticker sticker-d_6_5"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="grid-layout">
+
+
+				<!--------------------------------------------------------------------------------->
+				<!--<form action="#">
+				<select name="Color" id="col">
+				<option value="White">White</option>
+				<option value="Red">Red</option>
+				<option value="Green">Green</option>
+				<option value="Blue">Blue</option>
+				<option value="Yellow">Yellow</option>
+				<option value="Orange">Orange</option>
+				</select>
+			</form>-->
+				<div id="solver-button-group">
+					<button id="START_SCAN" class="btn btn-primary">Scan Starten</button>
+					<button id="START_SOLVE" class="btn btn-primary">Solver Starten</button>
+					<button id="STOP" class="btn btn-primary">STOP</button>
+
+				</div>
+				<button id="btn_rot_face" class="btn btn-primary"><span id="text-invert">Face_rotate</span></button>
+				<div id="input-form" class="input-group w-50">
+					<span class="input-group-text" id="basic-addon1" data-toggle="tooltip" data-placement="bottom"
+						title="Die Würfelfarben werden durch Eingabe von Farbkürzeln gesetzt. 
+				Das Kürzel an der 5. Position bestimmt welche Würfelseite eingefärbt wird. Die Eingabe YYYYGYYYY färbt alle beweglichen Flächen der grünen Seite gelb.">
+						<i class="bi bi-info-circle"></i>
+					</span>
+					<input type="text" id="manuelle_farbeingabe" class="form-control"
+						aria-label="Eingabe der Würfelfarben" aria-describedby="basic-addon1"
+						onkeypress="clickPress(event)" placeholder="WWWBGBRRR" value="">
+					<button id="btn_Color" class="btn btn-primary">Fertig</button>
+
+				</div>
+
+
+				<div id="rotation-button-group" role="group" class="btn-toolbar" aria-label="Buttons zur Würfeldrehung">
+					<button id="btn_WG" class="btn btn-primary">Rotate_WG</button>
+					<button id="btn_GY" class="btn btn-primary">Rotate_GY</button>
+					<button id="btn_OY" class="btn btn-primary">Rotate_OY</button>
+					<button id="btn_BY" class="btn btn-primary">Rotate_BY</button>
+					<button id="btn_RY" class="btn btn-primary">Rotate_RY</button>
+					<button id="btn_YO" class="btn btn-primary">Rotate_YO</button>
+				</div>
+				
+			</div>
+		</div>
+		<div class="tab-pane fade" id="nav-manuell" role="tabpanel" aria-labelledby="nav-manuell-tab">
+			<div class="movement-btn-grp" style="margin-top: 45px;">
+				<div>
+					<button id="Z_MINUS" class="btn-z"><i class="fa-solid fa-arrow-down arrowcolor" style="width: 60%;height: 60%;"></i><p class="arrowtext">-Z</p></button>					
+					
+				</div>
+				<div>
+					<button id="Z_PLUS" class="btn-z"><p class="arrowtext">+Z</p><i class="fa-solid fa-arrow-up arrowcolor" style="width: 60%;height: 60%;"></i></button>
+				</div>
+				
+			</div>
+			<div class="movement-btn-grp">
+				<div>
+					<button id="Y_PLUS" class="btn-y"><p class="arrowtext">+Y</p><i class="fa-solid fa-arrow-up arrowcolor" style="width: 60%;height: 60%;"></i></button>
+				</div>
+			</div>
+			<div class="movement-btn-grp">
+				<div>
+					<button id="X_MINUS" class="btn-x" ><i class="fa-solid fa-arrow-left arrowcolor" style="width: 80%;height: 60%;"></i><p class="arrowtext">-X</p></button>
+				</div>
+				<div>
+					<button id="X_PLUS" class="btn-x" ><i class="fa-solid fa-arrow-right arrowcolor" style="width: 80%;height: 60%;"></i><p class="arrowtext">+X</p></button>
+				</div>
+			</div>
+			<div class="movement-btn-grp">
+				<div>
+					<button id="Y_MINUS" class="btn-y"><i class="fa-solid fa-arrow-down arrowcolor" style="width: 60%;height: 60%;"></i><p class="arrowtext">-Y</p></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--<script src="rotate.js"></script>-->
+	<!-- JavaScript Bundle with Popper -->
+	<script src="fontawesome-free-6.3.0-web/js/all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	<script src="main.js"></script>
+	<script src="initial_cube.js"></script>
+</body>
+
+</html>

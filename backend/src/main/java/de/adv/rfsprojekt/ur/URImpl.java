@@ -1,0 +1,103 @@
+package de.adv.rfsprojekt.ur;
+
+import de.adv.rfsprojekt.system.Config;
+import de.adv.rfsprojekt.ur.entities.URConnection;
+import de.adv.rfsprojekt.ur.urscript_builder.URScript;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
+import static de.adv.rfsprojekt.ur.urscript_commands.SetupCommands.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+
+@ApplicationScoped
+public class URImpl implements UR {
+
+    private final String host;
+
+    private final int secondaryPort;
+
+    private final boolean enabled;
+
+    private final URConnection urConnection;
+
+    @ConfigProperty(name = "ur.dashboard_port")
+    int dashboardPort;
+
+
+    public URImpl() throws IOException {
+        host = Config.getURHost();
+        secondaryPort = Config.getURSecondaryPort();
+        enabled = Config.getIsUREnabled();
+
+        if (enabled) {
+            Socket socket = new Socket(host, secondaryPort);
+            urConnection = new URConnectionImpl(socket.getInputStream(), socket.getOutputStream());
+        } else {
+            urConnection = null;
+        }
+    }
+
+    /**
+     * ToDo Bei Sicherheitsstopp muss Roboter wieder entriegelt werden. Wird in alter Lib in powerOn Methode geregelt
+     */
+    public void powerOn() throws IOException, InterruptedException {
+        try (Socket dashSocket = new Socket(host, dashboardPort);) {
+            OutputStream os = dashSocket.getOutputStream();
+            InputStream is = dashSocket.getInputStream();
+            String message;
+
+            os.write(POWER_ON().getBytes(UTF_8));
+            os.flush();
+            Thread.sleep(50);
+
+
+            os.write(BRAKE_RELEASE().getBytes(UTF_8));
+            os.flush();
+            Thread.sleep(50);
+        }
+
+    }
+
+
+    public void powerOff() throws IOException {
+        try (Socket dashSocket = new Socket(host, dashboardPort);) {
+            OutputStream os = dashSocket.getOutputStream();
+            os.write(POWER_OFF().getBytes(UTF_8));
+            os.flush();
+        }
+    }
+
+
+    @Override
+    public void execute(URScript script) throws IOException {
+        String scriptString = script.createProgramm();
+        byte[] scriptData = scriptString.getBytes(UTF_8);
+        OutputStream os = urConnection.getOutputStream();
+        os.write(scriptData);
+        os.flush();
+    }
+
+
+    @Override
+    public String getHost() {
+        return host;
+    }
+
+    @Override
+    public int getSecondaryPort() {
+        return secondaryPort;
+    }
+
+    @Override
+    public URConnection getURConnection() {
+        return urConnection;
+    }
+
+
+}

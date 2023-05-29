@@ -1,0 +1,52 @@
+package de.adv.rfsprojekt.rubiks_solver;
+
+import de.adv.rfsprojekt.ur.Utils;
+import de.adv.rfsprojekt.ur.entities.Pose;
+import de.adv.rfsprojekt.ur.rtde.RTDE;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.Package;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.PackageType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.DataPackage;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.VariableType;
+import de.adv.rfsprojekt.ur.rtde.entities.packages.data.data_payloads.ActualTCPPose;
+
+import java.util.List;
+
+
+public class PoseChecker {
+
+    private final RTDE rtde;
+
+
+    public PoseChecker() throws Exception {
+        rtde = new RTDE();
+        setupRTDE();
+    }
+
+
+    private void setupRTDE() throws Exception {
+        rtde.connect();
+        List<VariableType> outputVariables = List.of(VariableType.ACTUAL_TCP_POSE);
+        rtde.sendOutputSetup(outputVariables, 5);
+        rtde.sendStart();
+    }
+
+    public void waitTilReachedEndPosition(Pose endPose) throws Exception {
+        Package[] recievedPackages;
+        PackageType[] packageTypes = {PackageType.RTDE_DATA_PACKAGE};
+        int correctnessCounter = 0;
+        while (true) {
+            System.out.println("Test");
+            recievedPackages = rtde.receiveMultiplePackages(packageTypes);
+            DataPackage dataPackage = (DataPackage) recievedPackages[0];
+            if (dataPackage != null) {
+                System.out.println("war im pose checker");
+                ActualTCPPose actualPose = (ActualTCPPose) dataPackage.getPayload().get(VariableType.ACTUAL_TCP_POSE);
+                if (actualPose != null) {
+                    System.out.println(actualPose.getPayload());
+                    correctnessCounter = Utils.comparePositions(endPose, actualPose.getPayload()) ? correctnessCounter + 1 : 0;
+                }
+            }
+            if (correctnessCounter == 3) return;
+        }
+    }
+}
